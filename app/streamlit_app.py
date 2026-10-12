@@ -76,6 +76,7 @@ for group, cols in SKILL_GROUPS.items():
 import sys
 sys.path.insert(0, str(ROOT))
 from src.recommend import SkillRadar  # noqa: E402
+from src.salary_calc import expected_uplift  # noqa: E402
 
 sr = SkillRadar()
 rec = sr.recommend(current_skills=have, top_n=5)
@@ -109,6 +110,40 @@ else:
             ci = r.get("salary_ci_pct", [None, None])
             if ci[0] is not None and not np.isnan(ci[0]):
                 st.caption(f"95% CI for salary impact: {ci[0]:+.1f}% to {ci[1]:+.1f}%")
+
+# --- "What if I learn this?" calculator ---------------------------------------
+st.subheader("🧮 What if I learned these too?")
+known = set(have) | {r["skill"] for r in rec["recommendations"]}
+extras = st.multiselect(
+    "Pick additional skills you're considering",
+    options=sorted([c for c in roi["skill"] if c not in known]),
+    format_func=short, max_selections=8, key="salary_calc_extras",
+)
+if extras:
+    calc = expected_uplift(extras)
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Predicted salary lift", f"{calc['total_pct']:+.1f}%",
+              help="Sum of per-skill MLR coefficients, converted to percent via exp(). Assumes independent effects (see caveat below).")
+    c2.metric("Skills evaluated", f"{calc['n_skills']}")
+    c3.metric("Significant (p<0.05)", f"{calc['n_significant']}/{calc['n_skills']}")
+    if calc["breakdown"]:
+        bd = pd.DataFrame(calc["breakdown"])
+        bd["skill_label"] = bd["skill"].map(short)
+        fig2 = px.bar(
+            bd, x="pct_impact", y="skill_label", orientation="h",
+            color="p_value", color_continuous_scale="RdYlGn_r",
+            title="Per-skill contribution to the predicted lift",
+            error_x=bd["ci_hi"] - bd["pct_impact"],
+            error_x_minus=bd["pct_impact"] - bd["ci_lo"],
+        )
+        fig2.update_layout(yaxis={"categoryorder": "total ascending"}, height=380)
+        st.plotly_chart(fig2, use_container_width=True)
+        st.caption(
+            "Caveat: this sums per-skill MLR coefficients under an independence "
+            "assumption. In reality, skills cluster (a Kubernetes user usually also "
+            "knows Docker), so the true joint lift is smaller than the sum. We "
+            "expose the 95% CI per skill but not a combined CI for that reason."
+        )
 
 # --- coefficient chart --------------------------------------------------------
 st.subheader("📊 Where these recommendations come from")

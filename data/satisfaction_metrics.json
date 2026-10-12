@@ -78,5 +78,187 @@
       "feature": "plat_npm",
       "coef": -0.025863034589502794
     }
-  ]
+  ],
+  "models": {
+    "logistic": {
+      "n": 19210,
+      "n_features": 41,
+      "auc": 0.5620176451616259,
+      "optimal_threshold_youden": 0.47215195637351637,
+      "accuracy_at_opt": 0.5494482615032271,
+      "precision_at_opt": 0.5414601916088536,
+      "recall_at_opt": 0.6786749482401656,
+      "f1_at_opt": 0.6023520764424843,
+      "confusion_matrix_at_opt": [
+        [
+          1000,
+          1388
+        ],
+        [
+          776,
+          1639
+        ]
+      ],
+      "top_features_by_abs_coef": [
+        {
+          "feature": "WorkExp",
+          "coef": 0.21136890594999155
+        },
+        {
+          "feature": "rw_In_person",
+          "coef": -0.05956412320695013
+        },
+        {
+          "feature": "rw_Hybrid_remote_heavy",
+          "coef": -0.04292526620000208
+        },
+        {
+          "feature": "rw_Flexible",
+          "coef": 0.04166868067687486
+        },
+        {
+          "feature": "plat_Vite",
+          "coef": 0.034008786753414136
+        },
+        {
+          "feature": "db_Redis",
+          "coef": 0.03360660085681679
+        },
+        {
+          "feature": "devenv_Visual_Studio",
+          "coef": -0.03238829358271258
+        },
+        {
+          "feature": "rw_Hybrid_inperson_heavy",
+          "coef": -0.03208876356707984
+        },
+        {
+          "feature": "plat_Amazon_Web_Services_AWS",
+          "coef": 0.030741842178055506
+        },
+        {
+          "feature": "lang_C_2",
+          "coef": 0.028838782502691125
+        },
+        {
+          "feature": "ai_user",
+          "coef": 0.028606663012246767
+        },
+        {
+          "feature": "lang_JavaScript",
+          "coef": 0.028384223909307647
+        },
+        {
+          "feature": "lang_Java",
+          "coef": -0.026821030670140432
+        },
+        {
+          "feature": "aimodel_Anthropic",
+          "coef": 0.026647226969912393
+        },
+        {
+          "feature": "plat_npm",
+          "coef": -0.025863034589502794
+        }
+      ]
+    },
+    "decision_tree": {
+      "auc": 0.551644263415074,
+      "optimal_threshold_youden": 0.4677877551020408,
+      "accuracy_at_opt": 0.539454507599417,
+      "precision_at_opt": 0.5373573794626426,
+      "recall_at_opt": 0.6045548654244306,
+      "f1_at_opt": 0.568978955572876,
+      "confusion_matrix_at_opt": [
+        [
+          1131,
+          1257
+        ],
+        [
+          955,
+          1460
+        ]
+      ],
+      "top_features_by_importance": [
+        {
+          "feature": "WorkExp",
+          "importance": 0.4379753027050253
+        },
+        {
+          "feature": "rw_Flexible",
+          "importance": 0.054172059595708
+        },
+        {
+          "feature": "lang_JavaScript",
+          "importance": 0.040585126438311546
+        },
+        {
+          "feature": "plat_Microsoft_Azure",
+          "importance": 0.03542396023615845
+        },
+        {
+          "feature": "rw_Hybrid_inperson_heavy",
+          "importance": 0.034987051650529205
+        },
+        {
+          "feature": "aimodel_Anthropic",
+          "importance": 0.03191965782035503
+        },
+        {
+          "feature": "plat_Vite",
+          "importance": 0.030459021862470362
+        },
+        {
+          "feature": "rw_Remote",
+          "importance": 0.030428913378158378
+        },
+        {
+          "feature": "lang_C_2",
+          "importance": 0.027397145592617606
+        },
+        {
+          "feature": "devenv_Visual_Studio",
+          "importance": 0.024816756772663914
+        },
+        {
+          "feature": "db_Redis",
+          "importance": 0.021423077941919368
+        },
+        {
+          "feature": "db_SQLite",
+          "importance": 0.021105843292015574
+        },
+        {
+          "feature": "lang_Python",
+          "importance": 0.01968609582079827
+        },
+        {
+          "feature": "lang_TypeScript",
+          "importance": 0.018431708815851384
+        },
+        {
+          "feature": "web_Node_js",
+          "importance": 0.01630734184511872
+        }
+      ]
+    },
+    "naive_bayes": {
+      "auc": 0.5663080759213597,
+      "optimal_threshold_youden": 0.4718707049788994,
+      "accuracy_at_opt": 0.5500728711222153,
+      "precision_at_opt": 0.5467943994104643,
+      "recall_at_opt": 0.6144927536231884,
+      "f1_at_opt": 0.5786703061025541,
+      "confusion_matrix_at_opt": [
+        [
+          1158,
+          1230
+        ],
+        [
+          931,
+          1484
+        ]
+      ]
+    }
+  }
 }

@@ -43,6 +43,7 @@ class SkillRadar:
         self._df: pd.DataFrame | None = None
         self._nn: NearestNeighbors | None = None
         self._nn_X: np.ndarray | None = None
+        self._want: dict[str, set[str]] | None = None
 
     # --- data accessors --------------------------------------------------------
     def _data(self) -> pd.DataFrame:
@@ -104,6 +105,19 @@ class SkillRadar:
         overall_log_comp = df["log_comp"].mean()
         salary_premium = float(nbr_log_comp - overall_log_comp)
 
+        # WantToWorkWith demand signal (lazy-loaded; first call reads the raw CSV)
+        if self._want is None:
+            from src.want import load_want_sets
+            self._want = load_want_sets()
+        nbr_ids = neighbours["id"].astype(str).tolist()
+        want_counts: dict[str, int] = {s: 0 for s in skills}
+        for nid in nbr_ids:
+            ws = self._want.get(nid, set())
+            for s in ws:
+                if s in want_counts:
+                    want_counts[s] += 1
+        n_nbr = max(len(nbr_ids), 1)
+
         cand: dict[str, float] = {}
         for s in skills:
             if s in have:
@@ -119,7 +133,8 @@ class SkillRadar:
             if roi_coef <= 0:
                 continue
             p_val = float(roi.get("p_value", 1.0))
-            score = freq + 0.5 * roi_coef + 0.2 * max(salary_premium, 0.0)
+            want_frac = want_counts[s] / n_nbr
+            score = freq + 0.5 * roi_coef + 0.2 * max(salary_premium, 0.0) + 0.3 * want_frac
             if p_val < 0.05:
                 score += 0.05
             cand[s] = float(score)
@@ -131,6 +146,7 @@ class SkillRadar:
             roi = self.roi_map.get(skill, {})
             n_users = int(roi.get("users", 0))
             nbr_pct = float(neighbours[skill].mean() * 100)
+            want_pct = float(want_counts[skill] / n_nbr * 100)
             recs.append({
                 "skill": skill,
                 "score": round(score, 4),
@@ -143,12 +159,12 @@ class SkillRadar:
                 "satisfaction_coef": round(float(self.sat_map.get(skill, 0.0)), 3),
                 "n_known": n_users,
                 "nbr_prevalence_pct": round(nbr_pct, 1),
+                "nbr_want_pct": round(want_pct, 1),
                 "evidence": (
-                    f"{nbr_pct:.0f}% of your {len(neighbours)} nearest peers in the "
-                    f"survey know {skill}; associated with "
+                    f"{nbr_pct:.0f}% of your {len(neighbours)} nearest peers know {skill} "
+                    f"and {want_pct:.0f}% say they want to learn it; associated with "
                     f"{roi.get('pct_salary_impact', 0):+.1f}% log-comp change "
-                    f"(p={roi.get('p_value', 1):.3g}, n={n_users:,}); "
-                    f"your peers earn {salary_premium:+.2f} log-points more than average."
+                    f"(p={roi.get('p_value', 1):.3g}, n={n_users:,})."
                 ),
             })
 
@@ -191,6 +207,7 @@ class SkillRadar:
                 "satisfaction_coef": round(float(self.sat_map.get(s, 0.0)), 3),
                 "n_known": int(roi["users"]),
                 "nbr_prevalence_pct": round(freq * 100, 1),
+                "nbr_want_pct": round(freq * 100, 1),
                 "evidence": (
                     f"Cold-start recommendation: {freq*100:.0f}% of the survey "
                     f"know {s}; associated with {roi['pct_salary_impact']:+.1f}% "

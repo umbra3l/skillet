@@ -81,19 +81,29 @@ skill-radar/
 │   ├── preprocess.py
 │   ├── stats_tests.py
 │   ├── regression.py
-│   ├── classification.py
+│   ├── classification.py      # + run_tree_and_nb()
 │   ├── cluster.py
-│   └── recommend.py            # SkillRadar engine used by the app
+│   ├── fa.py                  # Factor Analysis (M5)
+│   ├── anova.py               # one-way ANOVA across personas
+│   ├── network.py             # skill co-occurrence graph
+│   ├── salary_calc.py         # "What if I learn this?" calculator
+│   ├── want.py                # WantToWorkWith demand signal loader
+│   ├── recommend.py           # SkillRadar engine (Jaccard KNN + persona + ROI + want)
+│   └── trend.py               # multi-year skill ROI trend (2022→2025)
 ├── notebooks/                  # runnable Python analyses
 │   ├── 01_eda.py
 │   ├── 02_stats_tests.py
 │   ├── 03_regression.py
-│   ├── 04_classification.py
+│   ├── 04_classification.py   # logistic + decision tree + naive bayes
 │   ├── 05_clustering.py
-│   └── 06_recommend.py
-├── app/streamlit_app.py
+│   ├── 06_recommend.py
+│   ├── 07_fa_anova.py
+│   └── 08_network.py
+├── app/streamlit_app.py       # recommender + salary calculator + methodology
 ├── report/REPORT.md
-└── assets/                     # generated figures (PNG)
+├── .streamlit/config.toml     # theme for Streamlit Cloud
+├── runtime.txt                # python-3.12
+└── assets/                    # generated figures (PNG)
 ```
 
 ---
@@ -152,7 +162,49 @@ A short report lives at [`report/REPORT.md`](report/REPORT.md).
 
 **Logistic satisfaction model (Module 4):** AUC 0.562, F1 0.602, accuracy 0.549. The modest AUC is honest: observable skill/experience features explain a small portion of satisfaction variance, consistent with the well-known dominance of intrinsic factors (autonomy, team, manager) over skills in developer satisfaction.
 
+**Model comparison on the same target (Module 4):**
+
+| Model | AUC | F1 | Accuracy |
+|---|---|---|---|
+| Logistic regression | 0.562 | 0.602 | 0.549 |
+| **Naive Bayes** | **0.566** | 0.579 | 0.550 |
+| Decision tree (max_depth=6) | 0.552 | 0.569 | 0.539 |
+
+All three sit barely above random — strong evidence that the survey's observable features (skills, work arrangement, experience) explain only a small slice of job-satisfaction variance. Top features by tree Gini importance: **WorkExp (0.44)**, `rw_Flexible` (0.05), `lang_JavaScript` (0.04).
+
+**Factor Analysis (Module 5):** 18 factors chosen by Kaiser criterion (eigenvalue > 1) on the 86-skill matrix, varimax-rotated. They map cleanly onto technology ecosystems:
+
+| Factor | Theme | Top skills |
+|---|---|---|
+| F1 | JS / web front-end | React, Node.js, Next.js |
+| F2 | .NET / Microsoft | ASP.NET Core, C#, NuGet |
+| F3 | Java / enterprise | Java, Spring Boot, Maven |
+| F4 | OpenAI tooling | GPT chatbot, GPT reasoning, image models |
+| F5 | Linux CLI / DevOps | APT, Docker, Pip |
+| F7 | Native / systems | C++, C, Make |
+| F8 | Mobile | Android Studio, Dart, Swift |
+
+(18 factors explain 50.1% of the binary-skill variance — the "latent ecosystem" structure underneath the 51 PCA components.)
+
+**ANOVA across personas:** F(2, 19207) = 16.90, p = 4.7×10⁻⁸, η² = 0.002 (small effect). Mean log-comp: .NET 11.84, Systems 11.75, JS/web 11.95. The Systems vs JS/web gap is the driver (p_adj = 3.6×10⁻⁸, ~20% more compensation after exp).
+
+**Skill co-occurrence network (Module 5/2):** 86 nodes, 182 edges at Jaccard > 0.30. The "connective-tissue" hubs (highest degree centrality) are the cross-persona tools: `npm` 0.235, `Docker` 0.224, `SQL` 0.212, `PostgreSQL` 0.200, `OpenAI GPT chatbot` 0.200. Modularity against the 3-persona partition is 0.21 (weak) — connectivity is driven by architectural/ecosystem groupings rather than the persona labels.
+
+**"What if I learn this?" calculator (app):** pick 2-3 candidate skills and see the predicted salary lift, summed from the per-skill MLR coefficients. Each skill shows its own % and 95% CI; the total is flagged with a caveat that the sum assumes independent effects.
+
+**WantToWorkWith demand signal (recommender):** the 2025 survey's `*WantToWorkWith` columns are loaded once and the share of a candidate skill's *wanting* among the user's k nearest peers is added (0.3 weight) to the recommendation score. The evidence string now reports both "X% of peers know it" and "Y% of peers want to learn it."
+
 ---
+
+## 🚀 Deploy
+
+The repo is Streamlit-Cloud-ready. `runtime.txt` pins Python 3.12, `.streamlit/config.toml` sets the theme, and `requirements.txt` is the single source of truth.
+
+1. Push to GitHub.
+2. Sign in to [share.streamlit.io](https://share.streamlit.io) → **New app** → point at this repo, branch `main`, main file `app/streamlit_app.py` → **Deploy**.
+3. ~3-5 min later you have a public URL like `https://<your-handle>-skill-radar.streamlit.app` — put it in the repo description and in your report.
+
+> Note: the first launch will re-run the pipeline (preprocess → recommend artefacts) on Streamlit's servers. The raw `results.csv` is gitignored and must be downloaded at build time. Either host it somewhere and download in the app, or bake the pipeline outputs into the repo (they're small — `processed.parquet` ≈ 4 MB).
 
 ## ⚠️ Limitations
 
@@ -172,6 +224,11 @@ A short report lives at [`report/REPORT.md`](report/REPORT.md).
 - **Persona assignment for sparse users** uses skill-overlap with each
   cluster's top skills; a developer with a very unusual stack may be
   mis-classified.
+- **`OrgSize` not in 2025 parquet** so the four `org_*` dummies in the
+  logistic / tree / NB models are constant zero — they carry no
+  information. All three models were trained on the same design matrix
+  so the comparison is still fair, but the absolute AUCs could be a
+  little higher with the right controls.
 
 ---
 

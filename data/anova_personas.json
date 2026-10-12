@@ -1,0 +1,79 @@
+{
+  "test": "one-way ANOVA",
+  "dependent_variable": "log_comp",
+  "factor": "kmeans_cluster (persona)",
+  "groups": [
+    {
+      "cluster": 0,
+      "persona": ".NET",
+      "n": 3439,
+      "mean": 11.838947140417044,
+      "std": 1.9060244119473242,
+      "median": 11.652696102959753
+    },
+    {
+      "cluster": 1,
+      "persona": "Systems/enterprise",
+      "n": 8868,
+      "mean": 11.747606065359612,
+      "std": 2.2898463484111136,
+      "median": 11.608244735642321
+    },
+    {
+      "cluster": 2,
+      "persona": "JS/web",
+      "n": 6903,
+      "mean": 11.95133821502798,
+      "std": 2.1733106092355206,
+      "median": 11.736077016252437
+    }
+  ],
+  "F": 16.89555895920729,
+  "df1": 2,
+  "df2": 19207,
+  "p_value": 4.664434762419839e-08,
+  "eta_squared": 0.001756222897037985,
+  "pairwise": [
+    {
+      "cluster_a": 0,
+      "cluster_b": 1,
+      "persona_a": ".NET",
+      "persona_b": "Systems/enterprise",
+      "mean_a": 11.838947140417044,
+      "mean_b": 11.747606065359612,
+      "mean_diff": 0.09134107505743216,
+      "t": 2.2502561892965396,
+      "p_value": 0.02446171104536448,
+      "n_comparisons": 3,
+      "p_value_bonferroni": 0.07338513313609343
+    },
+    {
+      "cluster_a": 0,
+      "cluster_b": 2,
+      "persona_a": ".NET",
+      "persona_b": "JS/web",
+      "mean_a": 11.838947140417044,
+      "mean_b": 11.95133821502798,
+      "mean_diff": -0.1123910746109349,
+      "t": -2.6938846081644185,
+      "p_value": 0.007077729707470182,
+      "n_comparisons": 3,
+      "p_value_bonferroni": 0.021233189122410547
+    },
+    {
+      "cluster_a": 1,
+      "cluster_b": 2,
+      "persona_a": "Systems/enterprise",
+      "persona_b": "JS/web",
+      "mean_a": 11.747606065359612,
+      "mean_b": 11.95133821502798,
+      "mean_diff": -0.20373214966836706,
+      "t": -5.704506758287398,
+      "p_value": 1.1885759080177835e-08,
+      "n_comparisons": 3,
+      "p_value_bonferroni": 3.5657277240533506e-08
+    }
+  ],
+  "pairwise_correction": "Bonferroni",
+  "headline": "F(2, 19207) = 16.90, p = 4.66e-08; clusters Systems/enterprise and JS/web differ by 0.20 log-points (p_adj = 3.57e-08)"
+}
