@@ -20,8 +20,7 @@ warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.regression import per_skill_roi, fit_slr, fit_full_mlr  # noqa: E402
-from src.preprocess import skill_columns  # noqa: E402
+from src.regression import per_skill_roi, fit_slr, fit_full_mlr, skill_columns  # noqa: E402
 
 DATA = ROOT / "data"
 ASSETS = ROOT / "assets"

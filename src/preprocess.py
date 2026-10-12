@@ -21,22 +21,20 @@ OUT_META = ROOT / "data" / "processed_meta.json"
 
 # (column_name, prefix, top_n_to_keep)  -- top_n=0 keeps all
 MULTISELECT_MC = [("DevType", "role", 0)]
+# In the 2025 survey, matrix questions are split into separate
+# *HaveWorkedWith / *WantToWorkWith multi-select columns.
 MATRIX_COLS = [
-    ("Language", "lang", 60),
-    ("Database", "db", 25),
-    ("Platform", "plat", 20),
-    ("Webframe", "web", 15),
-    ("DevEnvs", "devenv", 10),
-    ("AIModels", "aimodel", 10),
+    ("LanguageHaveWorkedWith", "lang", 60),
+    ("DatabaseHaveWorkedWith", "db", 25),
+    ("PlatformHaveWorkedWith", "plat", 20),
+    ("WebframeHaveWorkedWith", "web", 15),
+    ("DevEnvsHaveWorkedWith", "devenv", 10),
+    ("AIModelsHaveWorkedWith", "aimodel", 10),
 ]
 
-JS_MAP = {
-    "Very dissatisfied": 1,
-    "Slightly dissatisfied": 2,
-    "Neither satisfied nor dissatisfied": 3,
-    "Slightly satisfied": 4,
-    "Very satisfied": 5,
-}
+# JobSat in 2025 is a 0-10 numeric rating scale. "High" = >= 8, which
+# yields a roughly balanced positive class (~47%) for the logistic model.
+JOBSAT_HIGH_CUTOFF = 8
 
 SLUG = re.compile(r"[^A-Za-z0-9]+")
 
@@ -68,7 +66,17 @@ def _explode(token_lists: pd.Series, prefix: str, top_n: int) -> tuple[pd.DataFr
         counts.update(lst)
     keep = [k for k, _ in counts.most_common(top_n)] if top_n > 0 else [k for k, _ in counts.most_common()]
     keep = sorted(keep)
-    cols = [f"{prefix}_{slugify(k)}" for k in keep]
+    # Ensure unique column names (C / C++ / C# all slug to "C")
+    cols: list[str] = []
+    seen: dict[str, int] = {}
+    for k in keep:
+        s = f"{prefix}_{slugify(k)}"
+        if s in seen:
+            seen[s] += 1
+            s = f"{s}_{seen[s]}"
+        else:
+            seen[s] = 1
+        cols.append(s)
     M = pd.DataFrame(0, index=token_lists.index, columns=cols, dtype=np.int8)
     name_to_col = {k: c for k, c in zip(keep, cols)}
     for i, lst in token_lists.items():
@@ -117,9 +125,10 @@ def build_processed() -> pd.DataFrame:
     df["CompTotal"] = pd.to_numeric(df["CompTotal"], errors="coerce")
     df["log_comp"] = np.log1p(df["CompTotal"])
 
-    # JobSat -> numeric & binary high (1-5; high = 4 or 5)
-    df["JobSat_num"] = df["JobSat"].map(JS_MAP)
-    df["JobSat_high"] = (df["JobSat_num"] >= 4).astype("Int64")
+    # JobSat -> numeric 0-10 & binary high
+    js_raw = pd.to_numeric(df["JobSat"], errors="coerce")
+    df["JobSat_num"] = js_raw
+    df["JobSat_high"] = (js_raw >= JOBSAT_HIGH_CUTOFF).astype("Int64")
 
     # AI usage
     sel = df["AISelect"].fillna("")

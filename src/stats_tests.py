@@ -81,11 +81,11 @@ def run() -> dict:
     role_cols = [c for c in df.columns if c.startswith("role_")]
     lang_cols = [c for c in df.columns if c.startswith("lang_")]
     if role_cols and lang_cols:
-        primary = role_cols[np.argmax(df[role_cols].values, axis=1)]
+        role_arr = np.array(role_cols)
+        primary = pd.Series(role_arr[np.argmax(df[role_cols].values, axis=1)])
         # Restrict to roles with enough respondents so the chi-square is meaningful
-        keep_roles = pd.Series(primary).value_counts()
+        keep_roles = primary.value_counts()
         keep_roles = keep_roles[keep_roles > 200].index
-        primary = pd.Series(primary)
         primary = primary.where(primary.isin(keep_roles), other="(other)")
         top_lang = df[lang_cols].sum().sort_values(ascending=False).index[0]
         ct2 = pd.crosstab(primary, df[top_lang])

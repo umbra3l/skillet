@@ -1,0 +1,159 @@
+{
+  "n_samples": 19210,
+  "n_skills": 86,
+  "pca_components": 51,
+  "pca_variance_explained": 0.8027262531608162,
+  "silhouette_by_k": {
+    "3": 0.08461685814185908,
+    "4": 0.07539377307125726,
+    "5": 0.07938454494283123,
+    "6": 0.06960693272906114,
+    "7": 0.07177833385953394,
+    "8": 0.07128755100857762
+  },
+  "best_k": 3,
+  "best_silhouette": 0.08461685814185908,
+  "personas": [
+    {
+      "cluster": 0,
+      "n": 3439,
+      "share": 0.17902134305049452,
+      "top_skills": [
+        {
+          "skill": "web_ASP_NET",
+          "prevalence": 0.5519046234370456,
+          "lift": 4.810384671608732
+        },
+        {
+          "skill": "web_ASP_NET_Core",
+          "prevalence": 0.7848211689444606,
+          "lift": 4.695239693373743
+        },
+        {
+          "skill": "plat_NuGet",
+          "prevalence": 0.7095085780750218,
+          "lift": 4.2632654941573875
+        },
+        {
+          "skill": "lang_C_2",
+          "prevalence": 0.96743239313754,
+          "lift": 3.4106030963795457
+        },
+        {
+          "skill": "devenv_Visual_Studio",
+          "prevalence": 0.8118639139284676,
+          "lift": 3.410432054792447
+        },
+        {
+          "skill": "db_Microsoft_SQL_Server",
+          "prevalence": 0.8214597266647281,
+          "lift": 3.209975864367255
+        },
+        {
+          "skill": "plat_Microsoft_Azure",
+          "prevalence": 0.5998836871183484,
+          "lift": 2.7411431088352693
+        },
+        {
+          "skill": "lang_PowerShell",
+          "prevalence": 0.5519046234370456,
+          "lift": 2.509963971644329
+        }
+      ]
+    },
+    {
+      "cluster": 1,
+      "n": 8868,
+      "share": 0.461634565330557,
+      "top_skills": [
+        {
+          "skill": "lang_C_3",
+          "prevalence": 0.21132160577356787,
+          "lift": 1.1529361110225047
+        },
+        {
+          "skill": "lang_C",
+          "prevalence": 0.17602616147947678,
+          "lift": 1.1354810483615678
+        },
+        {
+          "skill": "lang_Swift",
+          "prevalence": 0.05040595399188092,
+          "lift": 0.9521124642910841
+        },
+        {
+          "skill": "lang_Java",
+          "prevalence": 0.22913847541723048,
+          "lift": 0.8629190575896878
+        },
+        {
+          "skill": "db_Oracle",
+          "prevalence": 0.06799729364005412,
+          "lift": 0.8362535280572597
+        },
+        {
+          "skill": "lang_Python",
+          "prevalence": 0.42534957149300856,
+          "lift": 0.836160997582961
+        },
+        {
+          "skill": "lang_Bash_Shell_all_shells",
+          "prevalence": 0.3713351375732972,
+          "lift": 0.8007799722477592
+        },
+        {
+          "skill": "lang_Kotlin",
+          "prevalence": 0.08491204330175914,
+          "lift": 0.7880001699646343
+        }
+      ]
+    },
+    {
+      "cluster": 2,
+      "n": 6903,
+      "share": 0.3593440916189485,
+      "top_skills": [
+        {
+          "skill": "plat_pnpm",
+          "prevalence": 0.24424163407214255,
+          "lift": 2.1914440871209053
+        },
+        {
+          "skill": "web_Express",
+          "prevalence": 0.3220338983050847,
+          "lift": 2.183646730123783
+        },
+        {
+          "skill": "plat_Yarn",
+          "prevalence": 0.39490076778212374,
+          "lift": 2.11251566390827
+        },
+        {
+          "skill": "plat_Webpack",
+          "prevalence": 0.33666521802115024,
+          "lift": 2.0421025696830744
+        },
+        {
+          "skill": "plat_Vite",
+          "prevalence": 0.4389395914819644,
+          "lift": 2.032794009732048
+        },
+        {
+          "skill": "web_Flask",
+          "prevalence": 0.18586121975952485,
+          "lift": 2.028632972488905
+        },
+        {
+          "skill": "web_Next_js",
+          "prevalence": 0.32449659568303635,
+          "lift": 2.020609271660009
+        },
+        {
+          "skill": "plat_Homebrew",
+          "prevalence": 0.439374185136897,
+          "lift": 1.9977226263857495
+        }
+      ]
+    }
+  ]
+}

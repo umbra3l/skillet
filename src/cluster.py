@@ -34,7 +34,14 @@ META_PATH = OUT_DIR / "cluster_meta.json"
 SKILL_PREFIXES = ("lang_", "db_", "plat_", "web_", "devenv_", "aimodel_")
 
 
-def run(min_k: int = 3, max_k: int = 8, dendro_n: int = 1500, pca_var: float = 0.80) -> dict:
+def run(min_k: int = 3, max_k: int = 8, dendro_n: int = 1500, pca_var: float = 0.80,
+        min_prevalence: float = 0.05) -> dict:
+    """Cluster developers by skill.
+
+    `min_prevalence` keeps only skills known by >= this fraction of the
+    sample.  This drops the long tail of rare skills that otherwise dominate
+    PCA and KMeans and crush the silhouette score.
+    """
     OUT_DIR.mkdir(exist_ok=True)
     ASSETS.mkdir(exist_ok=True)
     df = pd.read_parquet(PROCESSED)
@@ -42,8 +49,11 @@ def run(min_k: int = 3, max_k: int = 8, dendro_n: int = 1500, pca_var: float = 0
 
     skills = [c for c in df.columns if any(c.startswith(p) for p in SKILL_PREFIXES)
               and df[c].nunique() == 2]
+    # Drop rare skills -- they're mostly noise
+    preval = df[skills].mean()
+    skills = preval[preval >= min_prevalence].index.tolist()
     X = df[skills].astype(float).values
-    print(f"  skill matrix: {X.shape}")
+    print(f"  skill matrix: {X.shape}  (min prevalence = {min_prevalence})")
 
     sc = StandardScaler(with_mean=True).fit(X)
     Xs = sc.transform(X)
