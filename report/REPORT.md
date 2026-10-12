@@ -300,3 +300,58 @@ user's k=300 nearest peers who said they *want* to learn skill `s`.
 The evidence string now reports both "X% of peers know it" and "Y% of
 peers want to learn it", giving the recommendation a real demand
 signal on top of the salary ROI prior.
+
+## 10. Multi-year skill ROI trend (2022 → 2025)
+
+The per-skill MLR was re-fit on each of the last four Stack Overflow
+Developer Surveys (2022, 2023, 2024, 2025) for the **32 skills present
+in every year**, with USD-converted compensation (`ConvertedCompYearly`)
+throughout and country fixed effects absorbed. Year-by-year working
+developer counts after cleaning: 25,244 / 30,728 / 14,217 / 20,083.
+
+| Per-year top skill (by ROI) | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|
+| #1 | Rust (+4.6%) | Django (+1.5%) | Flask (+4.1%) | **Jupyter (+5.7%)** |
+| #2 | Ruby (+4.1%) | C# (+1.1%) | Jupyter (+2.4%) | Flask (+4.1%) |
+| #3 | Redis (+2.3%) | SQL (+1.0%) | Go (+2.2%) | VS Code (+3.6%) |
+| #4 | Docker (+2.1%) | VS Code (+0.8%) | Docker (+2.2%) | Azure (+3.1%) |
+| #5 | C# (+2.0%) | Go (+0.5%) | Django (+2.0%) | JavaScript (+3.0%) |
+
+### 10.1 Biggest movers
+
+| Direction | Skill | 2022 | 2025 | Δ |
+|---|---|---|---|---|
+| ⬆ | **Jupyter** | -3.3% | **+5.7%** | **+8.9 pts** |
+| ⬆ | **Flask** | -4.8% | +4.1% | +8.8 pts |
+| ⬆ | VS Code | -0.8% | +3.6% | +4.4 pts |
+| ⬆ | JavaScript | -1.3% | +3.0% | +4.3 pts |
+| ⬆ | HTML/CSS | -1.3% | +2.3% | +3.6 pts |
+| ⬇ | C# | +2.0% | +0.3% | -1.7 pts |
+| ⬇ | Docker | +2.1% | +0.0% | -2.1 pts |
+| ⬇ | Ruby | +4.1% | +1.3% | -2.7 pts |
+| ⬇ | Rust | +4.6% | +0.8% | -3.7 pts |
+| ⬇ | **Redis** | +2.3% | -1.6% | -3.8 pts |
+
+**Story:** the Python data-stack (Jupyter, Flask, VS Code) is the clear
+winner of the AI / data-science wave. Redis, Rust, Ruby, Docker and C#
+are the most notable *fallers* — the famous premium attached to those
+skills in 2022 has largely been competed away as they've become
+mainstream (and in Rust's case, the salary premium of "exotic" status
+has shrunk as the language has matured).
+
+### 10.2 Caveats
+
+- 2022 / 2023 use `ConvertedCompYearly` (USD-converted by Stack
+  Overflow); 2024 / 2025 *also* expose a `ConvertedCompYearly` column
+  (used here), so the comparison is currency-clean.
+- Survey year-to-year the same skill lives in **different columns**:
+  e.g. "Docker" was in `ToolsTechHaveWorkedWith` in 2022-24 and
+  `PlatformHaveWorkedWith` in 2025; "Jupyter" was `IPython/Jupyter`
+  in 2022 and `Jupyter Notebook/JupyterLab` in 2023-25; "React" was
+  `React.js` in 2022. The full per-year harmonisation map is in
+  `data/trend_summary.json` under `skill_token_map` and `matrix_columns`.
+- Each year's MLR is run on a different sample (different respondents
+  in each year), so the coefficients are *within-year* estimates.
+  Between-year drift could reflect both a genuine change in the
+  skill's market premium AND a change in the population of respondents
+  (not causally identified from a single year).

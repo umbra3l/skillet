@@ -1,0 +1,441 @@
+{
+  "years": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "per_year_n_working_devs": {
+    "2022": 25244,
+    "2023": 30728,
+    "2024": 14217,
+    "2025": 20083
+  },
+  "per_year_n_model_sample": {
+    "2022": 24929,
+    "2023": 30079,
+    "2024": 13842,
+    "2025": 19441
+  },
+  "per_year_top5_skills": {
+    "2022": [
+      {
+        "skill": "Rust",
+        "pct_salary_impact": 4.553,
+        "p_value": 0.033,
+        "n_users": 1993
+      },
+      {
+        "skill": "Ruby",
+        "pct_salary_impact": 4.076,
+        "p_value": 0.062,
+        "n_users": 1903
+      },
+      {
+        "skill": "Redis",
+        "pct_salary_impact": 2.264,
+        "p_value": 0.089,
+        "n_users": 6162
+      },
+      {
+        "skill": "Docker",
+        "pct_salary_impact": 2.061,
+        "p_value": 0.078,
+        "n_users": 15002
+      },
+      {
+        "skill": "C#",
+        "pct_salary_impact": 1.964,
+        "p_value": 0.114,
+        "n_users": 7614
+      }
+    ],
+    "2023": [
+      {
+        "skill": "Django",
+        "pct_salary_impact": 1.543,
+        "p_value": 0.274,
+        "n_users": 2690
+      },
+      {
+        "skill": "C#",
+        "pct_salary_impact": 1.089,
+        "p_value": 0.216,
+        "n_users": 8872
+      },
+      {
+        "skill": "SQL",
+        "pct_salary_impact": 0.955,
+        "p_value": 0.235,
+        "n_users": 15926
+      },
+      {
+        "skill": "VS Code",
+        "pct_salary_impact": 0.752,
+        "p_value": 0.416,
+        "n_users": 22527
+      },
+      {
+        "skill": "Go",
+        "pct_salary_impact": 0.542,
+        "p_value": 0.627,
+        "n_users": 4584
+      }
+    ],
+    "2024": [
+      {
+        "skill": "Flask",
+        "pct_salary_impact": 4.063,
+        "p_value": 0.07,
+        "n_users": 1301
+      },
+      {
+        "skill": "Jupyter",
+        "pct_salary_impact": 2.394,
+        "p_value": 0.262,
+        "n_users": 1436
+      },
+      {
+        "skill": "Go",
+        "pct_salary_impact": 2.221,
+        "p_value": 0.22,
+        "n_users": 2096
+      },
+      {
+        "skill": "Docker",
+        "pct_salary_impact": 2.193,
+        "p_value": 0.098,
+        "n_users": 8291
+      },
+      {
+        "skill": "Django",
+        "pct_salary_impact": 1.995,
+        "p_value": 0.37,
+        "n_users": 1298
+      }
+    ],
+    "2025": [
+      {
+        "skill": "Jupyter",
+        "pct_salary_impact": 5.671,
+        "p_value": 0.004,
+        "n_users": 1798
+      },
+      {
+        "skill": "Flask",
+        "pct_salary_impact": 4.058,
+        "p_value": 0.035,
+        "n_users": 1805
+      },
+      {
+        "skill": "VS Code",
+        "pct_salary_impact": 3.555,
+        "p_value": 0.002,
+        "n_users": 12032
+      },
+      {
+        "skill": "Azure",
+        "pct_salary_impact": 3.125,
+        "p_value": 0.019,
+        "n_users": 4361
+      },
+      {
+        "skill": "JavaScript",
+        "pct_salary_impact": 2.963,
+        "p_value": 0.011,
+        "n_users": 12556
+      }
+    ]
+  },
+  "skills_tracked": [
+    "AWS",
+    "Angular",
+    "Azure",
+    "C#",
+    "C++",
+    "Django",
+    "Docker",
+    "Flask",
+    "GCP",
+    "Go",
+    "HTML/CSS",
+    "IntelliJ",
+    "Java",
+    "JavaScript",
+    "Jupyter",
+    "Kubernetes",
+    "MongoDB",
+    "MySQL",
+    "Node.js",
+    "PHP",
+    "PostgreSQL",
+    "Python",
+    "React",
+    "Redis",
+    "Ruby",
+    "Rust",
+    "SQL",
+    "Spring",
+    "Terraform",
+    "TypeScript",
+    "VS Code",
+    "Vue.js"
+  ],
+  "n_skills_tracked": 32,
+  "headline": "Jupyter salary impact rose from -3.3% in 2022 to 5.7% in 2025 (+8.9 pts), while Redis fell from 2.3% to -1.6% (-3.8 pts).",
+  "biggest_risers": [
+    {
+      "skill": "Jupyter",
+      "pct_first": -3.257684350302703,
+      "pct_last": 5.671395753989006,
+      "delta": 8.929080104291709
+    },
+    {
+      "skill": "Flask",
+      "pct_first": -4.766099349583053,
+      "pct_last": 4.058328649257148,
+      "delta": 8.8244279988402
+    },
+    {
+      "skill": "VS Code",
+      "pct_first": -0.8132431840668253,
+      "pct_last": 3.5552487105004804,
+      "delta": 4.368491894567306
+    },
+    {
+      "skill": "JavaScript",
+      "pct_first": -1.3190622732814905,
+      "pct_last": 2.9631777779973056,
+      "delta": 4.282240051278796
+    },
+    {
+      "skill": "HTML/CSS",
+      "pct_first": -1.289344536267567,
+      "pct_last": 2.303609056654321,
+      "delta": 3.592953592921888
+    }
+  ],
+  "biggest_fallers": [
+    {
+      "skill": "Redis",
+      "pct_first": 2.2642292731701152,
+      "pct_last": -1.566603200762351,
+      "delta": -3.830832473932466
+    },
+    {
+      "skill": "Rust",
+      "pct_first": 4.552922777373891,
+      "pct_last": 0.821929265998067,
+      "delta": -3.730993511375824
+    },
+    {
+      "skill": "Ruby",
+      "pct_first": 4.075768770623234,
+      "pct_last": 1.344168932798917,
+      "delta": -2.7315998378243167
+    },
+    {
+      "skill": "Docker",
+      "pct_first": 2.0606144913703384,
+      "pct_last": 0.005949272155336693,
+      "delta": -2.0546652192150017
+    },
+    {
+      "skill": "C#",
+      "pct_first": 1.9642084974399232,
+      "pct_last": 0.2702745703249354,
+      "delta": -1.6939339271149878
+    }
+  ],
+  "comp_columns": {
+    "2022": "ConvertedCompYearly",
+    "2023": "ConvertedCompYearly",
+    "2024": "ConvertedCompYearly",
+    "2025": "ConvertedCompYearly"
+  },
+  "matrix_columns": {
+    "2022": {
+      "lang": "LanguageHaveWorkedWith",
+      "db": "DatabaseHaveWorkedWith",
+      "plat": "PlatformHaveWorkedWith",
+      "web": "WebframeHaveWorkedWith",
+      "devenv": "NEWCollabToolsHaveWorkedWith",
+      "misc": "MiscTechHaveWorkedWith",
+      "tools": "ToolsTechHaveWorkedWith",
+      "os": "OpSysProfessional use",
+      "vcs": "VersionControlSystem"
+    },
+    "2023": {
+      "lang": "LanguageHaveWorkedWith",
+      "db": "DatabaseHaveWorkedWith",
+      "plat": "PlatformHaveWorkedWith",
+      "web": "WebframeHaveWorkedWith",
+      "devenv": "NEWCollabToolsHaveWorkedWith",
+      "misc": "MiscTechHaveWorkedWith",
+      "tools": "ToolsTechHaveWorkedWith",
+      "os": "OpSysProfessional use",
+      "ai": "AISearchHaveWorkedWith"
+    },
+    "2024": {
+      "lang": "LanguageHaveWorkedWith",
+      "db": "DatabaseHaveWorkedWith",
+      "plat": "PlatformHaveWorkedWith",
+      "web": "WebframeHaveWorkedWith",
+      "devenv": "NEWCollabToolsHaveWorkedWith",
+      "misc": "MiscTechHaveWorkedWith",
+      "tools": "ToolsTechHaveWorkedWith",
+      "os": "OpSysProfessional use",
+      "ai": "AISearchDevHaveWorkedWith"
+    },
+    "2025": {
+      "lang": "LanguageHaveWorkedWith",
+      "db": "DatabaseHaveWorkedWith",
+      "plat": "PlatformHaveWorkedWith",
+      "web": "WebframeHaveWorkedWith",
+      "devenv": "DevEnvsHaveWorkedWith",
+      "os": "OpSysProfessional use",
+      "ai": "AIModelsHaveWorkedWith"
+    }
+  },
+  "skill_token_map": {
+    "2022": {
+      "Python": "Python @ LanguageHaveWorkedWith",
+      "JavaScript": "JavaScript @ LanguageHaveWorkedWith",
+      "TypeScript": "TypeScript @ LanguageHaveWorkedWith",
+      "Java": "Java @ LanguageHaveWorkedWith",
+      "C++": "C++ @ LanguageHaveWorkedWith",
+      "C#": "C# @ LanguageHaveWorkedWith",
+      "Go": "Go @ LanguageHaveWorkedWith",
+      "Rust": "Rust @ LanguageHaveWorkedWith",
+      "Ruby": "Ruby @ LanguageHaveWorkedWith",
+      "PHP": "PHP @ LanguageHaveWorkedWith",
+      "SQL": "SQL @ LanguageHaveWorkedWith",
+      "HTML/CSS": "HTML/CSS @ LanguageHaveWorkedWith",
+      "React": "React.js @ WebframeHaveWorkedWith",
+      "Angular": "Angular @ WebframeHaveWorkedWith",
+      "Vue.js": "Vue.js @ WebframeHaveWorkedWith",
+      "Node.js": "Node.js @ WebframeHaveWorkedWith",
+      "Django": "Django @ WebframeHaveWorkedWith",
+      "Flask": "Flask @ WebframeHaveWorkedWith",
+      "Spring": "Spring @ MiscTechHaveWorkedWith",
+      "Docker": "Docker @ ToolsTechHaveWorkedWith",
+      "Kubernetes": "Kubernetes @ ToolsTechHaveWorkedWith",
+      "AWS": "AWS @ PlatformHaveWorkedWith",
+      "Azure": "Microsoft Azure @ PlatformHaveWorkedWith",
+      "GCP": "Google Cloud @ PlatformHaveWorkedWith",
+      "PostgreSQL": "PostgreSQL @ DatabaseHaveWorkedWith",
+      "MySQL": "MySQL @ DatabaseHaveWorkedWith",
+      "MongoDB": "MongoDB @ DatabaseHaveWorkedWith",
+      "Redis": "Redis @ DatabaseHaveWorkedWith",
+      "Terraform": "Terraform @ ToolsTechHaveWorkedWith",
+      "Git": "Git @ VersionControlSystem",
+      "Linux": "Linux-based @ OpSysProfessional use",
+      "VS Code": "Visual Studio Code @ NEWCollabToolsHaveWorkedWith",
+      "IntelliJ": "IntelliJ @ NEWCollabToolsHaveWorkedWith",
+      "Jupyter": "IPython/Jupyter @ NEWCollabToolsHaveWorkedWith"
+    },
+    "2023": {
+      "Python": "Python @ LanguageHaveWorkedWith",
+      "JavaScript": "JavaScript @ LanguageHaveWorkedWith",
+      "TypeScript": "TypeScript @ LanguageHaveWorkedWith",
+      "Java": "Java @ LanguageHaveWorkedWith",
+      "C++": "C++ @ LanguageHaveWorkedWith",
+      "C#": "C# @ LanguageHaveWorkedWith",
+      "Go": "Go @ LanguageHaveWorkedWith",
+      "Rust": "Rust @ LanguageHaveWorkedWith",
+      "Ruby": "Ruby @ LanguageHaveWorkedWith",
+      "PHP": "PHP @ LanguageHaveWorkedWith",
+      "SQL": "SQL @ LanguageHaveWorkedWith",
+      "HTML/CSS": "HTML/CSS @ LanguageHaveWorkedWith",
+      "React": "React @ WebframeHaveWorkedWith",
+      "Angular": "Angular @ WebframeHaveWorkedWith",
+      "Vue.js": "Vue.js @ WebframeHaveWorkedWith",
+      "Node.js": "Node.js @ WebframeHaveWorkedWith",
+      "Django": "Django @ WebframeHaveWorkedWith",
+      "Flask": "Flask @ WebframeHaveWorkedWith",
+      "Spring": "Spring Boot @ WebframeHaveWorkedWith",
+      "Docker": "Docker @ ToolsTechHaveWorkedWith",
+      "Kubernetes": "Kubernetes @ ToolsTechHaveWorkedWith",
+      "AWS": "Amazon Web Services (AWS) @ PlatformHaveWorkedWith",
+      "Azure": "Microsoft Azure @ PlatformHaveWorkedWith",
+      "GCP": "Google Cloud @ PlatformHaveWorkedWith",
+      "PostgreSQL": "PostgreSQL @ DatabaseHaveWorkedWith",
+      "MySQL": "MySQL @ DatabaseHaveWorkedWith",
+      "MongoDB": "MongoDB @ DatabaseHaveWorkedWith",
+      "Redis": "Redis @ DatabaseHaveWorkedWith",
+      "Terraform": "Terraform @ ToolsTechHaveWorkedWith",
+      "VS Code": "Visual Studio Code @ NEWCollabToolsHaveWorkedWith",
+      "IntelliJ": "IntelliJ IDEA @ NEWCollabToolsHaveWorkedWith",
+      "Jupyter": "Jupyter Notebook/JupyterLab @ NEWCollabToolsHaveWorkedWith"
+    },
+    "2024": {
+      "Python": "Python @ LanguageHaveWorkedWith",
+      "JavaScript": "JavaScript @ LanguageHaveWorkedWith",
+      "TypeScript": "TypeScript @ LanguageHaveWorkedWith",
+      "Java": "Java @ LanguageHaveWorkedWith",
+      "C++": "C++ @ LanguageHaveWorkedWith",
+      "C#": "C# @ LanguageHaveWorkedWith",
+      "Go": "Go @ LanguageHaveWorkedWith",
+      "Rust": "Rust @ LanguageHaveWorkedWith",
+      "Ruby": "Ruby @ LanguageHaveWorkedWith",
+      "PHP": "PHP @ LanguageHaveWorkedWith",
+      "SQL": "SQL @ LanguageHaveWorkedWith",
+      "HTML/CSS": "HTML/CSS @ LanguageHaveWorkedWith",
+      "React": "React @ WebframeHaveWorkedWith",
+      "Angular": "Angular @ WebframeHaveWorkedWith",
+      "Vue.js": "Vue.js @ WebframeHaveWorkedWith",
+      "Node.js": "Node.js @ WebframeHaveWorkedWith",
+      "Django": "Django @ WebframeHaveWorkedWith",
+      "Flask": "Flask @ WebframeHaveWorkedWith",
+      "Spring": "Spring Boot @ WebframeHaveWorkedWith",
+      "Docker": "Docker @ ToolsTechHaveWorkedWith",
+      "Kubernetes": "Kubernetes @ ToolsTechHaveWorkedWith",
+      "AWS": "Amazon Web Services (AWS) @ PlatformHaveWorkedWith",
+      "Azure": "Microsoft Azure @ PlatformHaveWorkedWith",
+      "GCP": "Google Cloud @ PlatformHaveWorkedWith",
+      "PostgreSQL": "PostgreSQL @ DatabaseHaveWorkedWith",
+      "MySQL": "MySQL @ DatabaseHaveWorkedWith",
+      "MongoDB": "MongoDB @ DatabaseHaveWorkedWith",
+      "Redis": "Redis @ DatabaseHaveWorkedWith",
+      "Terraform": "Terraform @ ToolsTechHaveWorkedWith",
+      "VS Code": "Visual Studio Code @ NEWCollabToolsHaveWorkedWith",
+      "IntelliJ": "IntelliJ IDEA @ NEWCollabToolsHaveWorkedWith",
+      "Jupyter": "Jupyter Notebook/JupyterLab @ NEWCollabToolsHaveWorkedWith"
+    },
+    "2025": {
+      "Python": "Python @ LanguageHaveWorkedWith",
+      "JavaScript": "JavaScript @ LanguageHaveWorkedWith",
+      "TypeScript": "TypeScript @ LanguageHaveWorkedWith",
+      "Java": "Java @ LanguageHaveWorkedWith",
+      "C++": "C++ @ LanguageHaveWorkedWith",
+      "C#": "C# @ LanguageHaveWorkedWith",
+      "Go": "Go @ LanguageHaveWorkedWith",
+      "Rust": "Rust @ LanguageHaveWorkedWith",
+      "Ruby": "Ruby @ LanguageHaveWorkedWith",
+      "PHP": "PHP @ LanguageHaveWorkedWith",
+      "SQL": "SQL @ LanguageHaveWorkedWith",
+      "HTML/CSS": "HTML/CSS @ LanguageHaveWorkedWith",
+      "React": "React @ WebframeHaveWorkedWith",
+      "Angular": "Angular @ WebframeHaveWorkedWith",
+      "Vue.js": "Vue.js @ WebframeHaveWorkedWith",
+      "Node.js": "Node.js @ WebframeHaveWorkedWith",
+      "Django": "Django @ WebframeHaveWorkedWith",
+      "Flask": "Flask @ WebframeHaveWorkedWith",
+      "Spring": "Spring Boot @ WebframeHaveWorkedWith",
+      "Docker": "Docker @ PlatformHaveWorkedWith",
+      "Kubernetes": "Kubernetes @ PlatformHaveWorkedWith",
+      "AWS": "Amazon Web Services (AWS) @ PlatformHaveWorkedWith",
+      "Azure": "Microsoft Azure @ PlatformHaveWorkedWith",
+      "GCP": "Google Cloud @ PlatformHaveWorkedWith",
+      "PostgreSQL": "PostgreSQL @ DatabaseHaveWorkedWith",
+      "MySQL": "MySQL @ DatabaseHaveWorkedWith",
+      "MongoDB": "MongoDB @ DatabaseHaveWorkedWith",
+      "Redis": "Redis @ DatabaseHaveWorkedWith",
+      "Terraform": "Terraform @ PlatformHaveWorkedWith",
+      "VS Code": "Visual Studio Code @ DevEnvsHaveWorkedWith",
+      "IntelliJ": "IntelliJ IDEA @ DevEnvsHaveWorkedWith",
+      "Jupyter": "Jupyter Notebook/JupyterLab @ DevEnvsHaveWorkedWith"
+    }
+  },
+  "min_skill_users": 100
+}

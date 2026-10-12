@@ -194,6 +194,23 @@ All three sit barely above random — strong evidence that the survey's observab
 
 **WantToWorkWith demand signal (recommender):** the 2025 survey's `*WantToWorkWith` columns are loaded once and the share of a candidate skill's *wanting* among the user's k nearest peers is added (0.3 weight) to the recommendation score. The evidence string now reports both "X% of peers know it" and "Y% of peers want to learn it."
 
+**Multi-year skill ROI trend (2022 → 2025):** the per-skill MLR was re-fit on each of the last four Stack Overflow surveys for the 32 skills present in every year, with USD-converted compensation throughout and country fixed effects absorbed. Headline drifts:
+
+| Skill | 2022 | 2025 | Δ |
+|---|---|---|---|
+| **Jupyter** | -3.3% | **+5.7%** | **+8.9 pts** |
+| **Flask** | -4.8% | +4.1% | +8.8 pts |
+| VS Code | -0.8% | +3.6% | +4.4 pts |
+| JavaScript | -1.3% | +3.0% | +4.3 pts |
+| HTML/CSS | -1.3% | +2.3% | +3.6 pts |
+| C# | +2.0% | +0.3% | -1.7 pts |
+| Docker | +2.1% | +0.0% | -2.1 pts |
+| Ruby | +4.1% | +1.3% | -2.7 pts |
+| Rust | +4.6% | +0.8% | -3.7 pts |
+| **Redis** | +2.3% | -1.6% | -3.8 pts |
+
+Jupyter / Flask and the Python-data stack are the big risers (the AI / data-science wave); Redis, Rust, Ruby, Docker and C# are the most notable fallers as the market matures. Chart: `assets/trend_roi.png`. Data: `data/trend_roi.csv`. Full per-year column-harmonisation map (column names change every year, e.g. "Docker" moved from `ToolsTechHaveWorkedWith` to `PlatformHaveWorkedWith` in 2025) is in `data/trend_summary.json`.
+
 ---
 
 ## 🚀 Deploy
