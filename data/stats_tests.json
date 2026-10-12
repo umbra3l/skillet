@@ -1,0 +1,98 @@
+{
+  "t_tests": {
+    "log_comp_ai_users_vs_non": {
+      "n_users": 15312,
+      "n_non": 3898,
+      "mean_log_comp_users": 11.896450394222297,
+      "mean_log_comp_non": 11.604296835687427,
+      "t": 7.673372160352529,
+      "p_value": 1.9315378132772143e-14,
+      "conclusion": "Reject H0; AI users' log compensation differs"
+    },
+    "JobSat_ai_users_vs_non": {
+      "n_users": 15312,
+      "n_non": 3898,
+      "mean_sat_users": 7.206961859979101,
+      "mean_sat_non": 7.082349923037455,
+      "t": 3.360718187214399,
+      "p_value": 0.000782496046265267,
+      "conclusion": "Reject H0; AI users' job satisfaction differs"
+    }
+  },
+  "chi_square": {
+    "ai_user_vs_remote": {
+      "contingency": {
+        "(missing)": {
+          "0": 459,
+          "1": 1625
+        },
+        "Hybrid (some in-person, leans heavy to flexibility)": {
+          "0": 647,
+          "1": 2481
+        },
+        "Hybrid (some remote, leans heavy to in-person)": {
+          "0": 689,
+          "1": 2651
+        },
+        "In-person": {
+          "0": 467,
+          "1": 1788
+        },
+        "Remote": {
+          "0": 1183,
+          "1": 5023
+        },
+        "Your choice (very flexible, you can come in when you want or just as needed)": {
+          "0": 453,
+          "1": 1744
+        }
+      },
+      "chi2": 10.59250417903525,
+      "dof": 5,
+      "p_value": 0.060085570843311294,
+      "cramers_v": 0.023482030055005414,
+      "conclusion": "Fail to reject H0"
+    },
+    "role_vs_lang_JavaScript": {
+      "contingency": {
+        "0": {
+          "(other)": 641,
+          "role_AI_ML_engineer": 166,
+          "role_Architect_software_or_solutions": 444,
+          "role_Data_engineer": 248,
+          "role_Data_scientist": 146,
+          "role_DevOps_engineer_or_professional": 222,
+          "role_Developer_back_end": 1740,
+          "role_Developer_desktop_or_enterprise_applications": 537,
+          "role_Developer_embedded_applications_or_devices": 480,
+          "role_Developer_front_end": 138,
+          "role_Developer_full_stack": 1253,
+          "role_Developer_mobile": 449,
+          "role_Engineering_manager": 158,
+          "role_Other_please_specify": 130
+        },
+        "1": {
+          "(other)": 836,
+          "role_AI_ML_engineer": 129,
+          "role_Architect_software_or_solutions": 906,
+          "role_Data_engineer": 154,
+          "role_Data_scientist": 63,
+          "role_DevOps_engineer_or_professional": 257,
+          "role_Developer_back_end": 1977,
+          "role_Developer_desktop_or_enterprise_applications": 490,
+          "role_Developer_embedded_applications_or_devices": 219,
+          "role_Developer_front_end": 897,
+          "role_Developer_full_stack": 5731,
+          "role_Developer_mobile": 281,
+          "role_Engineering_manager": 329,
+          "role_Other_please_specify": 189
+        }
+      },
+      "chi2": 2416.4618862999596,
+      "dof": 13,
+      "p_value": 0.0,
+      "cramers_v": 0.3546715005618207,
+      "conclusion": "Reject H0"
+    }
+  }
+}

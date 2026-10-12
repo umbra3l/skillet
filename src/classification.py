@@ -1,7 +1,7 @@
 """Module 4: Binary Logistic Regression + ROC/confusion matrix.
 
-  Target : JobSat_high  (1 = 'Slightly satisfied' or 'Very satisfied')
-  Features: WorkExp + ai_user + top-K skills (selected by frequency)
+  Target : JobSat_high  (1 = JobSat >= 7 on the 0-10 scale)
+  Features: WorkExp + ai_user + RemoteWork dummies + OrgSize + top-K skills
   Eval   : ROC curve, AUC, optimal threshold (Youden's J), confusion matrix
   Output : data/satisfaction_model.joblib, data/satisfaction_metrics.json
 """
@@ -26,24 +26,49 @@ ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed.parquet"
 OUT_DIR = ROOT / "data"
 MODEL_PATH = OUT_DIR / "satisfaction_model.joblib"
-META_PATH = OUT_DIR / "satisfaction_metrics.json"
+META_PATH = ROOT / "data" / "satisfaction_metrics.json"
 ASSETS = ROOT / "assets"
 
 SKILL_PREFIXES = ("lang_", "db_", "plat_", "web_", "devenv_", "aimodel_")
+REMOTE_DUMMIES = [
+    "rw_Remote",
+    "rw_Hybrid_remote_heavy",
+    "rw_Hybrid_inperson_heavy",
+    "rw_In_person",
+    "rw_Flexible",
+]
+ORG_DUMMIES = ["org_Small", "org_Medium", "org_Large", "org_Very_large"]
+
+
+def _engineer(df: pd.DataFrame) -> pd.DataFrame:
+    """Build RemoteWork and OrgSize dummies in place."""
+    rw = df["RemoteWork"].fillna("")
+    df["rw_Remote"] = (rw == "Remote").astype(int)
+    df["rw_Hybrid_remote_heavy"] = rw.str.contains("Hybrid.*remote", case=False, regex=True).astype(int)
+    df["rw_Hybrid_inperson_heavy"] = rw.str.contains("Hybrid.*in-person", case=False, regex=True).astype(int)
+    df["rw_In_person"] = (rw == "In-person").astype(int)
+    df["rw_Flexible"] = rw.str.contains("flexible", case=False, regex=True).astype(int)
+
+    org = df["OrgSize"].fillna("") if "OrgSize" in df.columns else pd.Series("", index=df.index)
+    df["org_Small"] = org.str.contains(r"2-9|10-19|20-99", case=False, regex=True).astype(int)
+    df["org_Medium"] = org.str.contains(r"100-499|500-999", case=False, regex=True).astype(int)
+    df["org_Large"] = org.str.contains(r"1,000-4,999|5,000-9,999", case=False, regex=True).astype(int)
+    df["org_Very_large"] = org.str.contains(r"10,000 or more", case=False, regex=True).astype(int)
+    return df
 
 
 def run(top_n_skills: int = 30) -> dict:
     OUT_DIR.mkdir(exist_ok=True)
     ASSETS.mkdir(exist_ok=True)
     df = pd.read_parquet(PROCESSED)
+    df = _engineer(df)
     print(f"loaded {df.shape}")
 
-    # Top-N most common skills
     skill_cols = [c for c in df.columns if any(c.startswith(p) for p in SKILL_PREFIXES)
                   and df[c].nunique() == 2]
     top = (df[skill_cols].sum().sort_values(ascending=False).head(top_n_skills).index.tolist())
 
-    feat_cols = ["WorkExp", "ai_user"] + top
+    feat_cols = ["WorkExp", "ai_user"] + REMOTE_DUMMIES + ORG_DUMMIES + top
     sub = df.dropna(subset=["JobSat_high"] + feat_cols).copy()
     sub["JobSat_high"] = sub["JobSat_high"].astype(int)
     print(f"  modeling set: {sub.shape}; positive rate: {sub['JobSat_high'].mean():.3f}")
@@ -81,7 +106,6 @@ def run(top_n_skills: int = 30) -> dict:
     }
     print(f"  AUC = {auc:.3f}  opt threshold = {opt:.3f}  F1 = {metrics['f1_at_opt']:.3f}")
 
-    # Save the per-skill satisfaction association too, for the recommender
     coef_map = {f: float(c) for f, c in zip(feat_cols, clf.coef_[0])}
     pd.DataFrame([{"feature": k, "coef": v} for k, v in coef_map.items()]) \
         .to_csv(OUT_DIR / "satisfaction_coefs.csv", index=False)

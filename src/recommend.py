@@ -1,8 +1,14 @@
-"""Recommender engine: combine skill ROI + cluster persona + satisfaction coefs.
+"""KNN-based upskilling recommender.
 
-  Given a user profile (role, WorkExp, current skills, country, AI use),
-  return the top-N next skills to learn, with the statistical evidence
-  for each suggestion.
+  1. Build the user's binary skill vector in the 86-skill cluster space.
+  2. Find the k nearest developers in the survey by Hamming distance on
+     the binary skill matrix (KNN -- Module 4).
+  3. For every skill the user does NOT have, compute
+        score(s) = neighbour_prevalence(s)
+                 + 0.5 * regression_skill_ROI(s)
+                 + 0.3 * neighbour_salary_premium
+     and rank.
+  4. Return the top N with the per-skill evidence strings.
 """
 from __future__ import annotations
 
@@ -13,101 +19,136 @@ from typing import Iterable
 import joblib
 import numpy as np
 import pandas as pd
+from sklearn.neighbors import NearestNeighbors
+import warnings
+from sklearn.exceptions import DataConversionWarning
+warnings.filterwarnings("ignore", category=DataConversionWarning)
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 
 
 class SkillRadar:
-    def __init__(self):
+    def __init__(self) -> None:
         cluster = joblib.load(DATA / "cluster_model.joblib")
-        self.skills: list[str] = cluster["skills"]
-        self.pca = cluster["pca"]
-        self.km = cluster["kmeans"]
-        self.labels = cluster["labels"]
-        self.Xp = cluster["Xp"]
+        self.skills: list[str] = cluster["skills"]  # the 86 cluster-space skills
+        self.personas: dict[int, dict] = {
+            p["cluster"]: p
+            for p in json.loads((DATA / "cluster_meta.json").read_text())["personas"]
+        }
         self.roi = pd.read_csv(DATA / "skill_roi.csv")
         self.roi_map: dict[str, dict] = {r["skill"]: r.to_dict() for _, r in self.roi.iterrows()}
         sat = pd.read_csv(DATA / "satisfaction_coefs.csv")
         self.sat_map: dict[str, float] = dict(zip(sat["feature"], sat["coef"]))
-        meta = json.loads((DATA / "cluster_meta.json").read_text())
-        self.personas = {p["cluster"]: p for p in meta["personas"]}
-        self.best_k = meta["best_k"]
-        # Full processed dataset for neighbor lookups (load on demand)
-        self._df = None
-        self._Xp_df = None
+        self._df: pd.DataFrame | None = None
+        self._nn: NearestNeighbors | None = None
+        self._nn_X: np.ndarray | None = None
 
-    def _load_df(self):
+    # --- data accessors --------------------------------------------------------
+    def _data(self) -> pd.DataFrame:
         if self._df is None:
             self._df = pd.read_parquet(DATA / "processed.parquet")
-            self._Xp_df = self._Xp_df  # placeholder
         return self._df
 
-    def _skill_vector(self, current_skills: Iterable[str]) -> np.ndarray:
-        v = np.zeros(len(self.skills), dtype=float)
-        for s in current_skills:
-            for i, name in enumerate(self.skills):
-                if s.lower() == name.lower() or s.lower() == name[len(name.split('_', 1)[0] + '_'):]:
-                    v[i] = 1
-                    break
-        return v
+    def _skill_matrix(self) -> np.ndarray:
+        X = self._nn_X
+        if X is None:
+            X = self._data()[self.skills].astype(float).values
+            self._nn_X = X
+        return X
 
+    # --- persona (overlap-based, for display) ---------------------------------
     def persona_for(self, current_skills: Iterable[str]) -> int:
-        v = self._skill_vector(current_skills).reshape(1, -1)
-        Xs = (v - v.mean()) / (v.std() + 1e-9)
-        # Match the scaler used at training time -- we need it from disk
-        sc = joblib.load(DATA / "cluster_model.joblib")["scaler"]
-        Xp = self.pca.transform(sc.transform(v))
-        return int(self.km.predict(Xp)[0])
+        have = {s for s in current_skills}
+        best, best_score = None, -1.0
+        for cid, p in self.personas.items():
+            score = sum(ts["lift"] for ts in p["top_skills"] if ts["skill"] in have)
+            score += 1e-6 * p["n"]  # deterministic tie-break
+            if score > best_score:
+                best, best_score = cid, score
+        if best is None or best_score <= 0:
+            best = max(self.personas, key=lambda c: self.personas[c]["n"])
+        return int(best)
 
-    def recommend(self, current_skills: Iterable[str], top_n: int = 5) -> dict:
-        skills_have = list(current_skills)
-        v = self._skill_vector(skills_have)
-        persona_id = self.persona_for(skills_have)
+    # --- KNN recommender -------------------------------------------------------
+    def recommend(self, current_skills: Iterable[str], top_n: int = 5,
+                  k_neighbors: int = 300) -> dict:
+        df = self._data()
+        have = {s for s in current_skills}
+        persona_id = self.persona_for(current_skills)
         persona = self.personas.get(persona_id, {})
 
-        # Candidate skills: present in this persona's top skills OR globally strong,
-        # but the user does NOT already have.
-        have_set = {s.lower() for s in skills_have}
-        candidates: dict[str, float] = {}
-        for s in self.skills:
-            if s.lower() in have_set:
-                continue
-            roi = self.roi_map.get(s)
-            if not roi:
-                continue
-            # Score = standardized ROI coef + satisfaction coef + persona prevalence
-            sat = self.sat_map.get(s, 0.0)
-            # Find this skill in persona top list (use lift if available)
-            lift = 0.0
-            for ts in persona.get("top_skills", []):
-                if ts["skill"] == s:
-                    lift = ts["lift"]
-                    break
-            score = (roi["coef_log_comp"] * 1.0) + (sat * 0.5) + (np.log1p(max(lift - 1, 0)) * 0.3)
-            if roi["p_value"] < 0.05:
-                score += 0.1  # small bonus for statistical significance
-            candidates[s] = float(score)
+        # Cold-start: no skills listed -> recommend globally high-ROI,
+        # high-prevalence skills. Still evidence-backed, just not personalised.
+        if not have:
+            return self._cold_start(top_n)
 
-        ranked = sorted(candidates.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
+        skills = self.skills
+        v = np.array([1.0 if s in have else 0.0 for s in skills], dtype=float).reshape(1, -1)
+        X = self._skill_matrix()
+        if self._nn is None:
+            self._nn = NearestNeighbors(
+                n_neighbors=min(k_neighbors, X.shape[0]),
+                metric="jaccard", n_jobs=-1,
+            ).fit(X)
+        dists, idxs = self._nn.kneighbors(v)
+        # Drop neighbours that are identical-empty to the user (Jaccard undefined
+        # = 0/0; sklearn returns dist=1 for them). Keep only those with finite,
+        # non-trivial distance.
+        keep = np.isfinite(dists[0])
+        idxs = idxs[0][keep]
+        if len(idxs) == 0:
+            return self._cold_start(top_n)
+        neighbours = df.iloc[idxs]
+        nbr_log_comp = neighbours["log_comp"].mean()
+        overall_log_comp = df["log_comp"].mean()
+        salary_premium = float(nbr_log_comp - overall_log_comp)
+
+        cand: dict[str, float] = {}
+        for s in skills:
+            if s in have:
+                continue
+            freq = float(neighbours[s].mean())
+            if freq <= 0.02:
+                continue
+            roi = self.roi_map.get(s, {})
+            roi_coef = float(roi.get("coef_log_comp", 0.0))
+            # Only recommend skills associated with higher compensation.
+            # A negative-ROI recommendation is an honest but counter-productive
+            # product signal; surface it in the coefficient chart instead.
+            if roi_coef <= 0:
+                continue
+            p_val = float(roi.get("p_value", 1.0))
+            score = freq + 0.5 * roi_coef + 0.2 * max(salary_premium, 0.0)
+            if p_val < 0.05:
+                score += 0.05
+            cand[s] = float(score)
+
+        ranked = sorted(cand.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
+
         recs = []
         for skill, score in ranked:
             roi = self.roi_map.get(skill, {})
-            sat = self.sat_map.get(skill, 0.0)
+            n_users = int(roi.get("users", 0))
+            nbr_pct = float(neighbours[skill].mean() * 100)
             recs.append({
                 "skill": skill,
                 "score": round(score, 4),
-                "salary_impact_pct": round(roi.get("pct_salary_impact", float("nan")), 1),
-                "salary_p_value": round(roi.get("p_value", float("nan")), 4),
-                "salary_ci_pct": [round(roi.get("ci_lo", float("nan")), 1),
-                                   round(roi.get("ci_hi", float("nan")), 1)],
-                "satisfaction_coef": round(float(sat), 3),
-                "n_known": int(roi.get("users", 0)),
+                "salary_impact_pct": round(float(roi.get("pct_salary_impact", float("nan"))), 1),
+                "salary_p_value": round(float(roi.get("p_value", float("nan"))), 4),
+                "salary_ci_pct": [
+                    round(float(roi.get("ci_lo", float("nan"))), 1),
+                    round(float(roi.get("ci_hi", float("nan"))), 1),
+                ],
+                "satisfaction_coef": round(float(self.sat_map.get(skill, 0.0)), 3),
+                "n_known": n_users,
+                "nbr_prevalence_pct": round(nbr_pct, 1),
                 "evidence": (
-                    f"Knowing {skill} is associated with "
+                    f"{nbr_pct:.0f}% of your {len(neighbours)} nearest peers in the "
+                    f"survey know {skill}; associated with "
                     f"{roi.get('pct_salary_impact', 0):+.1f}% log-comp change "
-                    f"(p={roi.get('p_value', 1):.3g}, n={int(roi.get('users', 0)):,})"
-                    + (f"; satisfaction coef = {sat:+.3f}" if sat else "")
+                    f"(p={roi.get('p_value', 1):.3g}, n={n_users:,}); "
+                    f"your peers earn {salary_premium:+.2f} log-points more than average."
                 ),
             })
 
@@ -115,6 +156,53 @@ class SkillRadar:
             "persona_id": persona_id,
             "persona_top_skills": [s["skill"] for s in persona.get("top_skills", [])[:5]],
             "persona_size": int(persona.get("n", 0)),
+            "n_neighbours": int(len(neighbours)),
+            "salary_premium_log": float(salary_premium),
+            "recommendations": recs,
+        }
+
+    # --- cold start ------------------------------------------------------------
+    def _cold_start(self, top_n: int) -> dict:
+        """No skills entered: recommend the globally most lucrative skills."""
+        df = self._data()
+        overall = df["log_comp"].mean()
+        persona_id = max(self.personas, key=lambda c: self.personas[c]["n"])
+        persona = self.personas[persona_id]
+        cand = []
+        for _, roi in self.roi.iterrows():
+            s = roi["skill"]
+            global_freq = float(df[s].mean())
+            if global_freq < 0.03 or roi["coef_log_comp"] <= 0:
+                continue
+            score = float(roi["coef_log_comp"]) + 0.3 * global_freq
+            if roi["p_value"] < 0.05:
+                score += 0.05
+            cand.append((s, score, roi, global_freq))
+        cand.sort(key=lambda t: t[1], reverse=True)
+        recs = []
+        for s, score, roi, freq in cand[:top_n]:
+            recs.append({
+                "skill": s,
+                "score": round(score, 4),
+                "salary_impact_pct": round(float(roi["pct_salary_impact"]), 1),
+                "salary_p_value": round(float(roi["p_value"]), 4),
+                "salary_ci_pct": [round(float(roi["ci_lo"]), 1),
+                                   round(float(roi["ci_hi"]), 1)],
+                "satisfaction_coef": round(float(self.sat_map.get(s, 0.0)), 3),
+                "n_known": int(roi["users"]),
+                "nbr_prevalence_pct": round(freq * 100, 1),
+                "evidence": (
+                    f"Cold-start recommendation: {freq*100:.0f}% of the survey "
+                    f"know {s}; associated with {roi['pct_salary_impact']:+.1f}% "
+                    f"log-comp change (p={roi['p_value']:.3g}, n={int(roi['users']):,})."
+                ),
+            })
+        return {
+            "persona_id": int(persona_id),
+            "persona_top_skills": [s["skill"] for s in persona.get("top_skills", [])[:5]],
+            "persona_size": int(persona.get("n", 0)),
+            "n_neighbours": 0,
+            "salary_premium_log": 0.0,
             "recommendations": recs,
         }
 

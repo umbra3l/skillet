@@ -43,14 +43,14 @@ def main() -> None:
     plt.close(fig)
 
     # ---- 2. Job-satisfaction distribution (bar) ------------------------------
-    fig, ax = plt.subplots(figsize=(6, 3.5))
-    js = df["JobSat_num"].value_counts().sort_index()
-    labels = {1: "Very dissatisfied", 2: "Slightly dissatisfied",
-              3: "Neutral", 4: "Slightly satisfied", 5: "Very satisfied"}
-    ax.bar(js.index, js.values, color="#55A868", edgecolor="white")
-    ax.set_xticks(list(js.index))
-    ax.set_xticklabels([labels[i] for i in js.index], rotation=20, ha="right")
-    ax.set_title("Overall job satisfaction (1-5)")
+    # 2025 uses a 0-10 numeric scale; bucket into 5 readable groups.
+    fig, ax = plt.subplots(figsize=(7, 3.5))
+    js = df["JobSat_num"].dropna()
+    bins = [-0.5, 2.5, 4.5, 6.5, 8.5, 10.5]
+    labels = ["0-2 (low)", "3-4", "5-6", "7-8", "9-10 (high)"]
+    js_b = pd.cut(js, bins=bins, labels=labels).value_counts().sort_index()
+    ax.bar(js_b.index.astype(str), js_b.values, color="#55A868", edgecolor="white")
+    ax.set_title("Overall job satisfaction (0-10 scale, bucketed)")
     ax.set_ylabel("Respondents")
     fig.tight_layout()
     fig.savefig(ASSETS / "01_jobsat_bar.png", dpi=140)
