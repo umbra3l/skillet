@@ -147,11 +147,17 @@ current skills `S`:
 3. Find the k=300 nearest developers in the survey by **Jaccard distance**
    on the binary skill matrix (KNN — Module 4).
 4. For every skill the user does NOT have, score:
-   `score(s) = neighbour_prevalence(s) + 0.5 · β_s + 0.2 · peer_salary_premium`,
-   plus a 0.05 bonus if the ROI is significant at p < 0.05.
+   `score(s) = neighbour_prevalence(s) + 0.5 · β_s + 0.2 · peer_salary_premium
+              + 0.3 · peer_want_fraction(s)`,
+   plus a 0.05 bonus if the ROI is significant at p < 0.05. The
+   `peer_want_fraction` is loaded once from the 2025
+   `*WantToWorkWith` columns (`src/want.py`) and gives a real
+   *demand* signal from the user's peers.
 5. Drop skills with β_s ≤ 0 (negative ROI) — they appear in the
    coefficient chart but are not "upskilling recommendations".
-6. Return the top 5 with the evidence string used in the Streamlit UI.
+6. Return the top 5 with the evidence string used in the Streamlit UI
+   (now reports both "X% of peers know it" and "Y% of peers want to
+   learn it").
 
 A **cold-start** path handles empty input by recommending the globally
 high-ROI, high-prevalence skills (Docker, Kubernetes, Terraform,
@@ -191,3 +197,106 @@ currency heterogeneity, and single-year snapshot. Future work: explicit
 FX conversion, panel methods across multiple survey years, causal
 inference with a work-history subsample, and a privacy-preserving
 on-prem deployment for enterprise L&D.
+
+## 9. Additional analyses (v2)
+
+The pipeline was extended with four new analyses that deepen Modules 4
+and 5 and turn the recommender into a real product.
+
+### 9.1 Model comparison on the satisfaction target (Module 4)
+
+A decision tree (`max_depth=6`, balanced class weights) and a Gaussian
+Naive Bayes were fit on the *same* design matrix and 75/25 stratified
+split as the logistic regression:
+
+| Model | AUC | F1 | Accuracy |
+|---|---|---|---|
+| Logistic regression | 0.562 | 0.602 | 0.549 |
+| **Naive Bayes** | **0.566** | 0.579 | 0.550 |
+| Decision tree (max_depth=6) | 0.552 | 0.569 | 0.539 |
+
+All three models agree on a single message: `JobSat_high` is only weakly
+predictable from observable skills and work arrangement (AUC barely
+above random), confirming the well-known dominance of intrinsic factors.
+Top features by tree Gini importance: `WorkExp` (0.44), `rw_Flexible`
+(0.05), `lang_JavaScript` (0.04). See `assets/04_roc_compare.png` and
+`assets/04_tree_importance.png`.
+
+### 9.2 Factor Analysis (Module 5)
+
+18 factors chosen by Kaiser criterion (eigenvalue > 1) on the 86-skill
+correlation matrix, varimax-rotated. Cumulative variance explained:
+50.1%. The factors map cleanly onto technology ecosystems:
+
+| Factor | Theme | Top skills |
+|---|---|---|
+| F1 | JS / web front-end | React, Node.js, Next.js |
+| F2 | .NET / Microsoft | ASP.NET Core, C#, NuGet |
+| F3 | Java / enterprise | Java, Spring Boot, Maven |
+| F4 | OpenAI tooling | GPT chatbot, GPT reasoning, image models |
+| F5 | Linux CLI / DevOps | APT, Docker, Pip |
+| F7 | Native / systems | C++, C, Make |
+| F8 | Mobile | Android Studio, Dart, Swift |
+
+This is the *latent ecosystem* structure underneath the 51 PCA
+components and the 3 K-means personas. Scree plot:
+`assets/factor_scree.png`. Loadings: `data/factor_loadings.csv`.
+
+### 9.3 One-way ANOVA across personas
+
+| Statistic | Value |
+|---|---|
+| F (df1=2, df2=19207) | 16.90 |
+| p | 4.66×10⁻⁸ |
+| η² | 0.00176 (small effect) |
+| Mean log-comp: .NET | 11.839 (n=3,439) |
+| Mean log-comp: Systems/enterprise | 11.748 (n=8,868) |
+| Mean log-comp: JS/web | 11.951 (n=6,903) |
+
+Pairwise (Bonferroni-corrected Welch t): .NET vs Systems p_adj=0.073,
+.NET vs JS/web p_adj=0.021, **Systems vs JS/web p_adj=3.57×10⁻⁸** —
+JS/web developers earn meaningfully more than Systems/enterprise devs
+(~20% higher compensation after exp). Box plot:
+`assets/anova_personas.png`.
+
+### 9.4 Skill co-occurrence network (Module 5)
+
+86 skills as nodes; edges where Jaccard similarity > 0.30 → **182 edges,
+38 connected components** (many rare skills are isolated at the
+threshold). The "connective tissue" hubs (top-5 by degree centrality):
+
+| Skill | Degree |
+|---|---|
+| `plat_npm` | 0.235 |
+| `plat_Docker` | 0.224 |
+| `lang_SQL` | 0.212 |
+| `db_PostgreSQL` | 0.200 |
+| `aimodel_openAI_GPT_chatbot_models` | 0.200 |
+
+Modularity against the 3-persona partition is 0.21 (weak separation).
+Greedy modularity maximisation finds a different partition at
+modularity 0.38, dominated by a 20-node community — the persona
+labels don't capture the true community structure; architectural /
+ecosystem groupings do. Graph (Spring layout, persona-coloured):
+`assets/skill_network.png`. Node-link JSON:
+`data/skill_network.json`.
+
+### 9.5 "What if I learn this?" salary calculator
+
+A new widget in the Streamlit app (`src/salary_calc.py`) sums the
+per-skill MLR coefficients of user-picked candidate skills, converts
+the log-point sum to a percent via `exp()`, and shows the per-skill
+breakdown with each skill's 95% CI. An honest caveat is displayed:
+the sum assumes independent effects, so the true joint lift is
+smaller than the naive sum (skills cluster).
+
+### 9.6 WantToWorkWith demand signal
+
+`src/want.py` loads the 2025 `*WantToWorkWith` columns for the
+~19k respondents in the processed dataset (cached after the first
+call). The recommender adds `0.3 · peer_want_fraction(s)` to each
+candidate's score, where `peer_want_fraction(s)` is the share of the
+user's k=300 nearest peers who said they *want* to learn skill `s`.
+The evidence string now reports both "X% of peers know it" and "Y% of
+peers want to learn it", giving the recommendation a real demand
+signal on top of the salary ROI prior.

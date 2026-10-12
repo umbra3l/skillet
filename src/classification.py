@@ -1,9 +1,15 @@
-"""Module 4: Binary Logistic Regression + ROC/confusion matrix.
+"""Module 4: Binary Logistic Regression + Decision Tree + Gaussian NB.
 
   Target : JobSat_high  (1 = JobSat >= 7 on the 0-10 scale)
   Features: WorkExp + ai_user + RemoteWork dummies + OrgSize + top-K skills
   Eval   : ROC curve, AUC, optimal threshold (Youden's J), confusion matrix
-  Output : data/satisfaction_model.joblib, data/satisfaction_metrics.json
+
+`run()` is the logistic baseline.  `run_tree_and_nb()` refits a Decision Tree
+and a Gaussian Naive Bayes on the *identical* design matrix and 75/25
+stratified split so all three models are directly comparable.
+
+  Output : data/satisfaction_model.joblib, data/satisfaction_model_dt.joblib,
+           data/satisfaction_model_nb.joblib, data/satisfaction_metrics.json
 """
 from __future__ import annotations
 
@@ -18,7 +24,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_score, recall_score, roc_auc_score, roc_curve)
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
 
 warnings.filterwarnings("ignore")
 
@@ -57,9 +65,12 @@ def _engineer(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def run(top_n_skills: int = 30) -> dict:
-    OUT_DIR.mkdir(exist_ok=True)
-    ASSETS.mkdir(exist_ok=True)
+def _modeling_set(top_n_skills: int = 30) -> tuple[list[str], np.ndarray, np.ndarray]:
+    """Load processed data and return (feature names, X, y) for JobSat_high.
+
+    Shared by the logistic baseline and the tree/NB models so every classifier
+    is trained on exactly the same rows and columns.
+    """
     df = pd.read_parquet(PROCESSED)
     df = _engineer(df)
     print(f"loaded {df.shape}")
@@ -75,6 +86,31 @@ def run(top_n_skills: int = 30) -> dict:
 
     X = sub[feat_cols].astype(float).values
     y = sub["JobSat_high"].values
+    return feat_cols, X, y
+
+
+def _threshold_metrics(y_true: np.ndarray, proba: np.ndarray) -> dict:
+    """ROC/AUC + Youden-optimal threshold + accuracy/precision/recall/F1 + confusion matrix."""
+    fpr, tpr, thr = roc_curve(y_true, proba)
+    auc = float(roc_auc_score(y_true, proba))
+    opt = float(thr[int(np.argmax(tpr - fpr))])
+    yhat = (proba >= opt).astype(int)
+    return {
+        "auc": auc,
+        "optimal_threshold_youden": opt,
+        "accuracy_at_opt": float(accuracy_score(y_true, yhat)),
+        "precision_at_opt": float(precision_score(y_true, yhat, zero_division=0)),
+        "recall_at_opt": float(recall_score(y_true, yhat, zero_division=0)),
+        "f1_at_opt": float(f1_score(y_true, yhat, zero_division=0)),
+        "confusion_matrix_at_opt": confusion_matrix(y_true, yhat).tolist(),
+    }
+
+
+def run(top_n_skills: int = 30) -> dict:
+    OUT_DIR.mkdir(exist_ok=True)
+    ASSETS.mkdir(exist_ok=True)
+    feat_cols, X, y = _modeling_set(top_n_skills)
+
     Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
 
     sc = StandardScaler().fit(Xtr)
@@ -116,6 +152,63 @@ def run(top_n_skills: int = 30) -> dict:
     return metrics
 
 
+def run_tree_and_nb(top_n_skills: int = 30) -> dict:
+    """Fit a Decision Tree and a Gaussian Naive Bayes on the logistic design matrix.
+
+    Reuses `_modeling_set()` and the same 75/25 stratified split (random_state=42)
+    as `run()`, so ROC/AUC/F1 are directly comparable across the three models.
+    Writes data/satisfaction_model_dt.joblib and data/satisfaction_model_nb.joblib,
+    and appends a "models" block (logistic + decision tree + naive bayes) to
+    data/satisfaction_metrics.json.
+    """
+    OUT_DIR.mkdir(exist_ok=True)
+    ASSETS.mkdir(exist_ok=True)
+    feat_cols, X, y = _modeling_set(top_n_skills)
+
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+
+    dt = DecisionTreeClassifier(max_depth=6, class_weight="balanced", random_state=42).fit(Xtr, ytr)
+    nb = GaussianNB().fit(Xtr, ytr)
+
+    dt_metrics = _threshold_metrics(yte, dt.predict_proba(Xte)[:, 1])
+    nb_metrics = _threshold_metrics(yte, nb.predict_proba(Xte)[:, 1])
+
+    dt_metrics["top_features_by_importance"] = sorted(
+        [{"feature": f, "importance": float(imp)}
+         for f, imp in zip(feat_cols, dt.feature_importances_)],
+        key=lambda r: r["importance"], reverse=True)[:15]
+
+    print(f"  tree: AUC = {dt_metrics['auc']:.3f}  opt threshold = "
+          f"{dt_metrics['optimal_threshold_youden']:.3f}  F1 = {dt_metrics['f1_at_opt']:.3f}")
+    print(f"  NB  : AUC = {nb_metrics['auc']:.3f}  opt threshold = "
+          f"{nb_metrics['optimal_threshold_youden']:.3f}  F1 = {nb_metrics['f1_at_opt']:.3f}")
+
+    joblib.dump({"model": dt, "features": feat_cols}, OUT_DIR / "satisfaction_model_dt.joblib")
+    joblib.dump({"model": nb, "features": feat_cols}, OUT_DIR / "satisfaction_model_nb.joblib")
+
+    # Keep the logistic metrics saved by run() at the top level, and nest all
+    # three models under "models" for a self-contained comparison.
+    existing = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
+    existing.pop("models", None)
+    models = {
+        "logistic": existing,
+        "decision_tree": dt_metrics,
+        "naive_bayes": nb_metrics,
+    }
+    META_PATH.write_text(json.dumps({**existing, "models": models}, indent=2, default=str))
+    print(f"  saved models -> {OUT_DIR / 'satisfaction_model_dt.joblib'}, "
+          f"{OUT_DIR / 'satisfaction_model_nb.joblib'}")
+    return models
+
+
 if __name__ == "__main__":
     m = run()
+    models = run_tree_and_nb()
     print(json.dumps({k: v for k, v in m.items() if k != "top_features_by_abs_coef"}, indent=2))
+    print("\nModel comparison (Youden-optimal threshold):")
+    print(f"{'model':<16}{'AUC':>9}{'F1':>9}{'accuracy':>10}")
+    for key, label in [("logistic", "Logistic"),
+                       ("decision_tree", "Decision tree"),
+                       ("naive_bayes", "Naive Bayes")]:
+        r = models[key]
+        print(f"{label:<16}{r['auc']:>9.3f}{r['f1_at_opt']:>9.3f}{r['accuracy_at_opt']:>10.3f}")

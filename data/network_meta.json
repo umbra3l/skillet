@@ -1,0 +1,77 @@
+{
+  "n_nodes": 86,
+  "n_edges": 182,
+  "threshold": 0.3,
+  "top10_by_degree": [
+    {
+      "skill": "plat_npm",
+      "degree": 0.2353,
+      "betweenness": 0.0312,
+      "eigenvector": 0.2941,
+      "cluster": 2
+    },
+    {
+      "skill": "plat_Docker",
+      "degree": 0.2235,
+      "betweenness": 0.0258,
+      "eigenvector": 0.2982,
+      "cluster": 2
+    },
+    {
+      "skill": "lang_SQL",
+      "degree": 0.2118,
+      "betweenness": 0.0468,
+      "eigenvector": 0.2776,
+      "cluster": 0
+    },
+    {
+      "skill": "db_PostgreSQL",
+      "degree": 0.2,
+      "betweenness": 0.0129,
+      "eigenvector": 0.2606,
+      "cluster": 2
+    },
+    {
+      "skill": "aimodel_openAI_GPT_chatbot_models",
+      "degree": 0.2,
+      "betweenness": 0.0526,
+      "eigenvector": 0.2199,
+      "cluster": 2
+    },
+    {
+      "skill": "lang_HTML_CSS",
+      "degree": 0.1882,
+      "betweenness": 0.0074,
+      "eigenvector": 0.291,
+      "cluster": 2
+    },
+    {
+      "skill": "lang_JavaScript",
+      "degree": 0.1882,
+      "betweenness": 0.0058,
+      "eigenvector": 0.3072,
+      "cluster": 2
+    },
+    {
+      "skill": "web_Node_js",
+      "degree": 0.1882,
+      "betweenness": 0.0186,
+      "eigenvector": 0.2401,
+      "cluster": 2
+    },
+    {
+      "skill": "devenv_Visual_Studio_Code",
+      "degree": 0.1882,
+      "betweenness": 0.0405,
+      "eigenvector": 0.273,
+      "cluster": 0
+    },
+    {
+      "skill": "plat_Amazon_Web_Services_AWS",
+      "degree": 0.1765,
+      "betweenness": 0.0023,
+      "eigenvector": 0.2187,
+      "cluster": 2
+    }
+  ]
+}

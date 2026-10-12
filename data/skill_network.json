@@ -1,0 +1,2433 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "degree": 0.15294117647058825,
+      "betweenness": 0.0003287426081543729,
+      "eigenvector": 0.22065378004216213,
+      "cluster": 2,
+      "id": "lang_Bash_Shell_all_shells"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 2.855750946251433e-12,
+      "cluster": 1,
+      "id": "lang_C"
+    },
+    {
+      "degree": 0.10588235294117647,
+      "betweenness": 0.024745898359343734,
+      "eigenvector": 0.03504641816799102,
+      "cluster": 0,
+      "id": "lang_C_2"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 2.855750946251433e-12,
+      "cluster": 1,
+      "id": "lang_C_3"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Dart"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Go"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Groovy"
+    },
+    {
+      "degree": 0.18823529411764706,
+      "betweenness": 0.00742036208422763,
+      "eigenvector": 0.29103678723529025,
+      "cluster": 2,
+      "id": "lang_HTML_CSS"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 1.825656539991834e-09,
+      "cluster": 2,
+      "id": "lang_Java"
+    },
+    {
+      "degree": 0.18823529411764706,
+      "betweenness": 0.005833838585939425,
+      "eigenvector": 0.30719238451412384,
+      "cluster": 2,
+      "id": "lang_JavaScript"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 5.83973667294793e-13,
+      "cluster": 2,
+      "id": "lang_Kotlin"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Lua"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.011484593837535013,
+      "eigenvector": 0.005306025796293279,
+      "cluster": 2,
+      "id": "lang_PHP"
+    },
+    {
+      "degree": 0.047058823529411764,
+      "betweenness": 0.0,
+      "eigenvector": 0.004823069400160078,
+      "cluster": 0,
+      "id": "lang_PowerShell"
+    },
+    {
+      "degree": 0.16470588235294117,
+      "betweenness": 0.001152647927858012,
+      "eigenvector": 0.23310667699744542,
+      "cluster": 2,
+      "id": "lang_Python"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Ruby"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Rust"
+    },
+    {
+      "degree": 0.21176470588235294,
+      "betweenness": 0.04676354380135893,
+      "eigenvector": 0.27757547037548636,
+      "cluster": 0,
+      "id": "lang_SQL"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "lang_Swift"
+    },
+    {
+      "degree": 0.16470588235294117,
+      "betweenness": 0.0014795008912655962,
+      "eigenvector": 0.26839921926998417,
+      "cluster": 2,
+      "id": "lang_TypeScript"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "db_BigQuery"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "db_Dynamodb"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "db_Elasticsearch"
+    },
+    {
+      "degree": 0.023529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 0.005014575761742009,
+      "cluster": 2,
+      "id": "db_MariaDB"
+    },
+    {
+      "degree": 0.09411764705882353,
+      "betweenness": 0.0144984660530879,
+      "eigenvector": 0.02237879931723684,
+      "cluster": 0,
+      "id": "db_Microsoft_SQL_Server"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "db_MongoDB"
+    },
+    {
+      "degree": 0.08235294117647059,
+      "betweenness": 0.032773109243697474,
+      "eigenvector": 0.08403033965409096,
+      "cluster": 2,
+      "id": "db_MySQL"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 0,
+      "id": "db_Oracle"
+    },
+    {
+      "degree": 0.2,
+      "betweenness": 0.012922674120153107,
+      "eigenvector": 0.2605884985078974,
+      "cluster": 2,
+      "id": "db_PostgreSQL"
+    },
+    {
+      "degree": 0.047058823529411764,
+      "betweenness": 0.0,
+      "eigenvector": 0.060836069406172456,
+      "cluster": 2,
+      "id": "db_Redis"
+    },
+    {
+      "degree": 0.07058823529411765,
+      "betweenness": 0.0,
+      "eigenvector": 0.08954061738879504,
+      "cluster": 2,
+      "id": "db_SQLite"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_APT"
+    },
+    {
+      "degree": 0.1764705882352941,
+      "betweenness": 0.002327951382573231,
+      "eigenvector": 0.2187298365970631,
+      "cluster": 2,
+      "id": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_Cloudflare"
+    },
+    {
+      "degree": 0.22352941176470587,
+      "betweenness": 0.025791821779216746,
+      "eigenvector": 0.29822484067447846,
+      "cluster": 2,
+      "id": "plat_Docker"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_Firebase"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_Google_Cloud"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 5.83973667294793e-13,
+      "cluster": 2,
+      "id": "plat_Gradle"
+    },
+    {
+      "degree": 0.023529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 0.030600028328077605,
+      "cluster": 2,
+      "id": "plat_Homebrew"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.011484593837535013,
+      "eigenvector": 0.033177780025030454,
+      "cluster": 2,
+      "id": "plat_Kubernetes"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_Make"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 1.7283504595006674e-09,
+      "cluster": 2,
+      "id": "plat_Maven_build_tool"
+    },
+    {
+      "degree": 0.058823529411764705,
+      "betweenness": 0.0,
+      "eigenvector": 0.005450973565401592,
+      "cluster": 0,
+      "id": "plat_Microsoft_Azure"
+    },
+    {
+      "degree": 0.08235294117647059,
+      "betweenness": 0.0002661064425770308,
+      "eigenvector": 0.007670428424023875,
+      "cluster": 0,
+      "id": "plat_NuGet"
+    },
+    {
+      "degree": 0.10588235294117647,
+      "betweenness": 0.0,
+      "eigenvector": 0.1441218209687682,
+      "cluster": 2,
+      "id": "plat_Pip"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 0.0017224833028959571,
+      "cluster": 2,
+      "id": "plat_Terraform"
+    },
+    {
+      "degree": 0.07058823529411765,
+      "betweenness": 0.0008056555955715619,
+      "eigenvector": 0.07787885837173235,
+      "cluster": 2,
+      "id": "plat_Vite"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 9.337068160597572e-05,
+      "eigenvector": 0.021392036845103345,
+      "cluster": 2,
+      "id": "plat_Webpack"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.00014939309056956115,
+      "eigenvector": 0.028113422791459765,
+      "cluster": 2,
+      "id": "plat_Yarn"
+    },
+    {
+      "degree": 0.23529411764705882,
+      "betweenness": 0.03118288729633267,
+      "eigenvector": 0.29407581635186014,
+      "cluster": 2,
+      "id": "plat_npm"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "plat_pnpm"
+    },
+    {
+      "degree": 0.058823529411764705,
+      "betweenness": 0.0,
+      "eigenvector": 0.005873066182144585,
+      "cluster": 0,
+      "id": "web_ASP_NET"
+    },
+    {
+      "degree": 0.07058823529411765,
+      "betweenness": 5.6022408963585436e-05,
+      "eigenvector": 0.007977349028460786,
+      "cluster": 0,
+      "id": "web_ASP_NET_Core"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 0,
+      "id": "web_Angular"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "web_Django"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 0.014346628542969772,
+      "cluster": 2,
+      "id": "web_Express"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "web_FastAPI"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "web_Flask"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 0.00031001262461175606,
+      "cluster": 2,
+      "id": "web_Laravel"
+    },
+    {
+      "degree": 0.023529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 0.026262072846985503,
+      "cluster": 2,
+      "id": "web_Next_js"
+    },
+    {
+      "degree": 0.18823529411764706,
+      "betweenness": 0.018568563789152025,
+      "eigenvector": 0.24013204034685967,
+      "cluster": 2,
+      "id": "web_Node_js"
+    },
+    {
+      "degree": 0.16470588235294117,
+      "betweenness": 0.01061062303709363,
+      "eigenvector": 0.20982155037123207,
+      "cluster": 2,
+      "id": "web_React"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 1.710022603616743e-09,
+      "cluster": 2,
+      "id": "web_Spring_Boot"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "web_Vue_js"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "web_WordPress"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 0,
+      "id": "web_jQuery"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_Android_Studio"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_Cursor"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 1.6886718039452492e-09,
+      "cluster": 2,
+      "id": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_Jupyter_Notebook_JupyterLab"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_Neovim"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 0.0012960365230604424,
+      "cluster": 0,
+      "id": "devenv_Notepad"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_PyCharm"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "devenv_Vim"
+    },
+    {
+      "degree": 0.10588235294117647,
+      "betweenness": 0.02199813258636788,
+      "eigenvector": 0.021137401080169177,
+      "cluster": 0,
+      "id": "devenv_Visual_Studio"
+    },
+    {
+      "degree": 0.18823529411764706,
+      "betweenness": 0.040459870817013646,
+      "eigenvector": 0.27297947259804245,
+      "cluster": 0,
+      "id": "devenv_Visual_Studio_Code"
+    },
+    {
+      "degree": 0.047058823529411764,
+      "betweenness": 0.005929038281979457,
+      "eigenvector": 0.016894191079658505,
+      "cluster": 2,
+      "id": "aimodel_Anthropic"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 1.4953743540420718e-12,
+      "cluster": 2,
+      "id": "aimodel_DeepSeek_R_Reasoning_models"
+    },
+    {
+      "degree": 0.011764705882352941,
+      "betweenness": 0.0,
+      "eigenvector": 1.4953743540420718e-12,
+      "cluster": 2,
+      "id": "aimodel_DeepSeek_V_General_purpose_models"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.005415499533146591,
+      "eigenvector": 0.012828424538736302,
+      "cluster": 2,
+      "id": "aimodel_Gemini_Flash_general_purpose_models"
+    },
+    {
+      "degree": 0.023529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 0.0018486436829193746,
+      "cluster": 2,
+      "id": "aimodel_Gemini_Pro_Reasoning_models"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "aimodel_Meta_Llama_all_models"
+    },
+    {
+      "degree": 0.0,
+      "betweenness": 0.0,
+      "eigenvector": 7.80377658105779e-15,
+      "cluster": 2,
+      "id": "aimodel_X_Grok_models"
+    },
+    {
+      "degree": 0.2,
+      "betweenness": 0.052618623206858506,
+      "eigenvector": 0.21990791898125597,
+      "cluster": 2,
+      "id": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "degree": 0.023529411764705882,
+      "betweenness": 0.0,
+      "eigenvector": 0.012220511318418148,
+      "cluster": 2,
+      "id": "aimodel_openAI_Image_generating_models"
+    },
+    {
+      "degree": 0.03529411764705882,
+      "betweenness": 0.00023342670401493927,
+      "eigenvector": 0.015515960195118273,
+      "cluster": 2,
+      "id": "aimodel_openAI_Reasoning_models"
+    }
+  ],
+  "edges": [
+    {
+      "weight": 0.42468061210164254,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_HTML_CSS"
+    },
+    {
+      "weight": 0.42820855614973263,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_JavaScript"
+    },
+    {
+      "weight": 0.45177586072899667,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.42240282685512365,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.35702977761025256,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.38423230156297883,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.334084272006675,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4795325935180422,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3490772885072172,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.3874159387802427,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.31582419394739014,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4029328669447061,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3242051520074263,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.44615042278593675,
+      "source": "lang_C",
+      "target": "lang_C_3"
+    },
+    {
+      "weight": 0.3479654403567447,
+      "source": "lang_C_2",
+      "target": "lang_PowerShell"
+    },
+    {
+      "weight": 0.3117179507358149,
+      "source": "lang_C_2",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.49675090252707577,
+      "source": "lang_C_2",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.3459286112660346,
+      "source": "lang_C_2",
+      "target": "plat_Microsoft_Azure"
+    },
+    {
+      "weight": 0.5216473072861668,
+      "source": "lang_C_2",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.37298170075349835,
+      "source": "lang_C_2",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.5503043322592195,
+      "source": "lang_C_2",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.5533168009919405,
+      "source": "lang_C_2",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.31040976197649894,
+      "source": "lang_C_2",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.7454252671643976,
+      "source": "lang_HTML_CSS",
+      "target": "lang_JavaScript"
+    },
+    {
+      "weight": 0.40569986049292495,
+      "source": "lang_HTML_CSS",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.567318358291736,
+      "source": "lang_HTML_CSS",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.5546531045999696,
+      "source": "lang_HTML_CSS",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.34260194174757286,
+      "source": "lang_HTML_CSS",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.4299533718421602,
+      "source": "lang_HTML_CSS",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.31427906615993173,
+      "source": "lang_HTML_CSS",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.34476481724188146,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4982772329711105,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.30193580826280064,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Vite"
+    },
+    {
+      "weight": 0.5346304086538461,
+      "source": "lang_HTML_CSS",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.45862341772151893,
+      "source": "lang_HTML_CSS",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.42960572912567874,
+      "source": "lang_HTML_CSS",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5311331277475231,
+      "source": "lang_HTML_CSS",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.39437922447527574,
+      "source": "lang_HTML_CSS",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.4066481994459834,
+      "source": "lang_Java",
+      "target": "plat_Maven_build_tool"
+    },
+    {
+      "weight": 0.38694992412746587,
+      "source": "lang_Java",
+      "target": "web_Spring_Boot"
+    },
+    {
+      "weight": 0.44501979896436183,
+      "source": "lang_Java",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.4294900649475918,
+      "source": "lang_JavaScript",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.5787824231512969,
+      "source": "lang_JavaScript",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.592713029340034,
+      "source": "lang_JavaScript",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.3538870039828883,
+      "source": "lang_JavaScript",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.4641696017339474,
+      "source": "lang_JavaScript",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.3119947563906489,
+      "source": "lang_JavaScript",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.37802383807038575,
+      "source": "lang_JavaScript",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.5360965168320685,
+      "source": "lang_JavaScript",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3011081119477198,
+      "source": "lang_JavaScript",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.5753645489851249,
+      "source": "lang_JavaScript",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.4946747375680024,
+      "source": "lang_JavaScript",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4527603655313043,
+      "source": "lang_JavaScript",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5699215232214074,
+      "source": "lang_JavaScript",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.4131965811965812,
+      "source": "lang_JavaScript",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3095754570808801,
+      "source": "lang_Kotlin",
+      "target": "plat_Gradle"
+    },
+    {
+      "weight": 0.349741468459152,
+      "source": "lang_PHP",
+      "target": "db_MariaDB"
+    },
+    {
+      "weight": 0.35304475421863535,
+      "source": "lang_PHP",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.3471654003506721,
+      "source": "lang_PHP",
+      "target": "web_Laravel"
+    },
+    {
+      "weight": 0.3210001445295563,
+      "source": "lang_PowerShell",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.31484762579730685,
+      "source": "lang_PowerShell",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.324251091374379,
+      "source": "lang_PowerShell",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.43488960284366673,
+      "source": "lang_Python",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.3475962568754911,
+      "source": "lang_Python",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.421673175127666,
+      "source": "lang_Python",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.30782356454227455,
+      "source": "lang_Python",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.3496436293745495,
+      "source": "lang_Python",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.48528579513299375,
+      "source": "lang_Python",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.5076195987654322,
+      "source": "lang_Python",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.3739136785218725,
+      "source": "lang_Python",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3046614441945241,
+      "source": "lang_Python",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4589910660307651,
+      "source": "lang_Python",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3691183188670626,
+      "source": "lang_Python",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.43873069839920664,
+      "source": "lang_SQL",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.3404502783085487,
+      "source": "lang_SQL",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.3604355428389763,
+      "source": "lang_SQL",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.48646874316142685,
+      "source": "lang_SQL",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.32963461995720056,
+      "source": "lang_SQL",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.3580705009276438,
+      "source": "lang_SQL",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.5075569288641096,
+      "source": "lang_SQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31036599401519216,
+      "source": "lang_SQL",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.45765882437585437,
+      "source": "lang_SQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3693126452289933,
+      "source": "lang_SQL",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.33568353866706246,
+      "source": "lang_SQL",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5016204303863105,
+      "source": "lang_SQL",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.38156865533669915,
+      "source": "lang_SQL",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.4222707083300865,
+      "source": "lang_TypeScript",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.3535860741484643,
+      "source": "lang_TypeScript",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4751325056269513,
+      "source": "lang_TypeScript",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3602835422231354,
+      "source": "lang_TypeScript",
+      "target": "plat_Vite"
+    },
+    {
+      "weight": 0.571131519667302,
+      "source": "lang_TypeScript",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.5125562218890555,
+      "source": "lang_TypeScript",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.5145529153545185,
+      "source": "lang_TypeScript",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4803011115801322,
+      "source": "lang_TypeScript",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.375,
+      "source": "lang_TypeScript",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3325036603221083,
+      "source": "db_MariaDB",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.36834208552138037,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "plat_Microsoft_Azure"
+    },
+    {
+      "weight": 0.38117126319373507,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.3449187759727994,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.44146860588861303,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.4264882742032472,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.31333895834931347,
+      "source": "db_MySQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3191169977924945,
+      "source": "db_MySQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.36824750266705464,
+      "source": "db_PostgreSQL",
+      "target": "db_Redis"
+    },
+    {
+      "weight": 0.3366030881017257,
+      "source": "db_PostgreSQL",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.4083774173965832,
+      "source": "db_PostgreSQL",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.533017448856799,
+      "source": "db_PostgreSQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3218029350104822,
+      "source": "db_PostgreSQL",
+      "target": "plat_Kubernetes"
+    },
+    {
+      "weight": 0.3386219805686781,
+      "source": "db_PostgreSQL",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.43805309734513276,
+      "source": "db_PostgreSQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3617879348008738,
+      "source": "db_PostgreSQL",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3636519209377941,
+      "source": "db_PostgreSQL",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.42624501655517266,
+      "source": "db_PostgreSQL",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.36634675896790436,
+      "source": "db_PostgreSQL",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.31217277486911,
+      "source": "db_Redis",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.3493242115801769,
+      "source": "db_Redis",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31645807847934504,
+      "source": "db_Redis",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3144043236469022,
+      "source": "db_SQLite",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.455087440381558,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31731650208693885,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.39765929778933684,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.32080762759394277,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3246989103421908,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.35120357878292974,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3130957492486045,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3101255088195387,
+      "source": "plat_Docker",
+      "target": "plat_Homebrew"
+    },
+    {
+      "weight": 0.37806987201660325,
+      "source": "plat_Docker",
+      "target": "plat_Kubernetes"
+    },
+    {
+      "weight": 0.42050557126226507,
+      "source": "plat_Docker",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.5684984520123839,
+      "source": "plat_Docker",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3986222732491389,
+      "source": "plat_Docker",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3764049239238474,
+      "source": "plat_Docker",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5244736842105263,
+      "source": "plat_Docker",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.42342342342342343,
+      "source": "plat_Docker",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3037837837837838,
+      "source": "plat_Homebrew",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3084854631507775,
+      "source": "plat_Kubernetes",
+      "target": "plat_Terraform"
+    },
+    {
+      "weight": 0.41062369441957625,
+      "source": "plat_Maven_build_tool",
+      "target": "web_Spring_Boot"
+    },
+    {
+      "weight": 0.3308270676691729,
+      "source": "plat_Maven_build_tool",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.35425434583714543,
+      "source": "plat_Microsoft_Azure",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.33965672990063234,
+      "source": "plat_Microsoft_Azure",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.31137008815180034,
+      "source": "plat_Microsoft_Azure",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.36148222838416944,
+      "source": "plat_NuGet",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.5231756596149275,
+      "source": "plat_NuGet",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.42568807339449544,
+      "source": "plat_NuGet",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.37911884487226954,
+      "source": "plat_Pip",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3216803978327024,
+      "source": "plat_Pip",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3333940940576011,
+      "source": "plat_Vite",
+      "target": "plat_Webpack"
+    },
+    {
+      "weight": 0.38831578947368417,
+      "source": "plat_Vite",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.34482344463127557,
+      "source": "plat_Vite",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3528974739970282,
+      "source": "plat_Vite",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.322504892367906,
+      "source": "plat_Webpack",
+      "target": "plat_Yarn"
+    },
+    {
+      "weight": 0.3131117564805851,
+      "source": "plat_Webpack",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.32466442953020136,
+      "source": "plat_Yarn",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3082260913449407,
+      "source": "plat_Yarn",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5147806439465261,
+      "source": "plat_npm",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4510181618051734,
+      "source": "plat_npm",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4815416107856286,
+      "source": "plat_npm",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.38930498510107114,
+      "source": "plat_npm",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.5041666666666667,
+      "source": "web_ASP_NET",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.3451766574037316,
+      "source": "web_ASP_NET",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.4441558441558442,
+      "source": "web_ASP_NET_Core",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.3549979432332373,
+      "source": "web_Express",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.31524983776768334,
+      "source": "web_Next_js",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.38292204150308473,
+      "source": "web_Next_js",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4886950904392765,
+      "source": "web_Node_js",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.40168228436508524,
+      "source": "web_Node_js",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3341785433242983,
+      "source": "web_Node_js",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.38352419652752123,
+      "source": "web_React",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3293126385809313,
+      "source": "web_React",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3350870093079725,
+      "source": "web_Spring_Boot",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.3641860465116279,
+      "source": "devenv_Notepad",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.30797244873723384,
+      "source": "devenv_Visual_Studio",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.46252630051512733,
+      "source": "devenv_Visual_Studio_Code",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.30846343467543136,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_Gemini_Flash_general_purpose_models"
+    },
+    {
+      "weight": 0.3026195273859681,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_Gemini_Pro_Reasoning_models"
+    },
+    {
+      "weight": 0.4125881834215167,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.33100116608362484,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_openAI_Reasoning_models"
+    },
+    {
+      "weight": 0.3888419273034658,
+      "source": "aimodel_DeepSeek_R_Reasoning_models",
+      "target": "aimodel_DeepSeek_V_General_purpose_models"
+    },
+    {
+      "weight": 0.45773247140726003,
+      "source": "aimodel_Gemini_Flash_general_purpose_models",
+      "target": "aimodel_Gemini_Pro_Reasoning_models"
+    },
+    {
+      "weight": 0.3190785722431292,
+      "source": "aimodel_Gemini_Flash_general_purpose_models",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3013021461297324,
+      "source": "aimodel_openAI_GPT_chatbot_models",
+      "target": "aimodel_openAI_Image_generating_models"
+    },
+    {
+      "weight": 0.371053565094005,
+      "source": "aimodel_openAI_GPT_chatbot_models",
+      "target": "aimodel_openAI_Reasoning_models"
+    },
+    {
+      "weight": 0.4095418044402457,
+      "source": "aimodel_openAI_Image_generating_models",
+      "target": "aimodel_openAI_Reasoning_models"
+    }
+  ],
+  "links": [
+    {
+      "weight": 0.42468061210164254,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_HTML_CSS"
+    },
+    {
+      "weight": 0.42820855614973263,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_JavaScript"
+    },
+    {
+      "weight": 0.45177586072899667,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.42240282685512365,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.35702977761025256,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.38423230156297883,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.334084272006675,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4795325935180422,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3490772885072172,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.3874159387802427,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.31582419394739014,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4029328669447061,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3242051520074263,
+      "source": "lang_Bash_Shell_all_shells",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.44615042278593675,
+      "source": "lang_C",
+      "target": "lang_C_3"
+    },
+    {
+      "weight": 0.3479654403567447,
+      "source": "lang_C_2",
+      "target": "lang_PowerShell"
+    },
+    {
+      "weight": 0.3117179507358149,
+      "source": "lang_C_2",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.49675090252707577,
+      "source": "lang_C_2",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.3459286112660346,
+      "source": "lang_C_2",
+      "target": "plat_Microsoft_Azure"
+    },
+    {
+      "weight": 0.5216473072861668,
+      "source": "lang_C_2",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.37298170075349835,
+      "source": "lang_C_2",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.5503043322592195,
+      "source": "lang_C_2",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.5533168009919405,
+      "source": "lang_C_2",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.31040976197649894,
+      "source": "lang_C_2",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.7454252671643976,
+      "source": "lang_HTML_CSS",
+      "target": "lang_JavaScript"
+    },
+    {
+      "weight": 0.40569986049292495,
+      "source": "lang_HTML_CSS",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.567318358291736,
+      "source": "lang_HTML_CSS",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.5546531045999696,
+      "source": "lang_HTML_CSS",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.34260194174757286,
+      "source": "lang_HTML_CSS",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.4299533718421602,
+      "source": "lang_HTML_CSS",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.31427906615993173,
+      "source": "lang_HTML_CSS",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.34476481724188146,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4982772329711105,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.30193580826280064,
+      "source": "lang_HTML_CSS",
+      "target": "plat_Vite"
+    },
+    {
+      "weight": 0.5346304086538461,
+      "source": "lang_HTML_CSS",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.45862341772151893,
+      "source": "lang_HTML_CSS",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.42960572912567874,
+      "source": "lang_HTML_CSS",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5311331277475231,
+      "source": "lang_HTML_CSS",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.39437922447527574,
+      "source": "lang_HTML_CSS",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.4066481994459834,
+      "source": "lang_Java",
+      "target": "plat_Maven_build_tool"
+    },
+    {
+      "weight": 0.38694992412746587,
+      "source": "lang_Java",
+      "target": "web_Spring_Boot"
+    },
+    {
+      "weight": 0.44501979896436183,
+      "source": "lang_Java",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.4294900649475918,
+      "source": "lang_JavaScript",
+      "target": "lang_Python"
+    },
+    {
+      "weight": 0.5787824231512969,
+      "source": "lang_JavaScript",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.592713029340034,
+      "source": "lang_JavaScript",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.3538870039828883,
+      "source": "lang_JavaScript",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.4641696017339474,
+      "source": "lang_JavaScript",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.3119947563906489,
+      "source": "lang_JavaScript",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.37802383807038575,
+      "source": "lang_JavaScript",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.5360965168320685,
+      "source": "lang_JavaScript",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3011081119477198,
+      "source": "lang_JavaScript",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.5753645489851249,
+      "source": "lang_JavaScript",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.4946747375680024,
+      "source": "lang_JavaScript",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4527603655313043,
+      "source": "lang_JavaScript",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5699215232214074,
+      "source": "lang_JavaScript",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.4131965811965812,
+      "source": "lang_JavaScript",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3095754570808801,
+      "source": "lang_Kotlin",
+      "target": "plat_Gradle"
+    },
+    {
+      "weight": 0.349741468459152,
+      "source": "lang_PHP",
+      "target": "db_MariaDB"
+    },
+    {
+      "weight": 0.35304475421863535,
+      "source": "lang_PHP",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.3471654003506721,
+      "source": "lang_PHP",
+      "target": "web_Laravel"
+    },
+    {
+      "weight": 0.3210001445295563,
+      "source": "lang_PowerShell",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.31484762579730685,
+      "source": "lang_PowerShell",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.324251091374379,
+      "source": "lang_PowerShell",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.43488960284366673,
+      "source": "lang_Python",
+      "target": "lang_SQL"
+    },
+    {
+      "weight": 0.3475962568754911,
+      "source": "lang_Python",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.421673175127666,
+      "source": "lang_Python",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.30782356454227455,
+      "source": "lang_Python",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.3496436293745495,
+      "source": "lang_Python",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.48528579513299375,
+      "source": "lang_Python",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.5076195987654322,
+      "source": "lang_Python",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.3739136785218725,
+      "source": "lang_Python",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3046614441945241,
+      "source": "lang_Python",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4589910660307651,
+      "source": "lang_Python",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3691183188670626,
+      "source": "lang_Python",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.43873069839920664,
+      "source": "lang_SQL",
+      "target": "lang_TypeScript"
+    },
+    {
+      "weight": 0.3404502783085487,
+      "source": "lang_SQL",
+      "target": "db_Microsoft_SQL_Server"
+    },
+    {
+      "weight": 0.3604355428389763,
+      "source": "lang_SQL",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.48646874316142685,
+      "source": "lang_SQL",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.32963461995720056,
+      "source": "lang_SQL",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.3580705009276438,
+      "source": "lang_SQL",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.5075569288641096,
+      "source": "lang_SQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31036599401519216,
+      "source": "lang_SQL",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.45765882437585437,
+      "source": "lang_SQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3693126452289933,
+      "source": "lang_SQL",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.33568353866706246,
+      "source": "lang_SQL",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5016204303863105,
+      "source": "lang_SQL",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.38156865533669915,
+      "source": "lang_SQL",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.4222707083300865,
+      "source": "lang_TypeScript",
+      "target": "db_PostgreSQL"
+    },
+    {
+      "weight": 0.3535860741484643,
+      "source": "lang_TypeScript",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.4751325056269513,
+      "source": "lang_TypeScript",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3602835422231354,
+      "source": "lang_TypeScript",
+      "target": "plat_Vite"
+    },
+    {
+      "weight": 0.571131519667302,
+      "source": "lang_TypeScript",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.5125562218890555,
+      "source": "lang_TypeScript",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.5145529153545185,
+      "source": "lang_TypeScript",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4803011115801322,
+      "source": "lang_TypeScript",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.375,
+      "source": "lang_TypeScript",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3325036603221083,
+      "source": "db_MariaDB",
+      "target": "db_MySQL"
+    },
+    {
+      "weight": 0.36834208552138037,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "plat_Microsoft_Azure"
+    },
+    {
+      "weight": 0.38117126319373507,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.3449187759727994,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.44146860588861303,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.4264882742032472,
+      "source": "db_Microsoft_SQL_Server",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.31333895834931347,
+      "source": "db_MySQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3191169977924945,
+      "source": "db_MySQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.36824750266705464,
+      "source": "db_PostgreSQL",
+      "target": "db_Redis"
+    },
+    {
+      "weight": 0.3366030881017257,
+      "source": "db_PostgreSQL",
+      "target": "db_SQLite"
+    },
+    {
+      "weight": 0.4083774173965832,
+      "source": "db_PostgreSQL",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.533017448856799,
+      "source": "db_PostgreSQL",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.3218029350104822,
+      "source": "db_PostgreSQL",
+      "target": "plat_Kubernetes"
+    },
+    {
+      "weight": 0.3386219805686781,
+      "source": "db_PostgreSQL",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.43805309734513276,
+      "source": "db_PostgreSQL",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3617879348008738,
+      "source": "db_PostgreSQL",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3636519209377941,
+      "source": "db_PostgreSQL",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.42624501655517266,
+      "source": "db_PostgreSQL",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.36634675896790436,
+      "source": "db_PostgreSQL",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.31217277486911,
+      "source": "db_Redis",
+      "target": "plat_Amazon_Web_Services_AWS"
+    },
+    {
+      "weight": 0.3493242115801769,
+      "source": "db_Redis",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31645807847934504,
+      "source": "db_Redis",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3144043236469022,
+      "source": "db_SQLite",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.455087440381558,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_Docker"
+    },
+    {
+      "weight": 0.31731650208693885,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.39765929778933684,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.32080762759394277,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3246989103421908,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.35120357878292974,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3130957492486045,
+      "source": "plat_Amazon_Web_Services_AWS",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3101255088195387,
+      "source": "plat_Docker",
+      "target": "plat_Homebrew"
+    },
+    {
+      "weight": 0.37806987201660325,
+      "source": "plat_Docker",
+      "target": "plat_Kubernetes"
+    },
+    {
+      "weight": 0.42050557126226507,
+      "source": "plat_Docker",
+      "target": "plat_Pip"
+    },
+    {
+      "weight": 0.5684984520123839,
+      "source": "plat_Docker",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3986222732491389,
+      "source": "plat_Docker",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3764049239238474,
+      "source": "plat_Docker",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5244736842105263,
+      "source": "plat_Docker",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.42342342342342343,
+      "source": "plat_Docker",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3037837837837838,
+      "source": "plat_Homebrew",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3084854631507775,
+      "source": "plat_Kubernetes",
+      "target": "plat_Terraform"
+    },
+    {
+      "weight": 0.41062369441957625,
+      "source": "plat_Maven_build_tool",
+      "target": "web_Spring_Boot"
+    },
+    {
+      "weight": 0.3308270676691729,
+      "source": "plat_Maven_build_tool",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.35425434583714543,
+      "source": "plat_Microsoft_Azure",
+      "target": "plat_NuGet"
+    },
+    {
+      "weight": 0.33965672990063234,
+      "source": "plat_Microsoft_Azure",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.31137008815180034,
+      "source": "plat_Microsoft_Azure",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.36148222838416944,
+      "source": "plat_NuGet",
+      "target": "web_ASP_NET"
+    },
+    {
+      "weight": 0.5231756596149275,
+      "source": "plat_NuGet",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.42568807339449544,
+      "source": "plat_NuGet",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.37911884487226954,
+      "source": "plat_Pip",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3216803978327024,
+      "source": "plat_Pip",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3333940940576011,
+      "source": "plat_Vite",
+      "target": "plat_Webpack"
+    },
+    {
+      "weight": 0.38831578947368417,
+      "source": "plat_Vite",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.34482344463127557,
+      "source": "plat_Vite",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.3528974739970282,
+      "source": "plat_Vite",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.322504892367906,
+      "source": "plat_Webpack",
+      "target": "plat_Yarn"
+    },
+    {
+      "weight": 0.3131117564805851,
+      "source": "plat_Webpack",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.32466442953020136,
+      "source": "plat_Yarn",
+      "target": "plat_npm"
+    },
+    {
+      "weight": 0.3082260913449407,
+      "source": "plat_Yarn",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.5147806439465261,
+      "source": "plat_npm",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.4510181618051734,
+      "source": "plat_npm",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4815416107856286,
+      "source": "plat_npm",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.38930498510107114,
+      "source": "plat_npm",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.5041666666666667,
+      "source": "web_ASP_NET",
+      "target": "web_ASP_NET_Core"
+    },
+    {
+      "weight": 0.3451766574037316,
+      "source": "web_ASP_NET",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.4441558441558442,
+      "source": "web_ASP_NET_Core",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.3549979432332373,
+      "source": "web_Express",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.31524983776768334,
+      "source": "web_Next_js",
+      "target": "web_Node_js"
+    },
+    {
+      "weight": 0.38292204150308473,
+      "source": "web_Next_js",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.4886950904392765,
+      "source": "web_Node_js",
+      "target": "web_React"
+    },
+    {
+      "weight": 0.40168228436508524,
+      "source": "web_Node_js",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3341785433242983,
+      "source": "web_Node_js",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.38352419652752123,
+      "source": "web_React",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.3293126385809313,
+      "source": "web_React",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3350870093079725,
+      "source": "web_Spring_Boot",
+      "target": "devenv_IntelliJ_IDEA"
+    },
+    {
+      "weight": 0.3641860465116279,
+      "source": "devenv_Notepad",
+      "target": "devenv_Visual_Studio"
+    },
+    {
+      "weight": 0.30797244873723384,
+      "source": "devenv_Visual_Studio",
+      "target": "devenv_Visual_Studio_Code"
+    },
+    {
+      "weight": 0.46252630051512733,
+      "source": "devenv_Visual_Studio_Code",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.30846343467543136,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_Gemini_Flash_general_purpose_models"
+    },
+    {
+      "weight": 0.3026195273859681,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_Gemini_Pro_Reasoning_models"
+    },
+    {
+      "weight": 0.4125881834215167,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.33100116608362484,
+      "source": "aimodel_Anthropic",
+      "target": "aimodel_openAI_Reasoning_models"
+    },
+    {
+      "weight": 0.3888419273034658,
+      "source": "aimodel_DeepSeek_R_Reasoning_models",
+      "target": "aimodel_DeepSeek_V_General_purpose_models"
+    },
+    {
+      "weight": 0.45773247140726003,
+      "source": "aimodel_Gemini_Flash_general_purpose_models",
+      "target": "aimodel_Gemini_Pro_Reasoning_models"
+    },
+    {
+      "weight": 0.3190785722431292,
+      "source": "aimodel_Gemini_Flash_general_purpose_models",
+      "target": "aimodel_openAI_GPT_chatbot_models"
+    },
+    {
+      "weight": 0.3013021461297324,
+      "source": "aimodel_openAI_GPT_chatbot_models",
+      "target": "aimodel_openAI_Image_generating_models"
+    },
+    {
+      "weight": 0.371053565094005,
+      "source": "aimodel_openAI_GPT_chatbot_models",
+      "target": "aimodel_openAI_Reasoning_models"
+    },
+    {
+      "weight": 0.4095418044402457,
+      "source": "aimodel_openAI_Image_generating_models",
+      "target": "aimodel_openAI_Reasoning_models"
+    }
+  ]
+}
