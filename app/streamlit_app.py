@@ -157,7 +157,7 @@ def lift_for(skills: tuple[str, ...]) -> dict:
 # --------------------------------------------------------------------------------------
 SPLASH = """
 <div class="sk-splash">
-  <svg class="sk-pan" viewBox="0 0 400 196" aria-hidden="true">
+  <svg class="sk-pan" width="420" height="206" viewBox="0 0 400 196" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
     <defs>
       <filter id="sk-shimmer" x="-45%" y="-70%" width="190%" height="240%">
         <feTurbulence type="fractalNoise" baseFrequency="0.013 0.05" numOctaves="2"
