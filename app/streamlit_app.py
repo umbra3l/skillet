@@ -383,9 +383,9 @@ persona_html = f"""
     """
 
 # right: recommendations
-        _sk_tooltip_cold = ("Cold-start score: salary-ROI coefficient (1×) + 0.3× global skill prevalence + 0.02 if you use AI tools + 0.05 if p < 0.05. See Methodology.")
-        _sk_tooltip_pers = ("Recommender score: peer prevalence + 0.5× salary ROI + 0.2× peer salary premium + 0.3× peer demand + 0.05 if p < 0.05. See Methodology.")
-        _sk_tooltip = _sk_tooltip_cold if (not have) else _sk_tooltip_pers
+_sk_tooltip_cold = ("Cold-start score: salary-ROI coefficient (1×) + 0.3× global skill prevalence + 0.02 if you use AI tools + 0.05 if p < 0.05. See Methodology.")
+_sk_tooltip_pers = ("Recommender score: peer prevalence + 0.5× salary ROI + 0.2× peer salary premium + 0.3× peer demand + 0.05 if p < 0.05. See Methodology.")
+_sk_tooltip = _sk_tooltip_cold if (not have) else _sk_tooltip_pers
 cards_html = ['<div class="sk-rec">', "<h2>Top skills to learn next</h2>", '<div class="sk-rec-list">']
 if not recs:
     cards_html.append('<div class="sk-note">No candidate skills left — you\'ve listed almost everything we score.</div>')
