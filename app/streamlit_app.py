@@ -234,8 +234,8 @@ SKILL_GROUPS = {
 
 # --- sidebar (quiet) -----------------------------------------------------------------
 st.sidebar.markdown("### Your profile")
-st.sidebar.caption("Answer four questions, add the tools you already use, and the "
-                   "evidence updates instantly.")
+st.sidebar.caption("Country, experience and role filter the peer set; "
+                   "the stack personalises the recommendations.")
 
 devtype = st.sidebar.selectbox(
     "Your role",
@@ -262,11 +262,11 @@ for group, cols in SKILL_GROUPS.items():
     have.extend(chosen)
 
 st.sidebar.caption(
+st.sidebar.caption(
     f"Every number below is read from {N_SAMPLE:,} survey responses. "
-    "Leave the stack empty to see the cold-start plan (the globally highest-ROI skills)."
+    "Country, experience and role condition the peer set; "
+    "leave the stack empty to see the cold-start plan (the globally highest-ROI skills)."
 )
-
-# --- recommendation + hero lift --------------------------------------------------------
 engine = get_engine()
 rec = engine.recommend(current_skills=list(have), top_n=5)
 recs = rec["recommendations"]
@@ -303,7 +303,7 @@ if cold:
                "Pick your stack on the left to personalise it.")
 else:
             caption = (f"Modelled change in compensation if you learn "
-                       f"<b>these {n_eval} skills</b>; peers are drawn from your country and experience. "
+                       f"<b>these {n_eval} skills</b>; peers are drawn from your country, experience and role. "
                        f"The salary coefficient already controls for experience and country in the regression.")
 skills_line = " · ".join(rec_labels) if rec_labels else "—"
 
