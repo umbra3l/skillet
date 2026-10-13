@@ -400,7 +400,7 @@ else:
         </div>
         """)
 cards_html.append("</div></div>")
-st.markdown("".join(cards_html), unsafe_allow_html=True)
+st.html("".join(cards_html))
 st.html("</div>")  # /sk-cols
 
 # --- methodology --------------------------------------------------------------------
