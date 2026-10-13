@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "[ ! -f '/home/umbra3l/.cursor/skills/impeccable/scripts/impeccable' ] || '/home/umbra3l/.cursor/skills/impeccable/scripts/impeccable' hook-before-edit",
+        "timeout": 5
+      }
+    ]
+  }
+}

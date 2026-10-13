@@ -1,0 +1,8 @@
+{
+  "buildPath": "code",
+  "platform": "web",
+  "framework": "streamlit",
+  "productSurface": "app/streamlit_app.py",
+  "world": "cast-iron-heritage",
+  "mode": "operate"
+}

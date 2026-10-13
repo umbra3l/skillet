@@ -1,4 +1,4 @@
-# Skill Radar — Project Report
+# 🍳 skillet — Project Report
 
 > Decision Analytics project, mapped to the Business Analytics syllabus
 > (Modules 1–7). All artefacts in this repository are reproducible from
@@ -7,7 +7,7 @@
 ## 1. Summary
 
 Enterprises spend billions on engineering L&D every year, yet course selection
-is largely driven by instinct and trend pieces. **Skill Radar** is a
+is largely driven by instinct and trend pieces. **skillet** is a
 data-driven recommender that, given a developer's role, experience, current
 stack and country, returns the *next* skills to learn, each backed by a
 regression coefficient, a p-value and a satisfaction association drawn
