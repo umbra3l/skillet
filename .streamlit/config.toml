@@ -1,13 +1,13 @@
 [theme]
 base = "light"
-primaryColor = "#4f46e5"
-backgroundColor = "#f8fafc"
-secondaryBackgroundColor = "#ffffff"
-textColor = "#0f172a"
-linkColor = "#4f46e5"
-borderColor = "#e2e8f0"
-baseRadius = "10px"
-codeBackgroundColor = "#f1f5f9"
+primaryColor = "#b8743a"
+backgroundColor = "#f7f0e1"
+secondaryBackgroundColor = "#ede2c8"
+textColor = "#1c1815"
+linkColor = "#b8743a"
+borderColor = "#e3d5b6"
+baseRadius = "0px"
+codeBackgroundColor = "#ede2c8"
 font = "sans serif"
 
 [server]

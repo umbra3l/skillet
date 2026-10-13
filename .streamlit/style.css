@@ -75,7 +75,8 @@ input, textarea, [contenteditable] { caret-color: var(--ember); }
   font-weight: 600;
   font-variation-settings: "opsz" 48;
   letter-spacing: -0.015em;
-  line-height: 1.15;
+  line-height: 1.1;
+  text-wrap: balance;
   color: var(--ink);
   margin: 0 0 var(--r-4) 0;
 }
@@ -114,7 +115,13 @@ p, li { line-height: 1.55; color: var(--ink); }
 
 /* ============================================================
    SPLASH — the cast-iron pan loading animation (first load only)
+   One rehearsed sequence: the burner is on, heat rises off the
+   iron, the wordmark arrives once, the ember bar fills and holds.
    ============================================================ */
+:root {
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);   /* confident deceleration */
+  --ease-breath: cubic-bezier(0.45, 0, 0.55, 1);  /* continuous, never abrupt */
+}
 .sk-splash {
   position: fixed; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -122,61 +129,106 @@ p, li { line-height: 1.55; color: var(--ink); }
   z-index: 1000;
   gap: var(--r-3);
 }
-.sk-pan { width: min(420px, 70vw); height: auto; }
+.sk-pan {
+  width: min(420px, 70vw);
+  height: auto;
+  min-height: 206px;
+  aspect-ratio: 400 / 196;
+  display: block;
+}
+
+/* warm air shimmering off the iron: soft copper/ember bands drifting
+   through a static turbulence field — the eye feels it, the camera
+   doesn't catch it */
+.sk-pan-haze {
+  transform-box: fill-box; transform-origin: center bottom;
+  opacity: 0;
+  animation: sk-haze-breathe 5.2s var(--ease-breath) infinite;
+}
+@keyframes sk-haze-breathe {
+  0%   { opacity: 0.22; transform: translateY(4px)  scaleX(0.97); }
+  50%  { opacity: 0.5;  transform: translateY(-3px) scaleX(1.02); }
+  100% { opacity: 0.22; transform: translateY(4px)  scaleX(0.97); }
+}
 .sk-pan-heat {
-  fill: none; stroke: var(--ember); stroke-width: 1.6; stroke-linecap: round;
+  stroke-linecap: round; fill: none;
   opacity: 0;
   transform-box: fill-box; transform-origin: center;
-  animation: sk-heat-rise 3.2s ease-out infinite;
+  animation: sk-heat-rise 4.8s var(--ease-breath) infinite;
 }
-.sk-pan-heat-2 { animation-delay: 1.1s; stroke: var(--copper); }
-.sk-pan-heat-3 { animation-delay: 2.2s; stroke: var(--ember); stroke-width: 1.2; }
+.sk-pan-heat-2 { animation-delay: -2.4s; }
 @keyframes sk-heat-rise {
-  0%   { opacity: 0;   transform: translateY(8px) scaleX(0.96); }
-  20%  { opacity: 0.55; }
-  100% { opacity: 0;   transform: translateY(-28px) scaleX(1.04); }
+  0%   { opacity: 0;    transform: translateY(6px)  scaleX(0.97); }
+  35%  { opacity: 0.45; }
+  65%  { opacity: 0.38; }
+  100% { opacity: 0;    transform: translateY(-18px) scaleX(1.03); }
+}
+
+/* the burner under the pan is on */
+.sk-pan-burner {
+  opacity: 0;
+  filter: blur(6px);
+  animation: sk-burner-breathe 4.4s var(--ease-breath) infinite;
+}
+@keyframes sk-burner-breathe {
+  0%, 100% { opacity: 0.045; }
+  50%      { opacity: 0.09; }
 }
 .sk-pan-glow {
   fill: none; stroke: var(--ember); stroke-width: 4; stroke-linecap: round;
   opacity: 0.0;
-  animation: sk-pan-glow 2.6s ease-in-out infinite;
+  animation: sk-pan-glow 3.4s var(--ease-breath) infinite;
   filter: blur(0.5px);
 }
 @keyframes sk-pan-glow {
   0%, 100% { opacity: 0; }
-  50%      { opacity: 0.35; }
+  50%      { opacity: 0.3; }
 }
+
+/* the type is the anchor: it arrives once, then sits still */
 .sk-wordmark {
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: -0.04em;
   font-size: 56px;
+  line-height: 1;
   color: var(--ink);
   margin-top: var(--r-4);
+  opacity: 1;
+  animation: sk-arrive 700ms var(--ease-settle) both;
 }
 .sk-splash-caption {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--steel);
   letter-spacing: 0.01em;
+  opacity: 1;
+  animation: sk-arrive 700ms var(--ease-settle) 120ms both;
 }
+@keyframes sk-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* the pan is heating up: a one-shot fill, then it holds */
 .sk-ember-bar {
   width: 220px; height: 2px;
   background: var(--paper-3);
   position: relative; overflow: hidden;
-  margin-top: var(--r-3);
+  margin-top: var(--r-4);
 }
 .sk-ember-bar > i {
   display: block; height: 100%;
   background: linear-gradient(90deg, var(--copper), var(--ember));
   width: 100%;
   transform-origin: left center;
-  animation: sk-ember-breathe 1.8s ease-in-out infinite;
-  box-shadow: 0 0 12px var(--ember);
+  animation: sk-ember-fill 2.6s var(--ease-settle) both;
 }
-@keyframes sk-ember-breathe {
-  0%, 100% { transform: scaleX(0.45); opacity: 0.7; }
-  50%      { transform: scaleX(0.95); opacity: 1; }
+@keyframes sk-ember-fill {
+  0%   { transform: scaleX(0);    box-shadow: 0 0 0 rgba(196, 74, 26, 0); }
+  15%  { box-shadow: 0 0 10px rgba(196, 74, 26, 0.45); }
+  85%  { box-shadow: 0 0 6px  rgba(196, 74, 26, 0.25); }
+  100% { transform: scaleX(1);    box-shadow: 0 0 0 rgba(196, 74, 26, 0); }
 }
 
 /* ============================================================
@@ -260,6 +312,8 @@ p, li { line-height: 1.55; color: var(--ink); }
   font-size: clamp(64px, 8vw, 112px);
   margin: var(--r-2) 0 var(--r-3) 0;
   display: flex; align-items: baseline;
+  opacity: 1;
+  animation: sk-arrive 700ms var(--ease-settle) both;
 }
 .sk-hero-num .sk-plus { color: var(--copper); font-weight: 400; margin-right: 2px; }
 .sk-hero-num .sk-unit { font-size: 0.45em; color: var(--paper); margin-left: 6px; font-weight: 400; }
@@ -309,18 +363,24 @@ p, li { line-height: 1.55; color: var(--ink); }
   color: var(--steel-2);
 }
 
-/* cold-start prompt (lives just under the hero) */
+/* cold-start prompt — a deliberate call to action, not help text */
 .sk-prompt {
-  border-top: var(--line) solid var(--paper-3);
-  border-bottom: var(--line) solid var(--paper-3);
-  padding: var(--r-3) 0;
-  margin: 0 0 var(--r-6) 0;
-  color: var(--steel);
+  border: var(--line) solid var(--paper-3);
+  border-left: var(--line-2) solid var(--copper);
+  background: var(--paper-2);
+  padding: var(--r-3) var(--r-4);
+  margin: 0 0 var(--r-7) 0;
+  color: var(--ink);
   font-size: 14px;
   display: flex; align-items: center; gap: var(--r-3);
 }
-.sk-prompt .arrow { color: var(--ember); font-weight: 600; }
-.sk-prompt b { color: var(--ink); }
+.sk-prompt b { color: var(--ink); font-weight: 600; }
+.sk-prompt .arrow {
+  color: var(--ember); font-weight: 600;
+  display: inline-block;
+  transition: transform 160ms ease-out;
+}
+.sk-prompt:hover .arrow { transform: translateX(4px); }
 
 /* ============================================================
    COLUMNS — persona + recommendations
@@ -329,8 +389,11 @@ p, li { line-height: 1.55; color: var(--ink); }
   display: grid;
   grid-template-columns: 1fr 1.45fr;
   gap: var(--r-6);
-  margin: 0 0 var(--r-7) 0;
+  align-items: start;
+  margin: var(--r-8) 0 var(--r-8) 0;
 }
+.sk-col-left { display: flex; flex-direction: column; gap: var(--r-3); min-width: 0; }
+.sk-rec { min-width: 0; }
 @media (max-width: 1100px) {
   .sk-cols { grid-template-columns: 1fr; }
 }
@@ -353,22 +416,26 @@ p, li { line-height: 1.55; color: var(--ink); }
   font-size: 28px;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: var(--r-2) 0 4px 0;
-  line-height: 1.1;
+  margin: 0 0 6px 0;
+  line-height: 1.05;
 }
 .sk-persona .meta {
   color: var(--steel);
   font-size: 13px;
+  line-height: 1.4;
   margin-bottom: var(--r-4);
 }
 .sk-persona .meta b { color: var(--ink); font-weight: 500; }
 .sk-persona .share {
-  height: 2px; background: var(--paper-3);
-  margin: var(--r-3) 0 4px 0;
+  height: 4px; background: var(--paper-3);
+  margin: var(--r-3) 0 6px 0;
   position: relative;
+  box-shadow: inset 0 1px 1px rgba(28, 24, 21, 0.16),
+              inset 0 -1px 0 rgba(247, 240, 225, 0.55);
 }
 .sk-persona .share i {
-  display: block; height: 100%; background: var(--ember);
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--copper), var(--ember));
 }
 .sk-persona .share-legend {
   display: flex; justify-content: space-between;
@@ -427,7 +494,11 @@ p, li { line-height: 1.55; color: var(--ink); }
   border: var(--line) solid var(--paper-3);
   padding: var(--r-4) var(--r-5);
   position: relative;
+  transition: border-left-color 160ms ease-out;
 }
+/* one purposeful micro-interaction: on hover the card takes a 1px ember
+   left border — a state change, not a decoration. No lift, no scale. */
+.sk-card:hover { border-left-color: var(--ember); }
 .sk-card-head {
   display: flex; align-items: baseline; gap: var(--r-3);
   border-bottom: var(--line) solid var(--paper-3);
@@ -450,11 +521,14 @@ p, li { line-height: 1.55; color: var(--ink); }
 .sk-card .sk-pill {
   font-family: var(--font-mono);
   font-size: 14px; font-weight: 500;
+  font-variant-numeric: tabular-nums lining-nums;
   color: var(--ink);
   background: var(--paper);
   border: var(--line) solid var(--paper-3);
   padding: 2px 8px;
+  transition: background-color 160ms ease-out;
 }
+.sk-card:hover .sk-pill { background: var(--paper-3); }
 .sk-card .sk-pill.sk-pos { color: var(--patina); border-color: var(--patina); }
 .sk-card .sk-pill.sk-neg { color: var(--brick);  border-color: var(--brick); }
 .sk-card .sk-score {
@@ -464,23 +538,33 @@ p, li { line-height: 1.55; color: var(--ink); }
   cursor: help;
 }
 .sk-card .sk-metrics {
-  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--r-3);
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--r-2) var(--r-4);
   margin-bottom: var(--r-2);
 }
-.sk-card .sk-metrics > div { display: flex; flex-direction: column; }
+.sk-card .sk-metrics > div { display: flex; flex-direction: column; gap: 1px; }
 .sk-card .sk-metrics .k {
   font-family: var(--font-body);
   font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  line-height: 1.3;
   color: var(--steel);
 }
 .sk-card .sk-metrics .v {
   font-family: var(--font-mono);
   font-size: 16px; font-weight: 500;
+  line-height: 1.25;
   color: var(--ink);
   font-variant-numeric: tabular-nums lining-nums;
 }
 .sk-card .sk-metrics .v.sk-pos { color: var(--patina); }
 .sk-card .sk-metrics .v.sk-neg { color: var(--brick); }
+.sk-card .sk-metrics .v.sk-pval { font-size: 14px; font-weight: 400; }
+.sk-card .sk-metrics .v .pre {
+  color: var(--steel-2);
+  font-size: 10px;
+  font-weight: 400;
+  margin-right: 3px;
+  letter-spacing: 0.02em;
+}
 .sk-card .sk-ci {
   font-family: var(--font-mono);
   font-size: 11px; color: var(--steel);
@@ -499,9 +583,12 @@ p, li { line-height: 1.55; color: var(--ink); }
 
 /* ============================================================
    METHODOLOGY (expander)
+   The heading lives in a .sk-method div; the expander itself is a
+   Streamlit widget that cannot nest inside st.html, so it is
+   scoped to its testid. There is exactly one on the page.
    ============================================================ */
 .sk-method {
-  margin: 0 0 var(--r-7) 0;
+  margin: var(--r-8) 0 var(--r-3) 0;
 }
 .sk-method h2 {
   font-family: var(--font-display);
@@ -509,23 +596,50 @@ p, li { line-height: 1.55; color: var(--ink); }
   font-size: 28px;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0 0 var(--r-3) 0;
+  margin: 0;
 }
-.sk-method [data-testid="stExpander"] {
+[data-testid="stExpander"] {
   background: var(--paper-2) !important;
   border: var(--line) solid var(--paper-3) !important;
+  border-radius: 0 !important;
+  margin: 0 0 var(--r-8) 0;
 }
-.sk-method [data-testid="stExpanderDetails"] {
+[data-testid="stExpander"] > details {
+  background: transparent !important;
+  border: 0 !important;
+}
+[data-testid="stExpander"] summary {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 16px !important;
+  color: var(--ink) !important;
+  letter-spacing: -0.005em;
+  background: transparent !important;
+  transition: color 160ms ease-out;
+}
+[data-testid="stExpander"] summary:hover {
+  color: var(--copper-2) !important;
+  background: transparent !important;
+}
+[data-testid="stExpander"] summary:focus-visible {
+  outline-offset: -2px;
+}
+[data-testid="stExpanderDetails"] {
   background: var(--paper) !important;
+  animation: sk-fade-in 160ms ease-out both;
 }
-.sk-method pre, .sk-method code {
+@keyframes sk-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+[data-testid="stExpanderDetails"] pre, [data-testid="stExpanderDetails"] code {
   font-family: var(--font-mono);
   font-size: 12.5px;
   background: var(--paper-3);
   padding: 2px 5px;
   color: var(--ink);
 }
-.sk-method pre {
+[data-testid="stExpanderDetails"] pre {
   display: block;
   padding: var(--r-3) var(--r-4);
   white-space: pre-wrap;
@@ -537,7 +651,7 @@ p, li { line-height: 1.55; color: var(--ink); }
    ROI LANDSCAPE (chart section)
    ============================================================ */
 .sk-chart {
-  margin: 0 0 var(--r-7) 0;
+  margin: var(--r-8) 0 0 0;
 }
 .sk-chart h2 {
   font-family: var(--font-display);
@@ -547,7 +661,7 @@ p, li { line-height: 1.55; color: var(--ink); }
   color: var(--ink);
   margin: 0 0 4px 0;
 }
-.sk-chart .sk-lead {
+.sk-lead {
   color: var(--steel);
   font-size: 14px;
   max-width: 70ch;
@@ -558,8 +672,8 @@ p, li { line-height: 1.55; color: var(--ink); }
    WHAT-IF (secondary calculator)
    ============================================================ */
 .sk-whatif {
-  margin: 0 0 var(--r-7) 0;
-  padding-top: var(--r-5);
+  margin: var(--r-8) 0 0 0;
+  padding-top: var(--r-6);
   border-top: var(--line) solid var(--paper-3);
 }
 .sk-whatif h2 {
@@ -568,25 +682,105 @@ p, li { line-height: 1.55; color: var(--ink); }
   font-size: 24px;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0 0 4px 0;
+  margin: 0 0 var(--r-4) 0;
 }
-.sk-whatif .sk-fine { margin-bottom: var(--r-3); }
-.sk-whatif [data-testid="stMetric"] {
+.sk-fine { margin-bottom: var(--r-3); }
+[data-testid="stMetric"] {
   background: var(--paper-2);
   border: var(--line) solid var(--paper-3);
   padding: var(--r-3);
 }
-.sk-whatif [data-testid="stMetricValue"] {
+[data-testid="stMetricValue"] {
   font-family: var(--font-mono) !important;
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--ink) !important;
 }
-.sk-whatif [data-testid="stMetricLabel"] {
+[data-testid="stMetricLabel"] {
   font-family: var(--font-body) !important;
   font-size: 11px !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
   color: var(--steel) !important;
+}
+
+/* ============================================================
+   FORM CONTROLS — copper focus, never the browser blue.
+   Streamlit 1.65 renders select/multiselect with react-aria:
+   .react-aria-ComboBox > [role="group"] is the visual box.
+   ============================================================ */
+[data-testid="stMultiSelect"] .react-aria-ComboBox,
+[data-testid="stSelectbox"] .react-aria-ComboBox {
+  display: block;
+  width: 100%;
+}
+[data-testid="stMultiSelect"] [role="group"],
+[data-testid="stSelectbox"] [role="group"] {
+  background: var(--paper);
+  border: var(--line) solid var(--paper-3);
+  border-radius: 2px;
+  transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+[data-testid="stMultiSelect"] [role="group"]:hover,
+[data-testid="stSelectbox"] [role="group"]:hover {
+  border-color: var(--steel-2);
+}
+[data-testid="stMultiSelect"] [role="group"][data-focused],
+[data-testid="stSelectbox"] [role="group"][data-focused],
+[data-testid="stMultiSelect"] [role="group"]:focus-within,
+[data-testid="stSelectbox"] [role="group"]:focus-within {
+  border-color: var(--copper);
+  box-shadow: inset 0 0 0 1px var(--copper);
+}
+[data-testid="stMultiSelect"] input,
+[data-testid="stSelectbox"] input {
+  font-family: var(--font-body);
+  color: var(--ink);
+  caret-color: var(--ember);
+  background: transparent;
+}
+[data-testid="stMultiSelect"] input:focus,
+[data-testid="stSelectbox"] input:focus,
+[data-testid="stMultiSelect"] input:focus-visible,
+[data-testid="stSelectbox"] input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+[data-testid="stMultiSelect"] button,
+[data-testid="stSelectbox"] button {
+  color: var(--steel);
+}
+[data-testid="stMultiSelect"] button svg,
+[data-testid="stSelectbox"] button svg {
+  fill: var(--steel);
+}
+/* selected-skill tags inside the multiselect box (react-aria renders them
+   as span[data-tag], not role=option) */
+[data-testid="stMultiSelect"] span[data-tag] {
+  background: var(--paper-2) !important;
+  border: var(--line) solid var(--ember) !important;
+  border-radius: 2px !important;
+  color: var(--ember) !important;
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  padding: 2px 6px !important;
+}
+[data-testid="stMultiSelect"] span[data-tag] span { color: var(--ember) !important; }
+[data-testid="stMultiSelect"] span[data-tag] button svg { fill: var(--ember) !important; }
+/* open listbox options */
+[data-testid="stMultiSelect"] [role="option"],
+[data-testid="stSelectbox"] [role="option"] {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  border-radius: 0;
+}
+[data-testid="stMultiSelect"] [role="option"][aria-selected="true"],
+[data-testid="stSelectbox"] [role="option"][aria-selected="true"],
+[data-testid="stMultiSelect"] [role="option"][data-focused],
+[data-testid="stSelectbox"] [role="option"][data-focused] {
+  background: var(--paper-2);
+  color: var(--ember);
 }
 
 /* ============================================================
@@ -622,6 +816,16 @@ p, li { line-height: 1.55; color: var(--ink); }
   margin: 0 0 var(--r-2) 0 !important;
 }
 [data-testid="stSidebar"] .sk-fine { margin-bottom: var(--r-3); }
+[data-testid="stSidebar"] .sk-rule { margin: var(--r-6) 0 var(--r-4) 0; }
+[data-testid="stSidebar"] .sk-side-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 0 0 var(--r-3) 0;
+}
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
   font-family: var(--font-body) !important;
   font-size: 12px !important;
@@ -630,7 +834,7 @@ p, li { line-height: 1.55; color: var(--ink); }
   color: var(--steel) !important;
   font-weight: 500 !important;
 }
-[data-testid="stSidebar"] [data-baseweb="select"],
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"],
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
   background: var(--paper) !important;
@@ -639,15 +843,29 @@ p, li { line-height: 1.55; color: var(--ink); }
   font-family: var(--font-body) !important;
   color: var(--ink) !important;
 }
-[data-testid="stSidebar"] [data-baseweb="tag"] {
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"]:hover {
+  border-color: var(--steel-2) !important;
+}
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"][data-focused],
+[data-testid="stSidebar"] .react-aria-ComboBox [role="group"]:focus-within {
+  border-color: var(--copper) !important;
+  box-shadow: inset 0 0 0 1px var(--copper) !important;
+  outline: none !important;
+}
+[data-testid="stSidebar"] input:focus,
+[data-testid="stSidebar"] input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+[data-testid="stSidebar"] [role="option"] {
   background: var(--paper) !important;
   border: var(--line) solid var(--ember) !important;
   color: var(--ember) !important;
   border-radius: 2px !important;
   font-family: var(--font-body) !important;
 }
-[data-testid="stSidebar"] [data-baseweb="tag"] span { color: var(--ember) !important; }
-[data-testid="stSidebar"] [data-baseweb="tag"] svg { fill: var(--ember) !important; }
+[data-testid="stSidebar"] [role="option"] span { color: var(--ember) !important; }
+[data-testid="stSidebar"] [role="option"] svg { fill: var(--ember) !important; }
 [data-testid="stSidebar"] [data-testid="stCheckbox"] label span { color: var(--ink) !important; }
 
 /* ============================================================
@@ -668,14 +886,30 @@ p, li { line-height: 1.55; color: var(--ink); }
 }
 
 /* ============================================================
-   REDUCED MOTION — replace the focal motion with a static state
+   REDUCED MOTION — replace the focal motion with a static state.
+   Everything that moves in the splash and the page resolves to a
+   composed still: the pan is hot, the type is present, the bar
+   is full. No half-states, no invisible elements.
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .sk-pan-heat, .sk-pan-glow, .sk-ember-bar > i {
+  .sk-pan-heat, .sk-pan-haze, .sk-pan-glow, .sk-pan-burner,
+  .sk-ember-bar > i, .sk-wordmark, .sk-splash-caption, .sk-hero-num {
     animation: none !important;
-    opacity: 0.4;
-    transform: none;
   }
-  .sk-pan-heat { opacity: 0.3; }
-  .sk-ember-bar > i { transform: scaleX(0.8); }
+  .sk-pan-heat { opacity: 0.3; transform: none; }
+  .sk-pan-haze { opacity: 0.35; transform: none; }
+  .sk-pan-glow { opacity: 0.25; }
+  .sk-pan-burner { opacity: 0.07; }
+  .sk-wordmark, .sk-splash-caption, .sk-hero-num { opacity: 1; transform: none; }
+  .sk-ember-bar > i { transform: scaleX(1); box-shadow: none; }
+  [data-testid="stExpanderDetails"] { animation: none !important; opacity: 1; }
+  .sk-prompt .arrow,
+  .sk-card,
+  .sk-card .sk-pill,
+  [data-testid="stExpander"] summary,
+  [data-testid="stMultiSelect"] [role="group"],
+  [data-testid="stSelectbox"] [role="group"] {
+    transition: none !important;
+  }
+  .sk-prompt:hover .arrow { transform: none; }
 }

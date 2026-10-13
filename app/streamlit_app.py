@@ -157,16 +157,39 @@ def lift_for(skills: tuple[str, ...]) -> dict:
 # --------------------------------------------------------------------------------------
 SPLASH = """
 <div class="sk-splash">
-  <svg class="sk-pan" viewBox="0 0 400 240" aria-hidden="true">
-    <ellipse class="sk-pan-glow" cx="170" cy="130" rx="92" ry="28"/>
+  <svg class="sk-pan" viewBox="0 0 400 196" aria-hidden="true">
+    <defs>
+      <filter id="sk-shimmer" x="-45%" y="-70%" width="190%" height="240%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013 0.05" numOctaves="2"
+                      seed="5" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="15"
+                           xChannelSelector="R" yChannelSelector="G" result="warp"/>
+        <feGaussianBlur in="warp" stdDeviation="1.1"/>
+      </filter>
+      <radialGradient id="sk-haze" cx="50%" cy="88%" r="72%">
+        <stop offset="0%"   stop-color="#c44a1a" stop-opacity="0.50"/>
+        <stop offset="58%"  stop-color="#b8743a" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="#b8743a" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="sk-burner" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#c44a1a" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#c44a1a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse class="sk-pan-burner" cx="170" cy="160" rx="104" ry="14" fill="url(#sk-burner)"/>
     <path d="M252,124 L362,116 L362,148 L252,156 Z" fill="#1c1815"/>
-    <rect x="354" y="120" width="10" height="22" rx="2" fill="#1c1815"/>
+    <ellipse cx="349" cy="132" rx="3" ry="4.5" fill="#f7f0e1"/>
     <ellipse cx="170" cy="130" rx="90" ry="26" fill="#1c1815"/>
     <ellipse cx="170" cy="127" rx="86" ry="22" fill="#2a2520"/>
     <ellipse cx="170" cy="121" rx="84" ry="6"  fill="#3a342c"/>
-    <path class="sk-pan-heat sk-pan-heat-1" d="M150,92  Q160,82 170,92 T190,92"/>
-    <path class="sk-pan-heat sk-pan-heat-2" d="M155,70 Q170,58 185,70 T215,70"/>
-    <path class="sk-pan-heat sk-pan-heat-3" d="M150,48 Q165,38 180,48 T210,48"/>
+    <ellipse class="sk-pan-glow" cx="170" cy="130" rx="92" ry="28"/>
+    <g filter="url(#sk-shimmer)">
+      <ellipse class="sk-pan-haze" cx="170" cy="84" rx="88" ry="34" fill="url(#sk-haze)"/>
+      <path class="sk-pan-heat sk-pan-heat-1" d="M128,104 Q152,92 176,104 T224,104"
+            stroke="#c44a1a" stroke-width="1.6" fill="none"/>
+      <path class="sk-pan-heat sk-pan-heat-2" d="M142,78 Q166,66 190,78 T238,78"
+            stroke="#b8743a" stroke-width="1.2" fill="none"/>
+    </g>
   </svg>
   <div class="sk-wordmark">skillet</div>
   <div class="sk-splash-caption">Cooking up your recommendations.</div>
@@ -229,7 +252,8 @@ country = st.sidebar.selectbox(
 ai_user = st.sidebar.checkbox("I use AI tools in my workflow", value=True)
 
 st.sidebar.markdown('<div class="sk-rule"></div>', unsafe_allow_html=True)
-st.sidebar.markdown("**YOUR CURRENT STACK**")
+st.sidebar.markdown('<div class="sk-side-label">Your current stack</div>',
+                    unsafe_allow_html=True)
 have: list[str] = []
 for group, cols in SKILL_GROUPS.items():
     if not cols:
@@ -333,11 +357,10 @@ distinguishing = " ".join(
     f'<span class="sk-chip-skill">{short(s)}</span>' for s in rec["persona_top_skills"]
 ) or '<span class="sk-chip-skill">—</span>'
 
-st.html('<div class="sk-cols">')
-
-# left: persona
-st.html(
-    f"""
+# The persona card and the five recommendation cards live in ONE st.html call.
+# (A `st.html('<div class="sk-cols">')` ... `st.html('</div>')` pair renders as
+# two isolated elements — the grid never wraps anything.)
+persona_html = f"""
     <div class="sk-persona">
       <h2>{PERSONA_NAMES.get(pid, f"Cluster {pid}")}</h2>
       <div class="meta"><b>{rec["persona_size"]:,}</b> developers · <b>{share * 100:.1f}%</b> of the {N_SAMPLE:,} surveyed</div>
@@ -356,7 +379,7 @@ st.html(
       constant. <b>p-value</b> tests whether the association is distinguishable from zero
       (below 0.05 is the usual bar). The <b>95% interval</b> is the range the data
       supports for that coefficient.</div>
-    """)
+    """
 
 # right: recommendations
 cards_html = ['<div class="sk-rec">', "<h2>Top skills to learn next</h2>", '<div class="sk-rec-list">']
@@ -391,7 +414,7 @@ else:
           </div>
           <div class="sk-metrics">
             <div><span class="k">Salary impact</span><span class="v {tone(imp)}">{signed(imp)}%</span></div>
-            <div><span class="k">p-value</span><span class="v">{fmt_p(p_exact)}</span></div>
+            <div><span class="k">p-value</span><span class="v sk-pval"><span class="pre">p =</span>{fmt_p(p_exact)}</span></div>
             <div><span class="k">Satisfaction</span><span class="v {tone(r['satisfaction_coef'])}">{signed(r['satisfaction_coef'], 3)}</span></div>
             <div><span class="k">Survey users</span><span class="v">{r['n_known']:,}</span></div>
           </div>
@@ -400,12 +423,15 @@ else:
         </div>
         """)
 cards_html.append("</div></div>")
-st.html("".join(cards_html))
-st.html("</div>")  # /sk-cols
+st.html('<div class="sk-cols">'
+        '<div class="sk-col-left">' + persona_html + '</div>'
+        + "".join(cards_html) + "</div>")
 
 # --- methodology --------------------------------------------------------------------
-st.html('<div class="sk-method">')
-st.html("<h2>Methodology</h2>")
+# The heading is its own st.html call; the expander is a Streamlit widget and
+# cannot nest inside an st.html div, so the expander styles are scoped globally
+# (there is exactly one expander on the page).
+st.html('<div class="sk-method"><h2>Methodology</h2></div>')
 with st.expander("How these recommendations are scored", expanded=False):
     st.markdown(
         f"""
@@ -452,11 +478,9 @@ missing-not-at-random; coefficients are *associations*, not causal effects;
 single-year cross-section.
 """
     )
-st.html("</div>")
 
 # --- ROI landscape ------------------------------------------------------------------
-st.html('<div class="sk-chart">')
-st.html("<h2>Skill ROI landscape</h2>")
+st.html('<div class="sk-chart"><h2>Skill ROI landscape</h2></div>')
 st.markdown(
     "<p class=\"sk-lead\">Where these recommendations come from. The top 20 skills by "
     "modelled salary impact, with 95% confidence intervals as whiskers. Bars are coloured "
@@ -491,23 +515,26 @@ fig.update_traces(
     error_x_color="#8a8275",
     error_x_thickness=1.2,
     error_x_width=0,
-    marker_line_width=[3 if s in plan else 0 for s in top["skill"]],
+    marker_line_width=[2 if s in plan else 0 for s in top["skill"]],
     marker_line_color="#c44a1a",
 )
 fig.update_layout(
     template="plotly_white",
     height=560,
     margin=dict(l=0, r=16, t=8, b=8),
-    font=dict(family="IBM Plex Sans, system-ui, sans-serif", size=13, color="#6a6258"),
+    font=dict(family="Sora, system-ui, sans-serif", size=13, color="#6a6258"),
     yaxis={"categoryorder": "total ascending", "title": "",
            "showgrid": False, "linecolor": "#e3d5b6", "automargin": True},
     xaxis={"title": "", "gridcolor": "#ede2c8", "zeroline": True,
-           "zerolinecolor": "#8a8275", "zerolinewidth": 1},
+           "zerolinecolor": "#6a6258", "zerolinewidth": 1,
+           "tickfont": dict(family="JetBrains Mono, monospace", size=11, color="#6a6258")},
     coloraxis_colorbar=dict(
         title="significance", thickness=10, len=0.45, outlinewidth=0,
         tickvals=[1.3, 5, 10, 20, 30],
         ticktext=["p=0.05", "1e−5", "1e−10", "1e−20", "1e−30"],
-        ticks="outside", tickcolor="#e3d5b6", tickfont=dict(size=11),
+        ticks="outside", tickcolor="#e3d5b6",
+        tickfont=dict(family="JetBrains Mono, monospace", size=11, color="#6a6258"),
+        title_font=dict(family="Sora, system-ui, sans-serif", size=11, color="#8a8275"),
     ),
     plot_bgcolor="rgba(0,0,0,0)",
     paper_bgcolor="rgba(0,0,0,0)",
@@ -516,11 +543,11 @@ fig.update_layout(
 )
 st.plotly_chart(fig, use_container_width=True, theme=None,
                 config={"displayModeBar": False, "displaylogo": False})
-st.html("</div>")
 
 # --- what-if calculator --------------------------------------------------------------
-st.html('<div class="sk-whatif">')
-st.html("<h2>What if I also learned these?</h2>")
+# Heading only; the widgets below are Streamlit elements and cannot nest inside
+# an st.html div, so .sk-whatif styles are scoped to the heading + widgets.
+st.html('<div class="sk-whatif"><h2>What if I also learned these?</h2></div>')
 
 known = set(have) | {r["skill"] for r in recs}
 extras = st.multiselect(
@@ -556,14 +583,21 @@ if extras:
         )
         fig2.update_layout(
             yaxis={"categoryorder": "total ascending", "title": "", "automargin": True},
-            xaxis={"title": "", "gridcolor": "#ede2c8", "automargin": True},
+            xaxis={"title": "", "gridcolor": "#ede2c8", "automargin": True,
+                   "zeroline": True, "zerolinecolor": "#6a6258", "zerolinewidth": 1,
+                   "tickfont": dict(family="JetBrains Mono, monospace", size=11,
+                                    color="#6a6258")},
             height=240 if len(bd) < 3 else 360,
             margin=dict(l=0, r=16, t=44, b=8),
-            font=dict(family="IBM Plex Sans, system-ui, sans-serif",
+            font=dict(family="Sora, system-ui, sans-serif",
                       size=13, color="#6a6258"),
             plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+            title=dict(x=0, xanchor="left", font=dict(
+                family="Bitter, Georgia, serif", size=15, color="#1c1815")),
             coloraxis_colorbar=dict(title="p-value", thickness=10, len=0.6,
-                                    outlinewidth=0, tickformat=".0e"),
+                                    outlinewidth=0, tickformat=".0e",
+                                    tickfont=dict(family="JetBrains Mono, monospace",
+                                                  size=11, color="#6a6258")),
         )
         fig2.update_traces(error_x_color="#8a8275", error_x_thickness=1.3, error_x_width=0)
         st.plotly_chart(fig2, use_container_width=True, theme=None,
@@ -575,7 +609,6 @@ if extras:
         )
 else:
     st.caption("Pick one or more skills above to see their combined predicted lift.")
-st.html("</div>")
 
 # --- footer --------------------------------------------------------------------------
 st.html(
