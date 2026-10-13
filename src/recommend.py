@@ -1,14 +1,31 @@
 """KNN-based upskilling recommender.
 
   1. Build the user's binary skill vector in the 86-skill cluster space.
-  2. Find the k nearest developers in the survey by Hamming distance on
-     the binary skill matrix (KNN -- Module 4).
+  2. Find the k nearest developers in the survey by Jaccard distance on
+     the binary skill matrix (KNN -- Module 4). The KNN is built once on
+     the full dataset; the recommender then intersects the neighbour pool
+     with an optional country / workexp mask (sidebar inputs) so the peer
+     set reflects the visitor's context.
   3. For every skill the user does NOT have, compute
-        score(s) = neighbour_prevalence(s)
-                 + 0.5 * regression_skill_ROI(s)
-                 + 0.3 * neighbour_salary_premium
-     and rank.
-  4. Return the top N with the per-skill evidence strings.
+        score(s) =  peer_prevalence(s)                   # how common in your filtered peers
+                + 0.5 * salary_ROI(s)                   # per-skill MLR coefficient (log pts)
+                + 0.2 * max(peer_salary_premium, 0)     # how much your peer group earns
+                + 0.3 * peer_demand(s)                  # share of peers who "want" to learn it
+                + 0.02 if ai_user and s starts with "aimodel_"   # small nudge
+                + 0.05 if p(s) < 0.05                   # significance bonus
+     and rank. The salary-ROI coefficient is the partial effect from
+     log_comp ~ work_exp + country + skill, so it is already conditioned
+     on work experience and country; the sidebar inputs additionally
+     shape *which peers* the score uses.
+  4. Cold-start (no skills listed): the same salary-ROI prior, with the
+     global skill prevalence (within the same country/experience filter)
+     and the +0.05 significance bonus. No peer_prevalence, peer_salary
+     premium, or peer_demand terms exist in cold start -- there is no
+     peer group yet.
+  5. Return the top N with the per-skill evidence strings. The
+     satisfaction_coef key is None for skills the satisfaction model
+     never scored (it was trained on the top-30 most common skills); the
+     app renders "not modeled" rather than 0.000 for those.
 """
 from __future__ import annotations
 
@@ -73,36 +90,62 @@ class SkillRadar:
 
     # --- KNN recommender -------------------------------------------------------
     def recommend(self, current_skills: Iterable[str], top_n: int = 5,
-                  k_neighbors: int = 300) -> dict:
-        df = self._data()
+                  k_neighbors: int = 300,
+                  country: str | None = None,
+                  workexp: int | None = None,
+                  role: str | None = None,
+                  ai_user: bool | None = None) -> dict:
+        df_full = self._data()
         have = {s for s in current_skills}
         persona_id = self.persona_for(current_skills)
         persona = self.personas.get(persona_id, {})
 
+        # Build a mask for the optional sidebar constraints (country,
+        # workexp +/- 10 years) and apply it to the full df. The KNN
+        # is built once on the full df; we query it for a generous
+        # number of neighbours and intersect with the mask.
+        full_idx = np.arange(len(df_full))
+        mask = np.ones(len(df_full), dtype=bool)
+        if country is not None:
+            mask &= (df_full["Country"].values == country)
+        if workexp is not None:
+            lo, hi = max(0, int(workexp) - 10), int(workexp) + 10
+            mask &= (df_full["WorkExp"].values >= lo) & (df_full["WorkExp"].values <= hi)
+        valid_full_idx = set(full_idx[mask].tolist())
+        # If the filter collapses the pool, fall back to the full df.
+        use_mask = len(valid_full_idx) >= 50
+
         # Cold-start: no skills listed -> recommend globally high-ROI,
-        # high-prevalence skills. Still evidence-backed, just not personalised.
+        # high-prevalence skills within the country/experience filter.
         if not have:
-            return self._cold_start(top_n)
+            df = df_full[mask] if use_mask else df_full
+            return self._cold_start(top_n, df)
 
         skills = self.skills
         v = np.array([1.0 if s in have else 0.0 for s in skills], dtype=float).reshape(1, -1)
         X = self._skill_matrix()
         if self._nn is None:
             self._nn = NearestNeighbors(
-                n_neighbors=min(k_neighbors, X.shape[0]),
+                n_neighbors=min(5000, X.shape[0]),
                 metric="jaccard", n_jobs=-1,
             ).fit(X)
-        dists, idxs = self._nn.kneighbors(v)
-        # Drop neighbours that are identical-empty to the user (Jaccard undefined
-        # = 0/0; sklearn returns dist=1 for them). Keep only those with finite,
-        # non-trivial distance.
+        # Query the KNN for every neighbour it knows, then keep only
+        # those that pass the country/workexp mask. This makes the sidebar
+        # inputs change the peer set (and hence the recommendations).
+        dists, idxs = self._nn.kneighbors(v, n_neighbors=self._nn.n_neighbors)
         keep = np.isfinite(dists[0])
-        idxs = idxs[0][keep]
-        if len(idxs) == 0:
-            return self._cold_start(top_n)
-        neighbours = df.iloc[idxs]
+        cand = idxs[0][keep]
+        if use_mask:
+            cand = np.array([i for i in cand if int(i) in valid_full_idx],
+                            dtype=cand.dtype)
+        if cand.size == 0:
+            return self._cold_start(top_n,
+                                    df_full[mask] if use_mask else df_full)
+        # Take the top k_neighbors from the filtered set.
+        cand = cand[:k_neighbors]
+        neighbours = df_full.iloc[cand]
         nbr_log_comp = neighbours["log_comp"].mean()
-        overall_log_comp = df["log_comp"].mean()
+        overall_log_comp = df_full["log_comp"].mean()
         salary_premium = float(nbr_log_comp - overall_log_comp)
 
         # WantToWorkWith demand signal (lazy-loaded; first call reads the raw CSV)
@@ -135,6 +178,8 @@ class SkillRadar:
             p_val = float(roi.get("p_value", 1.0))
             want_frac = want_counts[s] / n_nbr
             score = freq + 0.5 * roi_coef + 0.2 * max(salary_premium, 0.0) + 0.3 * want_frac
+            if ai_user and s.startswith("aimodel_"):
+                score += 0.02
             if p_val < 0.05:
                 score += 0.05
             cand[s] = float(score)
@@ -156,7 +201,8 @@ class SkillRadar:
                     round(float(roi.get("ci_lo", float("nan"))), 1),
                     round(float(roi.get("ci_hi", float("nan"))), 1),
                 ],
-                "satisfaction_coef": round(float(self.sat_map.get(skill, 0.0)), 3),
+                "satisfaction_coef": (round(self.sat_map[skill], 3)
+                            if skill in self.sat_map else None),
                 "n_known": n_users,
                 "nbr_prevalence_pct": round(nbr_pct, 1),
                 "nbr_want_pct": round(want_pct, 1),
@@ -178,9 +224,12 @@ class SkillRadar:
         }
 
     # --- cold start ------------------------------------------------------------
-    def _cold_start(self, top_n: int) -> dict:
-        """No skills entered: recommend the globally most lucrative skills."""
-        df = self._data()
+    def _cold_start(self, top_n: int, df: pd.DataFrame | None = None) -> dict:
+        """No skills entered: recommend the globally most lucrative skills
+        within the optional country/experience filter (df may be the
+        pre-filtered subset)."""
+        if df is None:
+            df = self._data()
         overall = df["log_comp"].mean()
         persona_id = max(self.personas, key=lambda c: self.personas[c]["n"])
         persona = self.personas[persona_id]
@@ -191,6 +240,8 @@ class SkillRadar:
             if global_freq < 0.03 or roi["coef_log_comp"] <= 0:
                 continue
             score = float(roi["coef_log_comp"]) + 0.3 * global_freq
+            if ai_user and str(roi["skill"]).startswith("aimodel_"):
+                score += 0.02
             if roi["p_value"] < 0.05:
                 score += 0.05
             cand.append((s, score, roi, global_freq))
@@ -204,7 +255,8 @@ class SkillRadar:
                 "salary_p_value": round(float(roi["p_value"]), 4),
                 "salary_ci_pct": [round(float(roi["ci_lo"]), 1),
                                    round(float(roi["ci_hi"]), 1)],
-                "satisfaction_coef": round(float(self.sat_map.get(s, 0.0)), 3),
+                "satisfaction_coef": (round(self.sat_map[s], 3)
+                            if s in self.sat_map else None),
                 "n_known": int(roi["users"]),
                 "nbr_prevalence_pct": round(freq * 100, 1),
                 "nbr_want_pct": round(freq * 100, 1),
