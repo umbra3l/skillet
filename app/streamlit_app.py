@@ -302,8 +302,9 @@ if cold:
                "<b class=\"sk-prompt-inline\">5 highest-ROI skills in the whole survey</b>. "
                "Pick your stack on the left to personalise it.")
 else:
-    caption = (f"Modelled change in compensation if you learn "
-               f"<b>these {n_eval} skills</b>, holding experience and country constant.")
+            caption = (f"Modelled change in compensation if you learn "
+                       f"<b>these {n_eval} skills</b>; peers are drawn from your country and experience. "
+                       f"The salary coefficient already controls for experience and country in the regression.")
 skills_line = " · ".join(rec_labels) if rec_labels else "—"
 
 st.html(
@@ -318,9 +319,9 @@ st.html(
       </div>
       <div class="sk-hero-info">
         <div class="pair">
-          <span class="k">Skills contributing</span>
-          <span class="v">{n_eval} of {n_eval}</span>
-          <span class="s">in your recommended plan</span>
+          <span class="k">Skills in plan</span>
+          <span class="v">{n_eval}</span>
+          <span class="s">in this recommended set</span>
         </div>
         <div class="pair">
           <span class="k">Statistically significant</span>
@@ -382,6 +383,9 @@ persona_html = f"""
     """
 
 # right: recommendations
+        _sk_tooltip_cold = ("Cold-start score: salary-ROI coefficient (1×) + 0.3× global skill prevalence + 0.02 if you use AI tools + 0.05 if p < 0.05. See Methodology.")
+        _sk_tooltip_pers = ("Recommender score: peer prevalence + 0.5× salary ROI + 0.2× peer salary premium + 0.3× peer demand + 0.05 if p < 0.05. See Methodology.")
+        _sk_tooltip = _sk_tooltip_cold if (not have) else _sk_tooltip_pers
 cards_html = ['<div class="sk-rec">', "<h2>Top skills to learn next</h2>", '<div class="sk-rec-list">']
 if not recs:
     cards_html.append('<div class="sk-note">No candidate skills left — you\'ve listed almost everything we score.</div>')
@@ -409,13 +413,13 @@ else:
           <div class="sk-card-head">
             <span class="sk-rank">{i:02d}</span>
             <span class="sk-skill">{label}</span>
-            <span class="sk-score" title="Internal recommender score: peer prevalence + 0.5× salary ROI + 0.3× peer demand + 0.2× peer salary premium (see Methodology)">score {r['score']:.3f}</span>
+<span class="sk-score" title="{_sk_tooltip}">score {r['score']:.3f}</span>
             <span class="sk-pill {'sk-pos' if imp >= 0 else 'sk-neg'}">{signed(imp)}%</span>
           </div>
           <div class="sk-metrics">
             <div><span class="k">Salary impact</span><span class="v {tone(imp)}">{signed(imp)}%</span></div>
             <div><span class="k">p-value</span><span class="v sk-pval"><span class="pre">p =</span>{fmt_p(p_exact)}</span></div>
-            <div><span class="k">Satisfaction</span><span class="v {tone(r['satisfaction_coef'])}">{signed(r['satisfaction_coef'], 3)}</span></div>
+<div><span class="k">Satisfaction</span><span class="v {tone(r['satisfaction_coef']) if r.get('satisfaction_coef') is not None else ''}">{signed(r['satisfaction_coef'], 3) if r.get('satisfaction_coef') is not None else "—"}</span></div>
             <div><span class="k">Survey users</span><span class="v">{r['n_known']:,}</span></div>
           </div>
           <div class="sk-ci">{ci_text} · {peer_text}</div>
