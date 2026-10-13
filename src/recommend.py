@@ -119,7 +119,7 @@ class SkillRadar:
         # high-prevalence skills within the country/experience filter.
         if not have:
             df = df_full[mask] if use_mask else df_full
-            return self._cold_start(top_n, df)
+            return self._cold_start(top_n, df, ai_user=ai_user)
 
         skills = self.skills
         v = np.array([1.0 if s in have else 0.0 for s in skills], dtype=float).reshape(1, -1)
@@ -140,7 +140,8 @@ class SkillRadar:
                             dtype=cand.dtype)
         if cand.size == 0:
             return self._cold_start(top_n,
-                                    df_full[mask] if use_mask else df_full)
+                                    df_full[mask] if use_mask else df_full,
+                                    ai_user=ai_user)
         # Take the top k_neighbors from the filtered set.
         cand = cand[:k_neighbors]
         neighbours = df_full.iloc[cand]
@@ -224,7 +225,8 @@ class SkillRadar:
         }
 
     # --- cold start ------------------------------------------------------------
-    def _cold_start(self, top_n: int, df: pd.DataFrame | None = None) -> dict:
+    def _cold_start(self, top_n: int, df: pd.DataFrame | None = None,
+                 ai_user: bool | None = None) -> dict:
         """No skills entered: recommend the globally most lucrative skills
         within the optional country/experience filter (df may be the
         pre-filtered subset)."""
