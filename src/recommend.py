@@ -111,6 +111,9 @@ class SkillRadar:
         if workexp is not None:
             lo, hi = max(0, int(workexp) - 10), int(workexp) + 10
             mask &= (df_full["WorkExp"].values >= lo) & (df_full["WorkExp"].values <= hi)
+        if role is not None and role in df_full.columns:
+            # `role` is the raw column name (e.g. "role_Developer_back_end").
+            mask &= (df_full[role].values == 1)
         valid_full_idx = set(full_idx[mask].tolist())
         # If the filter collapses the pool, fall back to the full df.
         use_mask = len(valid_full_idx) >= 50
