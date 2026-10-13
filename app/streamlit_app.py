@@ -178,7 +178,7 @@ SPLASH = """
 def render_splash_and_warm() -> None:
     """First-load splash. Renders the pan, then triggers the heavy work
     (data + KNN build), then reruns so the app body is instant."""
-    st.markdown(SPLASH, unsafe_allow_html=True)
+    st.html(SPLASH)
     # warm caches (this is the work the splash embodies)
     _ = load_artifacts()
     _ = get_engine()
@@ -251,7 +251,7 @@ hero = lift_for(tuple(r["skill"] for r in recs))
 cold = not have
 
 # --- header ---------------------------------------------------------------------------
-st.markdown(
+st.html(
     f"""
     <div class="sk-header">
       <div class="sk-brand">skillet</div>
@@ -263,9 +263,7 @@ st.markdown(
         <span class="sk-chip">p-values attached</span>
       </div>
     </div>
-    """,
-    unsafe_allow_html=True,
-)
+    """)
 
 # --- HERO (cast-iron plate) -----------------------------------------------------------
 total = float(hero["total_pct"])
@@ -284,7 +282,7 @@ else:
                f"<b>these {n_eval} skills</b>, holding experience and country constant.")
 skills_line = " · ".join(rec_labels) if rec_labels else "—"
 
-st.markdown(
+st.html(
     f"""
     <section class="sk-hero">
       <div class="sk-hero-main">
@@ -318,16 +316,13 @@ st.markdown(
         </div>
       </div>
     </section>
-    """,
-    unsafe_allow_html=True,
-)
+    """)
 
 if cold:
-    st.markdown(
+    st.html(
         '<div class="sk-prompt"><span class="arrow">→</span><span><b>Pick your stack on the '
         'left</b> to see your persona, your personalised top-5 skills to learn, and the '
-        'predicted salary lift for <i>you</i>.</span></div>',
-        unsafe_allow_html=True,
+        'predicted salary lift for <i>you</i>.</span></div>'
     )
 
 # --- persona + recommendations --------------------------------------------------------
@@ -338,10 +333,10 @@ distinguishing = " ".join(
     f'<span class="sk-chip-skill">{short(s)}</span>' for s in rec["persona_top_skills"]
 ) or '<span class="sk-chip-skill">—</span>'
 
-st.markdown('<div class="sk-cols">', unsafe_allow_html=True)
+st.html('<div class="sk-cols">')
 
 # left: persona
-st.markdown(
+st.html(
     f"""
     <div class="sk-persona">
       <h2>{PERSONA_NAMES.get(pid, f"Cluster {pid}")}</h2>
@@ -361,9 +356,7 @@ st.markdown(
       constant. <b>p-value</b> tests whether the association is distinguishable from zero
       (below 0.05 is the usual bar). The <b>95% interval</b> is the range the data
       supports for that coefficient.</div>
-    """,
-    unsafe_allow_html=True,
-)
+    """)
 
 # right: recommendations
 cards_html = ['<div class="sk-rec">', "<h2>Top skills to learn next</h2>", '<div class="sk-rec-list">']
@@ -408,11 +401,11 @@ else:
         """)
 cards_html.append("</div></div>")
 st.markdown("".join(cards_html), unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)  # /sk-cols
+st.html("</div>")  # /sk-cols
 
 # --- methodology --------------------------------------------------------------------
-st.markdown('<div class="sk-method">', unsafe_allow_html=True)
-st.markdown("<h2>Methodology</h2>", unsafe_allow_html=True)
+st.html('<div class="sk-method">')
+st.html("<h2>Methodology</h2>")
 with st.expander("How these recommendations are scored", expanded=False):
     st.markdown(
         f"""
@@ -459,11 +452,11 @@ missing-not-at-random; coefficients are *associations*, not causal effects;
 single-year cross-section.
 """
     )
-st.markdown("</div>", unsafe_allow_html=True)
+st.html("</div>")
 
 # --- ROI landscape ------------------------------------------------------------------
-st.markdown('<div class="sk-chart">', unsafe_allow_html=True)
-st.markdown("<h2>Skill ROI landscape</h2>", unsafe_allow_html=True)
+st.html('<div class="sk-chart">')
+st.html("<h2>Skill ROI landscape</h2>")
 st.markdown(
     "<p class=\"sk-lead\">Where these recommendations come from. The top 20 skills by "
     "modelled salary impact, with 95% confidence intervals as whiskers. Bars are coloured "
@@ -523,11 +516,11 @@ fig.update_layout(
 )
 st.plotly_chart(fig, use_container_width=True, theme=None,
                 config={"displayModeBar": False, "displaylogo": False})
-st.markdown("</div>", unsafe_allow_html=True)
+st.html("</div>")
 
 # --- what-if calculator --------------------------------------------------------------
-st.markdown('<div class="sk-whatif">', unsafe_allow_html=True)
-st.markdown("<h2>What if I also learned these?</h2>", unsafe_allow_html=True)
+st.html('<div class="sk-whatif">')
+st.html("<h2>What if I also learned these?</h2>")
 
 known = set(have) | {r["skill"] for r in recs}
 extras = st.multiselect(
@@ -582,16 +575,14 @@ if extras:
         )
 else:
     st.caption("Pick one or more skills above to see their combined predicted lift.")
-st.markdown("</div>", unsafe_allow_html=True)
+st.html("</div>")
 
 # --- footer --------------------------------------------------------------------------
-st.markdown(
+st.html(
     f"""
     <div class="sk-footer">
       <span>skillet · upskilling recommender</span>
       <span>Python · pandas · statsmodels · scikit-learn · Streamlit · Plotly</span>
       <span>2025 Stack Overflow Developer Survey · {N_SAMPLE:,} developers</span>
     </div>
-    """,
-    unsafe_allow_html=True,
-)
+    """)
