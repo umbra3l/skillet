@@ -1,6 +1,6 @@
-# 🎯 Skill Radar
+# 🍳 skillet
 
-> **A data-driven recommender for tech upskilling.** Built on the 2025 Stack Overflow Developer Survey, Skill Radar answers *"what should this specific engineer learn next?"* with statistical evidence from the Business Analytics syllabus.
+> **A data-driven recommender for tech upskilling.** Built on the 2025 Stack Overflow Developer Survey, skillet answers *"what should this specific engineer learn next?"* with statistical evidence from the Business Analytics syllabus.
 
 [![2025 survey](https://img.shields.io/badge/data-2025%20Stack%20Overflow%20Survey-blue)](https://github.com/StackExchange/Survey/tree/main/packages/archive/2025)
 [![Python 3.14](https://img.shields.io/badge/python-3.14-green)]()
@@ -33,7 +33,7 @@
 
 ## ✨ What it does
 
-Given a developer's profile (role, experience, country, current stack, AI-tool usage), Skill Radar:
+Given a developer's profile (role, experience, country, current stack, AI-tool usage), skillet:
 
 1. assigns them to a **persona** by overlap with each cluster's top skills,
 2. finds their **k nearest peers** in the survey by Jaccard distance on the binary skill matrix (KNN — Module 4),
@@ -62,7 +62,7 @@ A cold-start fallback recommends the globally most lucrative skills when no stac
 ## 📦 Repository layout
 
 ```
-skill-radar/
+skillet/
 ├── README.md
 ├── Makefile
 ├── run_all.py                  # one-shot pipeline runner
@@ -219,7 +219,7 @@ The repo is Streamlit-Cloud-ready. `runtime.txt` pins Python 3.12, `.streamlit/c
 
 1. Push to GitHub.
 2. Sign in to [share.streamlit.io](https://share.streamlit.io) → **New app** → point at this repo, branch `main`, main file `app/streamlit_app.py` → **Deploy**.
-3. ~3-5 min later you have a public URL like `https://<your-handle>-skill-radar.streamlit.app` — put it in the repo description and in your report.
+3. ~3-5 min later you have a public URL like `https://<your-handle>-skillet.streamlit.app` — put it in the repo description and in your report.
 
 > Note: the first launch will re-run the pipeline (preprocess → recommend artefacts) on Streamlit's servers. The raw `results.csv` is gitignored and must be downloaded at build time. Either host it somewhere and download in the app, or bake the pipeline outputs into the repo (they're small — `processed.parquet` ≈ 4 MB).
 
