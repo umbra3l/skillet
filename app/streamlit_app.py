@@ -267,6 +267,7 @@ st.sidebar.caption(
     "Country, experience and role condition the peer set; "
     "leave the stack empty to see the cold-start plan (the globally highest-ROI skills)."
 )
+)
 engine = get_engine()
 rec = engine.recommend(current_skills=list(have), top_n=5)
 recs = rec["recommendations"]
