@@ -126,6 +126,25 @@ Hero number (`+49%`-style): Bitter at `font-weight: 500`,
   (banned by craft-floor: coloured `border-left` > 1 px on
   cards). Sign is carried by `.sk-pill` colour (`--patina` /
   `--brick`) and by the `Salary impact` cell's colour.
+  **One hover micro-interaction:** `.sk-card:hover` sets
+  `border-left-color: var(--ember)` over 160 ms ease-out. The
+  border stays exactly 1 px and it appears only on a state
+  change, never as static decoration. The card does not lift,
+  scale, or bloom a shadow. The `.sk-pill` deepens its
+  background to `--paper-3` on the same hover.
+- **`.sk-metrics`** — a 4-cell mono grid. Values are
+  `tabular-nums lining-nums`; the p-value cell is smaller
+  (`.sk-pval`, 14 px) with a faint `p =` prefix (`.pre`,
+  `--steel-2`, 10 px) so the eye reads `p = 1.2e-15` cleanly.
+- **`.sk-persona .share`** — a 4 px bar with a copper→ember
+  gradient fill and a two-layer `inset` box-shadow so it reads
+  as cast into the card, not drawn on top of it.
+- **`.sk-prompt`** — the cold-start call to action: `--paper-2`
+  ground, 2 px `--copper` left border, ink text, ember arrow.
+  The arrow nudges 4 px right on hover (160 ms ease-out) and
+  returns on leave. (This 2 px side border is the one static
+  exception the brief authorises — it is a call-to-action band,
+  not a card or list item.)
 - **`.sk-pill`** — a 1 px bordered pill, mono, sharp.
 - **`.sk-chip`** / **`.sk-chip-skill`** — small mono or body
   tags on `--paper-2` / `--paper`.
@@ -136,7 +155,33 @@ Hero number (`+49%`-style): Bitter at `font-weight: 500`,
   cream, the caret is `--ember`, scrollbar is `--steel` on
   `--paper-2` track, focus rings are 2 px `--copper` with 2 px
   offset (no glow, no shadow). Tabular numerals wherever a
-  number sits next to a label.
+  number sits next to a label. `.streamlit/config.toml` carries
+  the same tokens (`primaryColor` copper, `baseRadius = "0px"`),
+  so Streamlit's own widgets inherit the world.
+
+## Structural rules (Streamlit-specific)
+
+These are not design choices; they are how Streamlit renders, and
+getting them wrong silently breaks the layout:
+
+- **One `st.html` call per visual block.** Each `st.html` call
+  renders as its own isolated element — an opening
+  `st.html('<div class="sk-cols">')` and a closing
+  `st.html('</div>')` produce two *empty* divs and nothing is
+  ever wrapped. The persona + recommendation columns are built
+  as strings and emitted in a single call so the 1fr : 1.45fr
+  grid actually contains them.
+- **Streamlit widgets cannot nest inside `st.html` divs.** The
+  expander, the multiselect and the metric tiles are widgets, so
+  `.sk-method`, `.sk-whatif` etc. wrap only their heading; the
+  widget styles are scoped to their `data-testid` directly
+  (there is exactly one of each on the page).
+- **Streamlit 1.65 renders select/multiselect with react-aria,
+  not baseweb.** The old `[data-baseweb="select"]` /
+  `[data-baseweb="tag"]` selectors are dead. The real hooks are
+  `.react-aria-ComboBox > [role="group"]` for the box (with
+  `[data-focused]` for the copper focus ring) and
+  `span[data-tag]` for selected-skill tags.
 
 ## The pan loading animation (splash)
 
@@ -146,25 +191,48 @@ caption + ember bar), then warms the caches (`load_artifacts`,
 `get_engine`), sets the flag, and `st.rerun()`. The second run
 skips the splash and renders the full app.
 
-The splash HTML:
-- Cast-iron ellipse body (`fill: #1c1815`) with a long handle
-  extending to the right and a small hanging hole.
-- Three `.sk-pan-heat` thin wavy paths above the pan, each a
-  warm copper/ember stroke, animated with a 3.2 s ease-out
-  infinite rise (`translateY` + opacity), staggered by ~1 s.
-- A `.sk-pan-glow` stroke around the pan rim that breathes
-  (2.6 s ease-in-out infinite, `opacity: 0 → 0.35 → 0`).
-- A `.sk-ember-bar` at the bottom: 220 × 2 px, with an inner
-  `<i>` that breathes `scaleX(0.45 → 0.95 → 0.45)` over 1.8 s
-  with a 12 px `--ember` box-shadow.
-- The wordmark "skillet" in Bitter at 56 px, `letter-spacing:
-  -0.04em`.
-- The caption "Cooking up your recommendations." in Sora at
-  14 px, `--steel`.
+The splash is one rehearsed sequence — the pan is *cooking*. Every
+motion is CSS-driven (no SMIL, so `prefers-reduced-motion` can kill
+it cleanly) and uses `--ease-settle` (`cubic-bezier(0.16, 1, 0.3, 1)`,
+confident deceleration) for entrances or `--ease-breath`
+(`cubic-bezier(0.45, 0, 0.55, 1)`, long ease-in-out) for continuous
+breathing. No linear, no bounce, no elastic.
 
-`prefers-reduced-motion: reduce` overrides all of the above
-animations to `none`, the heat paths drop to `opacity: 0.3`,
-and the ember bar holds at `scaleX(0.8)`.
+The splash HTML:
+- Cast-iron ellipse body (`fill: #1c1815`) with a long handle and a
+  small **hanging hole** (`#f7f0e1` ellipse in the handle) — this
+  replaces the old rectangular end-cap, which read as a step.
+- `.sk-pan-burner` — a blurred (`blur(6px)`) ember radial-gradient
+  ellipse under the pan: the burner is on. Breathe
+  `opacity 0.045 → 0.09 → 0.045` over 4.4 s.
+- `.sk-pan-haze` — a warm copper/ember radial-gradient band above
+  the pan, displaced by an SVG `feTurbulence` + `feDisplacementMap`
+  filter (`#sk-shimmer`) and Gaussian-blurred. Breathe
+  `opacity 0.22 → 0.5`, `translateY 4px → -3px`, `scaleX 0.97 → 1.02`
+  over 5.2 s. This is the continuous warm motion the eye feels but
+  the camera doesn't catch.
+- `.sk-pan-heat` — two thin wavy paths (down from three) inside the
+  same shimmer filter, staggered by half a cycle (`-2.4s`), rising
+  `translateY 6px → -18px` with a fade over 4.8 s.
+- `.sk-pan-glow` — a stroke around the pan rim that breathes
+  `opacity 0 → 0.3 → 0` over 3.4 s.
+- `.sk-wordmark` — "skillet" in Bitter at 56 px, `letter-spacing:
+  -0.04em`. **One-shot** `sk-arrive` entrance: `opacity 0 → 1`,
+  `translateY 12px → 0` over 700 ms `--ease-settle`, then it sits
+  still. The heat is the motion; the type is the anchor.
+- `.sk-splash-caption` — "Cooking up your recommendations." in Sora
+  at 14 px, `--steel`, same `sk-arrive` entrance delayed 120 ms.
+- `.sk-ember-bar` — 220 × 2 px with an inner `<i>`. **One-shot**
+  `sk-ember-fill`: `scaleX 0 → 1` from the left over 2.6 s
+  `--ease-settle`, with the ember box-shadow blooming then settling
+  to nothing. The pan is heating up; it fills, then holds.
+
+`prefers-reduced-motion: reduce` overrides all of the above to
+`animation: none`, with a composed still as the fallback: heat paths
+at `opacity 0.3`, haze at `0.35`, glow at `0.25`, burner at `0.07`,
+the wordmark/caption/hero-number at `opacity 1` with no transform,
+and the ember bar at `scaleX(1)`. No half-states, no invisible
+elements.
 
 ## What is refused (and why)
 
