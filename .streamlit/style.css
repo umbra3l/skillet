@@ -1,32 +1,42 @@
-/* skillet — cast-iron heritage design system
+/* skillet — Editorial Magazine design system
+ * A serious quarterly's cover story on tech hiring, set on bone paper
+ * in publication ink. Newsreader (display, optical sizing on),
+ * Manrope (body), JetBrains Mono (numerals, datelines, captions).
  * Loaded as a single <style> block by app/streamlit_app.py.
- * No external font files: Google Fonts via @import with system fallbacks.
- * Honours prefers-reduced-motion. Sharp corners. No glass-as-decoration,
- * no gradient text, no coloured side borders > 1px, no pulsing dot.
+ * Sharp corners. Rules, never shadows. No glass, no gradient text,
+ * no emoji icons, no coloured side borders above 1px on items.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Manrope:wght@400..800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ---------- tokens ---------- */
 :root {
-  /* cast-iron heritage palette */
-  --ink:        #1c1815;   /* deep cast-iron charcoal */
-  --ink-2:      #2a2520;   /* pan interior */
-  --ink-3:      #3a342c;   /* rim highlight */
-  --paper:      #f7f0e1;   /* warm vellum / app surface */
-  --paper-2:    #ede2c8;   /* slightly deeper cream (cards, panels) */
-  --paper-3:    #e3d5b6;   /* deeper still (subtle tints) */
-  --steel:      #6a6258;   /* muted mid (secondary text on paper) */
-  --steel-2:    #8a8275;   /* tertiary / muted */
-  --copper:     #b8743a;   /* primary accent — heated copper */
-  --copper-2:   #a86830;
-  --ember:      #c44a1a;   /* hot state — the hero number, the heat */
-  --patina:     #3f5a3a;   /* positive ROI (muted forest) */
-  --brick:      #7a3528;   /* negative ROI (muted brick) */
+  /* bone paper */
+  --paper:      #f3eee5;   /* page ground */
+  --paper-2:    #e8e1d2;   /* panels, page items */
+  --paper-3:    #d8d0bf;   /* tints, dividers, grain highlights */
+
+  /* publication ink */
+  --ink:        #0e0d0a;   /* true ink, not warm */
+  --ink-2:      #1f1d18;
+  --ink-3:      #3a3833;
+
+  /* mid slate */
+  --steel:      #3d4046;   /* secondary text */
+  --steel-2:    #6b6e74;   /* captions, tertiary */
+
+  /* accents */
+  --rust:       #a23a22;   /* warm rust primary accent */
+  --rust-2:     #862d18;
+  --ember:      #c44a1a;   /* hot state */
+
+  /* semantic */
+  --patina:     #2f5a3a;   /* positive — cool forest */
+  --brick:      #6e2d22;   /* negative — cooler brick */
 
   /* type */
-  --font-display: 'Bitter', Georgia, 'Times New Roman', serif;
-  --font-body:    'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:    'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* rhythm */
@@ -36,6 +46,9 @@
   /* line widths (sharp) */
   --line: 1px;
   --line-2: 2px;
+
+  /* motion */
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---------- base + browser surfaces ---------- */
@@ -43,670 +56,729 @@ html, body, [data-testid="stAppViewContainer"], .stApp {
   background: var(--paper) !important;
   color: var(--ink) !important;
   font-family: var(--font-body);
-  font-feature-settings: "ss01", "cv11";
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* selection — copper on cream */
-::selection { background: var(--copper); color: var(--paper); }
-::-moz-selection { background: var(--copper); color: var(--paper); }
+::selection { background: var(--rust); color: var(--paper); }
+::-moz-selection { background: var(--rust); color: var(--paper); }
 
-/* scrollbar */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--paper-2); }
-::-webkit-scrollbar-thumb { background: var(--steel); border: 2px solid var(--paper-2); }
+::-webkit-scrollbar-thumb { background: var(--steel-2); border: 2px solid var(--paper-2); }
 ::-webkit-scrollbar-thumb:hover { background: var(--ink); }
 
-/* caret */
 input, textarea, [contenteditable] { caret-color: var(--ember); }
 
-/* ---------- typography ---------- */
-.sk-h1, h1, .stMarkdown h1 {
+*:focus-visible {
+  outline: 2px solid var(--rust) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* ---------- type ---------- */
+h1, .stMarkdown h1 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-variation-settings: "opsz" 96;
+  font-optical-sizing: auto;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.02;
   color: var(--ink);
 }
-.sk-h2, h2, .stMarkdown h2 {
+h2, .stMarkdown h2 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-variation-settings: "opsz" 48;
+  font-optical-sizing: auto;
   letter-spacing: -0.015em;
-  line-height: 1.1;
+  line-height: 1.08;
   text-wrap: balance;
   color: var(--ink);
   margin: 0 0 var(--r-4) 0;
 }
-.sk-h3, h3, .stMarkdown h3 {
+h3, .stMarkdown h3 {
   font-family: var(--font-display);
   font-weight: 500;
+  font-optical-sizing: auto;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
-.sk-mono { font-family: var(--font-mono); font-feature-settings: "tnum", "zero"; }
-.sk-display-num {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-  color: var(--ember);
-  font-variant-numeric: tabular-nums lining-nums;
-}
+p, li { line-height: 1.6; color: var(--ink); }
+.sk-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
 
-p, li { line-height: 1.55; color: var(--ink); }
-.sk-muted { color: var(--steel); }
-.sk-fine { font-size: 12px; color: var(--steel); letter-spacing: 0.02em; }
-.sk-rule { border: 0; border-top: var(--line) solid var(--paper-3); margin: var(--r-5) 0; }
-
-/* ---------- focus ring (themed) ---------- */
-*:focus-visible {
-  outline: 2px solid var(--copper) !important;
-  outline-offset: 2px !important;
-  box-shadow: none !important;
-}
+/* reading spine: one measured column */
+.block-container { max-width: 1020px; }
 
 /* hide Streamlit chrome that doesn't earn its place */
 #MainMenu, footer { visibility: hidden; }
 [data-testid="stToolbar"] { display: none; }
 [data-testid="stDecoration"] { display: none; }
 
-/* ============================================================
-   SPLASH — the cast-iron pan loading animation (first load only)
-   One rehearsed sequence: the burner is on, heat rises off the
-   iron, the wordmark arrives once, the ember bar fills and holds.
-   ============================================================ */
-:root {
-  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);   /* confident deceleration */
-  --ease-breath: cubic-bezier(0.45, 0, 0.55, 1);  /* continuous, never abrupt */
+/* hide Streamlit sidebar entirely — controls are in-page now */
+[data-testid="stSidebar"],
+[data-testid="stSidebarNav"],
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stCollapsedControl"],
+[data-testid="stSidebarCollapseButton"] {
+  display: none !important;
 }
-.sk-splash {
+
+
+/* ============================================================
+   COVER FOLD — first render while the cache warms.
+   A top hairline, the wordmark arriving once, a rust rule
+   infilling left to right. Then the cover unfolds.
+   ============================================================ */
+.sk-coverfold {
   position: fixed; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--r-4);
   background: var(--paper);
   z-index: 1000;
-  gap: var(--r-3);
 }
-.sk-pan {
-  width: min(420px, 70vw);
-  height: auto;
-  min-height: 206px;
-  aspect-ratio: 400 / 196;
-  display: block;
-}
-
-/* warm air shimmering off the iron: soft copper/ember bands drifting
-   through a static turbulence field — the eye feels it, the camera
-   doesn't catch it */
-.sk-pan-haze {
-  transform-box: fill-box; transform-origin: center bottom;
-  opacity: 0;
-  animation: sk-haze-breathe 5.2s var(--ease-breath) infinite;
-}
-@keyframes sk-haze-breathe {
-  0%   { opacity: 0.22; transform: translateY(4px)  scaleX(0.97); }
-  50%  { opacity: 0.5;  transform: translateY(-3px) scaleX(1.02); }
-  100% { opacity: 0.22; transform: translateY(4px)  scaleX(0.97); }
-}
-.sk-pan-heat {
-  stroke-linecap: round; fill: none;
-  opacity: 0;
-  transform-box: fill-box; transform-origin: center;
-  animation: sk-heat-rise 4.8s var(--ease-breath) infinite;
-}
-.sk-pan-heat-2 { animation-delay: -2.4s; }
-@keyframes sk-heat-rise {
-  0%   { opacity: 0;    transform: translateY(6px)  scaleX(0.97); }
-  35%  { opacity: 0.45; }
-  65%  { opacity: 0.38; }
-  100% { opacity: 0;    transform: translateY(-18px) scaleX(1.03); }
-}
-
-/* the burner under the pan is on */
-.sk-pan-burner {
-  opacity: 0;
-  filter: blur(6px);
-  animation: sk-burner-breathe 4.4s var(--ease-breath) infinite;
-}
-@keyframes sk-burner-breathe {
-  0%, 100% { opacity: 0.045; }
-  50%      { opacity: 0.09; }
-}
-.sk-pan-glow {
-  fill: none; stroke: var(--ember); stroke-width: 4; stroke-linecap: round;
-  opacity: 0.0;
-  animation: sk-pan-glow 3.4s var(--ease-breath) infinite;
-  filter: blur(0.5px);
-}
-@keyframes sk-pan-glow {
-  0%, 100% { opacity: 0; }
-  50%      { opacity: 0.3; }
-}
-
-/* the type is the anchor: it arrives once, then sits still */
-.sk-wordmark {
+.sk-fold-rule { width: min(560px, 80vw); height: 1px; background: var(--ink); }
+.sk-fold-word {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.04em;
-  font-size: 56px;
+  font-optical-sizing: auto;
+  letter-spacing: -0.03em;
+  font-size: 64px;
   line-height: 1;
   color: var(--ink);
-  margin-top: var(--r-4);
-  opacity: 1;
   animation: sk-arrive 700ms var(--ease-settle) both;
 }
-.sk-splash-caption {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--steel);
-  letter-spacing: 0.01em;
-  opacity: 1;
-  animation: sk-arrive 700ms var(--ease-settle) 120ms both;
+.sk-fold-bar {
+  width: 220px; height: 2px;
+  background: var(--paper-3);
+  overflow: hidden;
+}
+.sk-fold-bar > i {
+  display: block; height: 100%; width: 100%;
+  background: var(--rust);
+  transform-origin: left center;
+  animation: sk-fold-fill 2.4s var(--ease-settle) both;
+}
+@keyframes sk-fold-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 @keyframes sk-arrive {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* the pan is heating up: a one-shot fill, then it holds */
-.sk-ember-bar {
-  width: 220px; height: 2px;
-  background: var(--paper-3);
-  position: relative; overflow: hidden;
-  margin-top: var(--r-4);
-}
-.sk-ember-bar > i {
-  display: block; height: 100%;
-  background: linear-gradient(90deg, var(--copper), var(--ember));
-  width: 100%;
-  transform-origin: left center;
-  animation: sk-ember-fill 2.6s var(--ease-settle) both;
-}
-@keyframes sk-ember-fill {
-  0%   { transform: scaleX(0);    box-shadow: 0 0 0 rgba(196, 74, 26, 0); }
-  15%  { box-shadow: 0 0 10px rgba(196, 74, 26, 0.45); }
-  85%  { box-shadow: 0 0 6px  rgba(196, 74, 26, 0.25); }
-  100% { transform: scaleX(1);    box-shadow: 0 0 0 rgba(196, 74, 26, 0); }
-}
-
 /* ============================================================
-   HEADER
+   MASTHEAD — imprint, cover title, deck line, byline
    ============================================================ */
-.sk-header {
-  display: flex; align-items: center; gap: var(--r-4);
-  padding: var(--r-4) var(--r-5);
-  border-bottom: var(--line) solid var(--paper-3);
-  background: var(--paper);
-  position: sticky; top: 0; z-index: 20;
-}
-.sk-brand {
-  display: flex; align-items: baseline; gap: var(--r-2);
-  font-family: var(--font-display);
-  font-variation-settings: "opsz" 96;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  font-size: 28px;
-  color: var(--ink);
-}
-.sk-badge {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ember);
-  border: var(--line) solid var(--ember);
-  padding: 2px 6px;
-  text-transform: uppercase;
-}
-.sk-tagline {
-  flex: 1; min-width: 0;
-  color: var(--steel);
-  font-size: 13px;
-  border-left: var(--line) solid var(--paper-3);
-  padding-left: var(--r-4);
-}
-.sk-chips { display: flex; gap: var(--r-2); }
-.sk-chip {
+.sk-imprint {
+  border-top: var(--line-2) solid var(--ink);
+  padding-top: var(--r-2);
   font-family: var(--font-mono);
-  font-size: 11px; letter-spacing: 0.04em;
-  color: var(--ink);
-  background: var(--paper-2);
-  padding: 4px 8px;
-  border: var(--line) solid var(--paper-3);
-}
-.sk-chip b { color: var(--ember); font-weight: 500; }
-
-/* ============================================================
-   HERO — the cast-iron plate (the one number the page is about)
-   ============================================================ */
-.sk-hero {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: var(--r-7);
-  align-items: center;
-  background: var(--ink);
-  color: var(--paper);
-  padding: var(--r-8) var(--r-7);
-  margin: var(--r-6) 0;
-  position: relative;
-  overflow: hidden;
-}
-.sk-hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(circle at 8% 20%, rgba(184,116,58,0.08), transparent 40%),
-    radial-gradient(circle at 92% 80%, rgba(196,74,26,0.06), transparent 45%);
-  pointer-events: none;
-}
-.sk-hero-main { position: relative; }
-.sk-hero-num {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
-  color: var(--ember);
-  font-variant-numeric: tabular-nums lining-nums;
-  font-size: clamp(64px, 8vw, 112px);
-  margin: var(--r-2) 0 var(--r-3) 0;
-  display: flex; align-items: baseline;
-  opacity: 1;
-  animation: sk-arrive 700ms var(--ease-settle) both;
-}
-.sk-hero-num .sk-plus { color: var(--copper); font-weight: 400; margin-right: 2px; }
-.sk-hero-num .sk-unit { font-size: 0.45em; color: var(--paper); margin-left: 6px; font-weight: 400; }
-.sk-hero-cap {
-  font-family: var(--font-body);
-  color: var(--paper);
-  font-size: 16px; line-height: 1.5;
-  max-width: 56ch;
-}
-.sk-hero-cap b { color: var(--paper); font-weight: 500; }
-.sk-hero-cap .sk-prompt-inline { color: var(--ember); font-weight: 500; }
-.sk-hero-skills {
-  margin-top: var(--r-4);
-  font-family: var(--font-mono);
-  font-size: 12px; letter-spacing: 0.02em;
-  color: var(--steel-2);
-}
-.sk-hero-skills b { color: var(--paper); font-weight: 400; }
-
-/* hero info: typographic pairs, not glass stat cells */
-.sk-hero-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--r-4) var(--r-5);
-  position: relative;
-  border-left: var(--line-2) solid var(--copper);
-  padding-left: var(--r-5);
-}
-.sk-hero-info .pair { display: flex; flex-direction: column; gap: 2px; }
-.sk-hero-info .k {
-  font-family: var(--font-body);
-  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--steel-2);
-}
-.sk-hero-info .v {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 28px;
-  color: var(--paper);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums lining-nums;
-}
-.sk-hero-info .v.sk-mono { font-family: var(--font-mono); font-size: 18px; font-weight: 400; color: var(--paper); }
-.sk-hero-info .s {
-  font-family: var(--font-body);
   font-size: 11px;
-  color: var(--steel-2);
+  letter-spacing: 0.14em;
+  color: var(--steel);
 }
-
-/* cold-start prompt — a deliberate call to action, not help text */
-.sk-prompt {
-  border: var(--line) solid var(--paper-3);
-  border-left: var(--line-2) solid var(--copper);
-  background: var(--paper-2);
-  padding: var(--r-3) var(--r-4);
-  margin: 0 0 var(--r-7) 0;
-  color: var(--ink);
-  font-size: 14px;
-  display: flex; align-items: center; gap: var(--r-3);
-}
-.sk-prompt b { color: var(--ink); font-weight: 600; }
-.sk-prompt .arrow {
-  color: var(--ember); font-weight: 600;
-  display: inline-block;
-  transition: transform 160ms ease-out;
-}
-.sk-prompt:hover .arrow { transform: translateX(4px); }
-
-/* ============================================================
-   COLUMNS — persona + recommendations
-   ============================================================ */
-.sk-cols {
-  display: grid;
-  grid-template-columns: 1fr 1.45fr;
-  gap: var(--r-6);
-  align-items: start;
-  margin: var(--r-8) 0 var(--r-8) 0;
-}
-.sk-col-left { display: flex; flex-direction: column; gap: var(--r-3); min-width: 0; }
-.sk-rec { min-width: 0; }
-@media (max-width: 1100px) {
-  .sk-cols { grid-template-columns: 1fr; }
-}
-
-/* persona card */
-.sk-persona {
-  background: var(--paper-2);
-  border: var(--line) solid var(--paper-3);
-  padding: var(--r-5);
-  position: relative;
-}
-.sk-persona .sk-rank {
-  font-family: var(--font-mono);
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ember);
-}
-.sk-persona h2 {
+.sk-cover-title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 28px;
-  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-size: clamp(56px, 9vw, 128px);
   color: var(--ink);
-  margin: 0 0 6px 0;
-  line-height: 1.05;
+  margin: var(--r-4) 0 0 0;
+  text-wrap: balance;
 }
-.sk-persona .meta {
-  color: var(--steel);
-  font-size: 13px;
-  line-height: 1.4;
-  margin-bottom: var(--r-4);
-}
-.sk-persona .meta b { color: var(--ink); font-weight: 500; }
-.sk-persona .share {
-  height: 4px; background: var(--paper-3);
-  margin: var(--r-3) 0 6px 0;
-  position: relative;
-  box-shadow: inset 0 1px 1px rgba(28, 24, 21, 0.16),
-              inset 0 -1px 0 rgba(247, 240, 225, 0.55);
-}
-.sk-persona .share i {
-  display: block; height: 100%;
-  background: linear-gradient(90deg, var(--copper), var(--ember));
-}
-.sk-persona .share-legend {
-  display: flex; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 11px;
-  color: var(--steel); letter-spacing: 0.04em;
-}
-.sk-sub {
+.sk-cover-title .sk-title-mark { color: var(--rust); }
+.sk-deck-line {
   font-family: var(--font-body);
-  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 15px;
+  line-height: 1.55;
   color: var(--steel);
-  margin: var(--r-5) 0 var(--r-2) 0;
+  max-width: 62ch;
+  margin: var(--r-4) 0 0 0;
 }
-.sk-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.sk-chip-skill {
-  font-family: var(--font-body);
-  font-size: 12px;
-  background: var(--paper);
-  color: var(--ink);
-  padding: 4px 8px;
-  border: var(--line) solid var(--paper-3);
-}
-.sk-mini-stats {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--r-3);
+.sk-byline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--steel-2);
   border-top: var(--line) solid var(--paper-3);
+  margin-top: var(--r-4);
+  padding-top: var(--r-3);
+}
+.sk-byline b { color: var(--steel); font-weight: 500; }
+
+/* ============================================================
+   HERO ILLUSTRATION — drawn-in-brand publication diagram
+   ============================================================ */
+.sk-illus {
+  margin: var(--r-7) 0 0 0;
+  text-align: center;
+}
+.sk-illus svg {
+  display: block;
+  width: min(720px, 100%);
+  max-height: 360px;
+  margin: 0 auto;
+}
+.sk-illus-cap {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--steel-2);
+  margin-top: var(--r-3);
+}
+
+/* ============================================================
+   STANDFIRST — the lead paragraph
+   ============================================================ */
+.sk-standfirst {
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--ink);
+  max-width: 68ch;
+  margin: var(--r-6) auto 0 auto;
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   COVER NUMBER — the +NN% in its own editorial block
+   ============================================================ */
+.sk-covernote {
+  border-top: var(--line-2) solid var(--rust);
+  border-bottom: var(--line-2) solid var(--rust);
+  margin: var(--r-8) 0 0 0;
+  padding: var(--r-7) 0;
+}
+.sk-covernum {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: clamp(96px, 12vw, 168px);
+  margin: 0;
+  display: flex; align-items: baseline;
+}
+.sk-covernum .sk-plus { color: var(--rust); font-weight: 400; margin-right: 4px; }
+.sk-covernum .sk-unit { font-size: 0.4em; color: var(--steel); margin-left: 8px; font-weight: 400; letter-spacing: 0; }
+@keyframes sk-rise-8 {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sk-first .sk-covernum { animation: sk-rise-8 600ms var(--ease-settle) both; }
+.sk-cover-skills {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--steel);
+  margin-top: var(--r-4);
+}
+.sk-cover-skills b { color: var(--rust); font-weight: 500; }
+.sk-cover-stand {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--steel);
+  max-width: 64ch;
+  margin: var(--r-3) 0 0 0;
+  text-wrap: pretty;
+}
+/* stats row: one ruled line, mono numerals throughout */
+.sk-stats {
+  display: flex; flex-wrap: wrap;
+  row-gap: var(--r-2);
+  border-top: var(--line) solid var(--paper-3);
+  margin-top: var(--r-5);
   padding-top: var(--r-3);
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--steel);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--steel-2);
 }
-.sk-mini-stats b { color: var(--ink); font-weight: 500; display: block; font-size: 18px; font-family: var(--font-display); }
+.sk-stats > span { padding-right: var(--r-4); margin-right: var(--r-4); }
+.sk-stats > span + span { border-left: var(--line) solid var(--paper-3); padding-left: var(--r-4); }
+.sk-stats > span:last-child { padding-right: 0; margin-right: 0; }
+.sk-stats b { color: var(--ink); font-weight: 500; }
+
+/* ============================================================
+   COVER STORY — five page items, two-up
+   ============================================================ */
+.sk-story-head {
+  margin: var(--r-8) 0 var(--r-5) 0;
+}
+.sk-story-head h2 {
+  font-size: 34px;
+  margin: 0;
+}
+.sk-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--r-4);
+}
+/* page item: paper edge made of two rules (no box-shadow) */
+.sk-item {
+  position: relative;
+  background: var(--paper-2);
+  border: var(--line) solid var(--paper-3);
+  padding: var(--r-5);
+  transition: border-color 140ms ease-out;
+}
+.sk-item::before {
+  content: "";
+  position: absolute;
+  top: 4px; right: 4px; bottom: 4px; left: 4px;
+  border: var(--line) solid var(--paper-3);
+  pointer-events: none;
+  transition: border-color 140ms ease-out;
+}
+.sk-item:hover { border-color: var(--steel-2); }
+.sk-item:hover::before { border-color: var(--steel-2); }
+/* folio number: stamped italic display, set like a spread folio */
+.sk-folio {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--rust);
+  margin: 0 0 var(--r-2) -2px;
+}
+.sk-item-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 36;
+  font-size: 28px;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.sk-dek {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--steel);
+  margin: var(--r-3) 0 0 0;
+  text-wrap: pretty;
+}
+.sk-dek b { color: var(--ink); font-weight: 600; }
+/* stat strip: four cells, sharp paper-3 dividers */
+.sk-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--paper-3);
+  border: var(--line) solid var(--paper-3);
+  margin-top: var(--r-4);
+}
+.sk-strip > div {
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 0;
+  background: var(--paper);
+  padding: var(--r-2) var(--r-3);
+}
+.sk-strip .k {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel-2);
+  line-height: 1.3;
+}
+.sk-strip .v {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1.3;
+}
+.sk-strip .v.sk-pos { color: var(--patina); }
+.sk-strip .v.sk-neg { color: var(--brick); }
+.sk-strip .v.sk-small { font-size: 12px; font-weight: 400; }
+.sk-ciline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel-2);
+  margin-top: var(--r-2);
+}
+/* staggered reveal, first render of the session only */
+@keyframes sk-item-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sk-story-grid.sk-enter .sk-item { animation: sk-item-in 500ms var(--ease-settle) both; }
+.sk-story-grid.sk-enter .sk-item:nth-child(1) { animation-delay: 0ms; }
+.sk-story-grid.sk-enter .sk-item:nth-child(2) { animation-delay: 60ms; }
+.sk-story-grid.sk-enter .sk-item:nth-child(3) { animation-delay: 120ms; }
+.sk-story-grid.sk-enter .sk-item:nth-child(4) { animation-delay: 180ms; }
+.sk-story-grid.sk-enter .sk-item:nth-child(5) { animation-delay: 240ms; }
 
 /* how-to-read note */
 .sk-note {
-  margin-top: var(--r-3);
+  margin-top: var(--r-4);
   background: var(--paper);
   border: var(--line) solid var(--paper-3);
   padding: var(--r-4);
   font-size: 13px;
   color: var(--steel);
-  line-height: 1.55;
+  line-height: 1.6;
 }
-.sk-note b { color: var(--ink); font-weight: 500; }
+.sk-note b { color: var(--ink); font-weight: 600; }
 
-/* recommendation cards */
-.sk-rec h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 28px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0 0 var(--r-3) 0;
+/* ============================================================
+   PERSONA — "Who you are in the data."
+   ============================================================ */
+.sk-persona-sec {
+  border-top: var(--line) solid var(--ink);
+  border-bottom: var(--line) solid var(--ink);
+  margin: var(--r-8) 0 0 0;
+  padding: var(--r-6) 0;
 }
-.sk-rec-list { display: flex; flex-direction: column; gap: var(--r-3); }
-.sk-card {
-  background: var(--paper-2);
-  border: var(--line) solid var(--paper-3);
-  padding: var(--r-4) var(--r-5);
-  position: relative;
-  transition: border-left-color 160ms ease-out;
+.sk-persona-sec h2 {
+  font-size: 30px;
+  margin: 0 0 var(--r-5) 0;
 }
-/* one purposeful micro-interaction: on hover the card takes a 1px ember
-   left border — a state change, not a decoration. No lift, no scale. */
-.sk-card:hover { border-left-color: var(--ember); }
-.sk-card-head {
-  display: flex; align-items: baseline; gap: var(--r-3);
-  border-bottom: var(--line) solid var(--paper-3);
-  padding-bottom: var(--r-2);
-  margin-bottom: var(--r-3);
+.sk-persona-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--r-7);
+  align-items: start;
 }
-.sk-card .sk-rank {
-  font-family: var(--font-mono);
-  font-size: 11px; letter-spacing: 0.12em;
-  color: var(--ember);
-}
-.sk-card .sk-skill {
+.sk-persona-name {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 24px;
-  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+  font-size: 26px;
+  letter-spacing: -0.015em;
   color: var(--ink);
-  flex: 1;
+  margin: 0 0 var(--r-3) 0;
+  text-wrap: balance;
 }
-.sk-card .sk-pill {
+.sk-persona-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--steel);
+  margin: 0;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+.sk-persona-desc b { color: var(--ink); font-weight: 600; }
+.sk-dateline {
   font-family: var(--font-mono);
-  font-size: 14px; font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums lining-nums;
+  color: var(--steel-2);
+  margin-top: var(--r-3);
+}
+.sk-tags { display: flex; flex-wrap: wrap; gap: var(--r-2); }
+.sk-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
   color: var(--ink);
   background: var(--paper);
   border: var(--line) solid var(--paper-3);
-  padding: 2px 8px;
-  transition: background-color 160ms ease-out;
+  padding: 4px 8px;
+  transition: border-color 140ms ease-out;
 }
-.sk-card:hover .sk-pill { background: var(--paper-3); }
-.sk-card .sk-pill.sk-pos { color: var(--patina); border-color: var(--patina); }
-.sk-card .sk-pill.sk-neg { color: var(--brick);  border-color: var(--brick); }
-.sk-card .sk-score {
-  font-family: var(--font-mono);
-  font-size: 10px; color: var(--steel);
-  margin-right: var(--r-2);
-  cursor: help;
-}
-.sk-card .sk-metrics {
-  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--r-2) var(--r-4);
-  margin-bottom: var(--r-2);
-}
-.sk-card .sk-metrics > div { display: flex; flex-direction: column; gap: 1px; }
-.sk-card .sk-metrics .k {
-  font-family: var(--font-body);
-  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-  line-height: 1.3;
-  color: var(--steel);
-}
-.sk-card .sk-metrics .v {
-  font-family: var(--font-mono);
-  font-size: 16px; font-weight: 500;
-  line-height: 1.25;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums lining-nums;
-}
-.sk-card .sk-metrics .v.sk-pos { color: var(--patina); }
-.sk-card .sk-metrics .v.sk-neg { color: var(--brick); }
-.sk-card .sk-metrics .v.sk-pval { font-size: 14px; font-weight: 400; }
-.sk-card .sk-metrics .v .pre {
-  color: var(--steel-2);
-  font-size: 10px;
-  font-weight: 400;
-  margin-right: 3px;
-  letter-spacing: 0.02em;
-}
-.sk-card .sk-ci {
-  font-family: var(--font-mono);
-  font-size: 11px; color: var(--steel);
-  margin: var(--r-2) 0;
-}
-.sk-card .sk-evidence {
-  font-family: var(--font-body);
-  font-size: 13px; line-height: 1.5;
-  color: var(--steel);
-  margin: 0;
-}
-.sk-card .sk-evidence b { color: var(--ink); font-weight: 500; }
-@media (max-width: 720px) {
-  .sk-card .sk-metrics { grid-template-columns: 1fr 1fr; }
-}
+.sk-tag:hover { border-color: var(--rust); }
 
 /* ============================================================
-   METHODOLOGY (expander)
-   The heading lives in a .sk-method div; the expander itself is a
-   Streamlit widget that cannot nest inside st.html, so it is
-   scoped to its testid. There is exactly one on the page.
+   FIGURE — Skill ROI landscape
    ============================================================ */
-.sk-method {
-  margin: var(--r-8) 0 var(--r-3) 0;
-}
-.sk-method h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 28px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0;
-}
-[data-testid="stExpander"] {
-  background: var(--paper-2) !important;
-  border: var(--line) solid var(--paper-3) !important;
-  border-radius: 0 !important;
-  margin: 0 0 var(--r-8) 0;
-}
-[data-testid="stExpander"] > details {
-  background: transparent !important;
-  border: 0 !important;
-}
-[data-testid="stExpander"] summary {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 16px !important;
-  color: var(--ink) !important;
-  letter-spacing: -0.005em;
-  background: transparent !important;
-  transition: color 160ms ease-out;
-}
-[data-testid="stExpander"] summary:hover {
-  color: var(--copper-2) !important;
-  background: transparent !important;
-}
-[data-testid="stExpander"] summary:focus-visible {
-  outline-offset: -2px;
-}
-[data-testid="stExpanderDetails"] {
-  background: var(--paper) !important;
-  animation: sk-fade-in 160ms ease-out both;
-}
-@keyframes sk-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-[data-testid="stExpanderDetails"] pre, [data-testid="stExpanderDetails"] code {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  background: var(--paper-3);
-  padding: 2px 5px;
-  color: var(--ink);
-}
-[data-testid="stExpanderDetails"] pre {
-  display: block;
-  padding: var(--r-3) var(--r-4);
-  white-space: pre-wrap;
-  margin: var(--r-3) 0;
-  border-left: 2px solid var(--copper);
-}
-
-/* ============================================================
-   ROI LANDSCAPE (chart section)
-   ============================================================ */
-.sk-chart {
+.sk-figure-sec {
   margin: var(--r-8) 0 0 0;
 }
-.sk-chart h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 28px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0 0 4px 0;
+.sk-figlabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--rust);
+  margin-bottom: var(--r-3);
 }
-.sk-lead {
-  color: var(--steel);
+.sk-figure-sec h2 {
+  font-size: 30px;
+  margin: 0 0 var(--r-3) 0;
+}
+.sk-fig-lead {
+  font-family: var(--font-body);
   font-size: 14px;
-  max-width: 70ch;
+  line-height: 1.6;
+  color: var(--steel);
+  max-width: 68ch;
   margin: 0 0 var(--r-4) 0;
+  text-wrap: pretty;
+}
+[data-testid="stPlotlyChart"] {
+  border: var(--line) solid var(--paper-3);
+  border-radius: 0;
+  background: var(--paper);
+  padding: var(--r-3) var(--r-3) var(--r-1) var(--r-3);
+}
+/* significance ramp: the colour bar's replacement */
+.sk-ramp {
+  display: flex; align-items: center; gap: var(--r-3);
+  margin: var(--r-3) 0 0 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel);
+}
+.sk-ramp .sk-ramp-lab {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--steel-2);
+  white-space: nowrap;
+}
+.sk-ramp-track { flex: 1; min-width: 0; }
+.sk-ramp-track i {
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, #6e2d22 0%, #c44a1a 12%, #d8d0bf 30%,
+    #7fa08a 55%, #2f5a3a 78%, #1e4028 100%);
+}
+.sk-ramp-ticks {
+  display: flex; justify-content: space-between;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--steel-2);
+  margin-top: 4px;
+}
+.sk-fig-prose {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--steel);
+  max-width: 70ch;
+  margin: var(--r-4) 0 0 0;
+  text-wrap: pretty;
 }
 
 /* ============================================================
-   WHAT-IF (secondary calculator)
+   NOTES — methodology as a colophon page (native details)
    ============================================================ */
-.sk-whatif {
+.sk-notes-sec {
   margin: var(--r-8) 0 0 0;
-  padding-top: var(--r-6);
-  border-top: var(--line) solid var(--paper-3);
 }
-.sk-whatif h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 24px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0 0 var(--r-4) 0;
-}
-.sk-fine { margin-bottom: var(--r-3); }
-[data-testid="stMetric"] {
+.sk-notes {
   background: var(--paper-2);
   border: var(--line) solid var(--paper-3);
-  padding: var(--r-3);
+  border-radius: 0;
 }
-[data-testid="stMetricValue"] {
-  font-family: var(--font-mono) !important;
-  font-variant-numeric: tabular-nums lining-nums;
-  color: var(--ink) !important;
+.sk-notes summary {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  padding: var(--r-4) var(--r-5);
+  cursor: pointer;
+  list-style: none;
+  transition: color 140ms ease-out;
 }
-[data-testid="stMetricLabel"] {
-  font-family: var(--font-body) !important;
-  font-size: 11px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-  color: var(--steel) !important;
+.sk-notes summary::-webkit-details-marker { display: none; }
+.sk-notes summary::before {
+  content: "+";
+  font-family: var(--font-mono);
+  color: var(--rust);
+  margin-right: var(--r-3);
+}
+.sk-notes[open] summary::before { content: "–"; }
+.sk-notes summary:hover { color: var(--rust-2); }
+.sk-notes-body {
+  background: var(--paper);
+  border-top: var(--line) solid var(--paper-3);
+  padding: var(--r-5);
+}
+.sk-notes-body .sk-notes-dek {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink);
+  max-width: 68ch;
+  margin: 0 0 var(--r-4) 0;
+}
+.sk-notes-body p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--steel);
+  max-width: 70ch;
+  margin: 0 0 var(--r-3) 0;
+}
+.sk-notes-body ol {
+  padding-left: var(--r-5);
+  margin: 0 0 var(--r-4) 0;
+  max-width: 70ch;
+}
+.sk-notes-body ol li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--steel);
+  margin-bottom: var(--r-2);
+}
+.sk-notes-body ol li::marker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--rust);
+}
+.sk-notes-body ol li b, .sk-notes-body p b { color: var(--ink); font-weight: 600; }
+.sk-notes-body code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: var(--paper-2);
+  padding: 1px 5px;
+  color: var(--ink);
+}
+.sk-notes-body pre {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: var(--r-3) var(--r-4);
+  white-space: pre-wrap;
+  overflow-x: auto;
+  border-radius: 0;
+  margin: var(--r-4) 0;
+  border-left: 2px solid var(--rust);
 }
 
 /* ============================================================
-   FORM CONTROLS — copper focus, never the browser blue.
-   Streamlit 1.65 renders select/multiselect with react-aria:
-   .react-aria-ComboBox > [role="group"] is the visual box.
+   CALC — what-if as a secondary instrument
+   ============================================================ */
+.sk-calc-sec {
+  margin: var(--r-8) 0 0 0;
+  border-top: var(--line) solid var(--ink);
+  padding-top: var(--r-6);
+}
+.sk-calc-head {
+  display: flex; align-items: baseline; gap: var(--r-4);
+}
+.sk-calc-head h2 {
+  flex: 1;
+  min-width: 0;
+  font-size: 26px;
+  margin: 0;
+}
+.sk-marlabel {
+  margin-left: auto;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--steel-2);
+  border: var(--line) solid var(--paper-3);
+  padding: 3px 8px;
+}
+.sk-calc-read {
+  margin: var(--r-4) 0 0 0;
+  border-top: var(--line) solid var(--paper-3);
+  padding-top: var(--r-4);
+}
+.sk-calc-lift {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: -0.03em;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  margin: 0;
+}
+.sk-calc-lift .sk-plus { color: var(--rust); font-weight: 400; }
+.sk-calc-interp {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--steel);
+  max-width: 66ch;
+  margin: var(--r-2) 0 0 0;
+  text-wrap: pretty;
+}
+.sk-calc-interp b { color: var(--ink); font-weight: 600; }
+.sk-cap {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel-2);
+  margin-top: var(--r-2);
+}
+.sk-calc-quiet {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--steel-2);
+  margin: var(--r-3) 0 0 0;
+}
+
+/* ============================================================
+   FOOTER — colophon line
+   ============================================================ */
+.sk-footer {
+  border-top: var(--line) solid var(--ink);
+  padding: var(--r-4) 0 var(--r-6) 0;
+  margin-top: var(--r-8);
+  display: flex; flex-wrap: wrap; gap: var(--r-2) var(--r-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--steel);
+}
+.sk-footer span:not(:last-child)::after {
+  content: "·"; margin-left: var(--r-4); color: var(--paper-3);
+}
+
+/* ============================================================
+   IN-PAGE FILTER — the controls used to live in a sidebar;
+   now they're inline above the cover number on the same page.
+   ============================================================ */
+.sk-filter-shell { margin: 0; }
+.sk-filter-rule {
+  border: 0;
+  border-top: 2px solid var(--ink);
+  margin: var(--r-2) 0 var(--r-3) 0;
+}
+.sk-filter-sec { margin: var(--r-3) 0 var(--r-2) 0; }
+.sk-filter-title {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 var(--r-2) 0;
+  padding-bottom: var(--r-2);
+  border-bottom: 1px solid var(--paper-3);
+}
+.sk-filter-dateline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--steel-2);
+  margin: var(--r-3) 0 var(--r-5) 0;
+}
+/* widget labels now live in the main column, not the sidebar */
+.block-container [data-testid="stWidgetLabel"] p {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--steel);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* ============================================================
+   FORM CONTROLS — rust focus, never browser blue.
+   Streamlit renders select/multiselect with react-aria.
    ============================================================ */
 [data-testid="stMultiSelect"] .react-aria-ComboBox,
 [data-testid="stSelectbox"] .react-aria-ComboBox {
@@ -718,7 +790,7 @@ p, li { line-height: 1.55; color: var(--ink); }
   background: var(--paper);
   border: var(--line) solid var(--paper-3);
   border-radius: 2px;
-  transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+  transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
 }
 [data-testid="stMultiSelect"] [role="group"]:hover,
 [data-testid="stSelectbox"] [role="group"]:hover {
@@ -728,8 +800,8 @@ p, li { line-height: 1.55; color: var(--ink); }
 [data-testid="stSelectbox"] [role="group"][data-focused],
 [data-testid="stMultiSelect"] [role="group"]:focus-within,
 [data-testid="stSelectbox"] [role="group"]:focus-within {
-  border-color: var(--copper);
-  box-shadow: inset 0 0 0 1px var(--copper);
+  border-color: var(--rust);
+  box-shadow: inset 0 0 0 1px var(--rust);
 }
 [data-testid="stMultiSelect"] input,
 [data-testid="stSelectbox"] input {
@@ -753,20 +825,17 @@ p, li { line-height: 1.55; color: var(--ink); }
 [data-testid="stSelectbox"] button svg {
   fill: var(--steel);
 }
-/* selected-skill tags inside the multiselect box (react-aria renders them
-   as span[data-tag], not role=option) */
 [data-testid="stMultiSelect"] span[data-tag] {
   background: var(--paper-2) !important;
-  border: var(--line) solid var(--ember) !important;
+  border: var(--line) solid var(--rust) !important;
   border-radius: 2px !important;
-  color: var(--ember) !important;
+  color: var(--rust) !important;
   font-family: var(--font-body) !important;
   font-size: 13px !important;
   padding: 2px 6px !important;
 }
-[data-testid="stMultiSelect"] span[data-tag] span { color: var(--ember) !important; }
-[data-testid="stMultiSelect"] span[data-tag] button svg { fill: var(--ember) !important; }
-/* open listbox options */
+[data-testid="stMultiSelect"] span[data-tag] span { color: var(--rust) !important; }
+[data-testid="stMultiSelect"] span[data-tag] button svg { fill: var(--rust) !important; }
 [data-testid="stMultiSelect"] [role="option"],
 [data-testid="stSelectbox"] [role="option"] {
   background: var(--paper);
@@ -780,136 +849,42 @@ p, li { line-height: 1.55; color: var(--ink); }
 [data-testid="stMultiSelect"] [role="option"][data-focused],
 [data-testid="stSelectbox"] [role="option"][data-focused] {
   background: var(--paper-2);
-  color: var(--ember);
+  color: var(--rust);
 }
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.sk-footer {
-  border-top: var(--line) solid var(--paper-3);
-  padding: var(--r-5) 0;
-  margin-top: var(--r-6);
-  display: flex; flex-wrap: wrap; gap: var(--r-4);
-  font-family: var(--font-mono);
-  font-size: 11px; color: var(--steel);
-  letter-spacing: 0.04em;
-}
-.sk-footer span:not(:last-child)::after {
-  content: "·"; margin-left: var(--r-4); color: var(--paper-3);
-}
-
-/* ============================================================
-   SIDEBAR — quiet, no glass
-   ============================================================ */
-[data-testid="stSidebar"] {
-  background: var(--paper-2) !important;
-  border-right: var(--line) solid var(--paper-3) !important;
-}
-[data-testid="stSidebar"] h3 {
-  font-family: var(--font-display) !important;
-  font-variation-settings: "opsz" 24 !important;
-  font-size: 18px !important;
-  font-weight: 500 !important;
-  color: var(--ink) !important;
-  letter-spacing: -0.01em !important;
-  margin: 0 0 var(--r-2) 0 !important;
-}
-[data-testid="stSidebar"] .sk-fine { margin-bottom: var(--r-3); }
-[data-testid="stSidebar"] .sk-rule { margin: var(--r-6) 0 var(--r-4) 0; }
-[data-testid="stSidebar"] .sk-side-label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--steel);
-  margin: 0 0 var(--r-3) 0;
-}
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
-  font-family: var(--font-body) !important;
-  font-size: 12px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  color: var(--steel) !important;
-  font-weight: 500 !important;
-}
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"],
-[data-testid="stSidebar"] input,
-[data-testid="stSidebar"] textarea {
-  background: var(--paper) !important;
-  border: var(--line) solid var(--paper-3) !important;
-  border-radius: 2px !important;
-  font-family: var(--font-body) !important;
-  color: var(--ink) !important;
-}
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"]:hover {
-  border-color: var(--steel-2) !important;
-}
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"][data-focused],
-[data-testid="stSidebar"] .react-aria-ComboBox [role="group"]:focus-within {
-  border-color: var(--copper) !important;
-  box-shadow: inset 0 0 0 1px var(--copper) !important;
-  outline: none !important;
-}
-[data-testid="stSidebar"] input:focus,
-[data-testid="stSidebar"] input:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-}
-[data-testid="stSidebar"] [role="option"] {
-  background: var(--paper) !important;
-  border: var(--line) solid var(--ember) !important;
-  color: var(--ember) !important;
-  border-radius: 2px !important;
-  font-family: var(--font-body) !important;
-}
-[data-testid="stSidebar"] [role="option"] span { color: var(--ember) !important; }
-[data-testid="stSidebar"] [role="option"] svg { fill: var(--ember) !important; }
-[data-testid="stSidebar"] [data-testid="stCheckbox"] label span { color: var(--ink) !important; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 900px) {
-  .sk-header { flex-wrap: wrap; gap: var(--r-2); padding: var(--r-3); }
-  .sk-tagline { display: none; }
-  .sk-chips { display: none; }
-  .sk-hero { grid-template-columns: 1fr; padding: var(--r-5) var(--r-4); gap: var(--r-5); }
-  .sk-hero-info { border-left: 0; border-top: var(--line-2) solid var(--copper); padding-left: 0; padding-top: var(--r-4); }
-  .sk-hero-num { font-size: clamp(48px, 14vw, 80px); }
-  .sk-persona h2, .sk-rec h2, .sk-method h2, .sk-chart h2 { font-size: 22px; }
+@media (max-width: 880px) {
+  .sk-story-grid { grid-template-columns: 1fr; }
+  .sk-persona-grid { grid-template-columns: 1fr; gap: var(--r-4); }
+  .sk-strip { grid-template-columns: 1fr 1fr; }
+  .sk-story-head h2, .sk-persona-sec h2, .sk-figure-sec h2 { font-size: 26px; }
 }
 @media (max-width: 560px) {
-  .sk-hero-num { font-size: 56px; }
-  .sk-hero-info { grid-template-columns: 1fr; }
+  .sk-covernum { font-size: 72px; }
+  .sk-standfirst { font-size: 17px; }
+  .sk-cover-title { font-size: 52px; }
+  .sk-stats > span { padding-right: var(--r-3); margin-right: var(--r-3); }
+  .sk-stats > span + span { padding-left: var(--r-3); }
+  .sk-item { padding: var(--r-4); }
 }
 
 /* ============================================================
-   REDUCED MOTION — replace the focal motion with a static state.
-   Everything that moves in the splash and the page resolves to a
-   composed still: the pan is hot, the type is present, the bar
-   is full. No half-states, no invisible elements.
+   REDUCED MOTION — everything resolves to a composed still.
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .sk-pan-heat, .sk-pan-haze, .sk-pan-glow, .sk-pan-burner,
-  .sk-ember-bar > i, .sk-wordmark, .sk-splash-caption, .sk-hero-num {
+  .sk-fold-bar > i, .sk-fold-word,
+  .sk-first .sk-covernum, .sk-story-grid.sk-enter .sk-item {
     animation: none !important;
   }
-  .sk-pan-heat { opacity: 0.3; transform: none; }
-  .sk-pan-haze { opacity: 0.35; transform: none; }
-  .sk-pan-glow { opacity: 0.25; }
-  .sk-pan-burner { opacity: 0.07; }
-  .sk-wordmark, .sk-splash-caption, .sk-hero-num { opacity: 1; transform: none; }
-  .sk-ember-bar > i { transform: scaleX(1); box-shadow: none; }
-  [data-testid="stExpanderDetails"] { animation: none !important; opacity: 1; }
-  .sk-prompt .arrow,
-  .sk-card,
-  .sk-card .sk-pill,
-  [data-testid="stExpander"] summary,
+  .sk-fold-word { opacity: 1; transform: none; }
+  .sk-fold-bar > i { transform: scaleX(1); }
+  .sk-first .sk-covernum { opacity: 1; transform: none; }
+  .sk-story-grid.sk-enter .sk-item { opacity: 1; transform: none; }
+  .sk-item, .sk-item::before, .sk-tag, .sk-notes summary,
   [data-testid="stMultiSelect"] [role="group"],
   [data-testid="stSelectbox"] [role="group"] {
     transition: none !important;
   }
-  .sk-prompt:hover .arrow { transform: none; }
 }

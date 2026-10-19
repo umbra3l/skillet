@@ -1,12 +1,12 @@
 {
   "t_tests": {
     "log_comp_ai_users_vs_non": {
-      "n_users": 15312,
-      "n_non": 3898,
-      "mean_log_comp_users": 11.896450394222297,
-      "mean_log_comp_non": 11.604296835687427,
-      "t": 7.673372160352529,
-      "p_value": 1.9315378132772143e-14,
+      "n_users": 15120,
+      "n_non": 3837,
+      "mean_log_comp_users": 10.957173383212888,
+      "mean_log_comp_non": 11.105146894172194,
+      "t": -6.148176579911387,
+      "p_value": 8.321112645454442e-10,
       "conclusion": "Reject H0; AI users' log compensation differs"
     },
     "JobSat_ai_users_vs_non": {

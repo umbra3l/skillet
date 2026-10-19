@@ -1,13 +1,17 @@
 """Module 3: Simple & Multiple Linear Regression.
 
-  SLR  : log(CompTotal) ~ WorkExp            -- goodness of fit, assumptions
-  MLR  : log(CompTotal) ~ WorkExp + Country   -- full model with controls
+  SLR  : log(CompUSD) ~ WorkExp            -- goodness of fit, assumptions
+  MLR  : log(CompUSD) ~ WorkExp + Country   -- full model with controls
   Per-skill ROI: for each skill s, fit
-         log(CompTotal) ~ WorkExp + Country + skill_s
-  and record the standardized coefficient of skill_s as that skill's
-  "salary ROI", holding experience and country constant.  This avoids the
+         log(CompUSD) ~ WorkExp + Country + skill_s
+  and record the coefficient of skill_s as that skill's "salary ROI",
+  holding experience and country constant.  This avoids the
   multicollinearity that a kitchen-sink MLR would suffer, and gives a
   single interpretable number per skill -- the M3 application requirement.
+
+  CompUSD is the survey's ConvertedCompYearly (annual pay in USD). Country
+  enters as a fixed effect for EVERY country (not just the ten largest),
+  so cross-country pay levels never leak into a skill's coefficient.
 """
 from __future__ import annotations
 
@@ -35,8 +39,12 @@ def skill_columns(df: pd.DataFrame) -> list[str]:
             if any(c.startswith(p) for p in SKILL_PREFIXES) and df[c].nunique() == 2]
 
 
-def country_columns(df: pd.DataFrame) -> list[str]:
-    return [c for c in df.columns if c.startswith("country_")]
+def country_effects(df: pd.DataFrame) -> pd.DataFrame:
+    """One dummy per country, United States as the reference level."""
+    ref = df["Country"].value_counts().index[0]
+    cat = pd.Categorical(df["Country"],
+                         categories=[ref] + sorted(set(df["Country"].dropna()) - {ref}))
+    return pd.get_dummies(cat, prefix="fe", drop_first=True, dtype=float).set_index(df.index)
 
 
 def fit_slr(df: pd.DataFrame) -> dict:
@@ -55,16 +63,17 @@ def fit_slr(df: pd.DataFrame) -> dict:
 
 def fit_full_mlr(df: pd.DataFrame, skills: list[str]) -> dict:
     """log_comp ~ WorkExp + country dummies + ALL skills  (assumptions / VIF demo)."""
-    cols = ["WorkExp"] + country_columns(df) + skills
+    cols = ["WorkExp"] + skills
     sub = df[(df["comp_inlier"] == 1) & df["log_comp"].notna()].dropna(subset=cols)
-    X = sm.add_constant(sub[cols])
+    fe = country_effects(sub)
+    X = sm.add_constant(pd.concat([sub[cols], fe], axis=1))
     y = sub["log_comp"]
     m = sm.OLS(y, X).fit()
     # VIF on a sample of skill columns to keep the table readable
     vif = {}
-    sample = ["WorkExp"] + skills[:15] + country_columns(df)[:5]
+    sample = ["WorkExp"] + skills[:15] + list(fe.columns[:5])
     sample = [c for c in sample if c in X.columns and c != "const"]
-    Xv = sm.add_constant(sub[sample].astype(float))
+    Xv = sm.add_constant(X[sample].astype(float))
     for i, c in enumerate(sample):
         try:
             vif[c] = float(variance_inflation_factor(Xv.values, i + 1))
@@ -80,17 +89,15 @@ def fit_full_mlr(df: pd.DataFrame, skills: list[str]) -> dict:
 
 def per_skill_roi(df: pd.DataFrame) -> pd.DataFrame:
     """For each skill, fit log_comp ~ WorkExp + country + skill, record coef & t-stat."""
-    countries = country_columns(df)
-    base_cols = ["WorkExp"] + countries
     sub = df[(df["comp_inlier"] == 1) & df["log_comp"].notna()].dropna(
-        subset=base_cols + ["log_comp"])
+        subset=["WorkExp", "Country", "log_comp"])
+    fe = country_effects(sub)
     rows = []
     for s in skill_columns(df):
-        cols = base_cols + [s]
         d = sub.dropna(subset=[s])
         if d.shape[0] < 500 or d[s].sum() < 50:
             continue
-        X = sm.add_constant(d[cols])
+        X = sm.add_constant(pd.concat([d[["WorkExp", s]], fe.loc[d.index]], axis=1))
         y = d["log_comp"]
         m = sm.OLS(y, X).fit()
         coef = float(m.params[s])

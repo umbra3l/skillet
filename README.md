@@ -15,16 +15,16 @@
   - **.NET stack** (18%) — ASP.NET, NuGet, Visual Studio
   - **Systems / enterprise languages** (46%) — C, C++, Java, Swift, Oracle
   - **Modern JS / web tooling** (36%) — pnpm, Express, Vite, Webpack
-- **Top 5 skills by salary ROI** (per-skill MLR, control = work exp + country):
+- **Top 5 skills by salary ROI** (per-skill MLR on USD pay, control = work exp + a fixed effect for every country):
   | Skill | Salary impact | p-value | n |
   |---|---|---|---|
-  | Scala | **+29.8%** | 4×10⁻⁶ | 471 |
-  | Terraform | **+27.0%** | 1×10⁻²² | 2,945 |
-  | Kubernetes | **+26.5%** | 9×10⁻³⁰ | 4,534 |
-  | Go | **+26.0%** | 9×10⁻²² | 3,027 |
-  | ClickHouse | **+24.5%** | 6×10⁻⁴ | 370 |
-- **AI-tool users earn more** and report higher job satisfaction (Welch's t = 7.67, p ≈ 2×10⁻¹⁴ on log-comp; t = 3.36, p = 8×10⁻⁴ on satisfaction).
-- **Full MLR** of log compensation on work exp + country + 122 skills → R² = 0.238, adj-R² = 0.233.
+  | Scala | **+35.2%** | 3×10⁻²¹ | 471 |
+  | Snowflake | **+33.0%** | 4×10⁻²⁶ | 665 |
+  | Terraform | **+31.0%** | 9×10⁻⁸⁷ | 2,958 |
+  | ClickHouse | **+30.7%** | 1×10⁻¹³ | 366 |
+  | Databricks SQL | **+30.1%** | 3×10⁻¹⁷ | 493 |
+- **AI-tool users earn more once country is controlled** (+9.9%, p ≈ 6×10⁻¹⁴, holding work exp + country fixed) and report higher job satisfaction (Welch's t = 3.36, p = 8×10⁻⁴). The raw comparison points the other way (Welch's t = −6.15 on log-comp) because AI use is more common in lower-paying countries — a Simpson's-paradox case.
+- **Full MLR** of log USD compensation on work exp + country fixed effects + 122 skills → R² = 0.559, adj-R² = 0.553.
 - **Logistic model** of high job satisfaction → AUC = 0.562 (honest, with discussion in the report).
 
 ![Personas in PCA skill-space](assets/05_pca_scatter.png)
@@ -49,7 +49,7 @@ A cold-start fallback recommends the globally most lucrative skills when no stac
 
 | Syllabus module | Where it appears in this repo |
 |---|---|
-| **M1** Data types, scales, cleansing, supervised vs unsupervised | `src/preprocess.py` — filters to professional developers, explodes multi-select skills, IQR outlier flag, derives `log_comp` and `JobSat_high` (≥ 8 on 0–10 scale) |
+| **M1** Data types, scales, cleansing, supervised vs unsupervised | `src/preprocess.py` — filters to professional developers, explodes multi-select skills, IQR outlier flag, derives `log_comp` (log of USD-converted pay, `ConvertedCompYearly`) and `JobSat_high` (≥ 8 on 0–10 scale) |
 | **M2** Descriptive analytics, all chart types, hypothesis testing, p-values, relationships | `notebooks/01_eda.py` (histogram, bar, scatter, pie, box, heatmap); `src/stats_tests.py` — Welch's t-tests (AI users vs not, on salary + satisfaction), chi-square tests of independence with Cramér's V |
 | **M3** SLR, MLR, assumptions, goodness of fit, model comparison | `src/regression.py` — SLR `log_comp ~ WorkExp`; per-skill MLR `log_comp ~ WorkExp + country + skill_s` (121 skills); full MLR with VIF sample |
 | **M4** Logistic regression, decision tree, KNN, Naive Bayes, LDA, ROC, confusion matrix | `src/classification.py` — logistic on `JobSat_high` with ROC, AUC, Youden-optimal threshold, confusion matrix; `src/recommend.py` — **KNN core** (Jaccard, k=300) drives the personalised recommendations |
@@ -71,7 +71,7 @@ skillet/
 │   ├── download.sh             # fetches results.csv (LFS) + schema.csv
 │   ├── results.csv             # ~135MB, gitignored
 │   ├── schema.csv              # column metadata
-│   ├── processed.parquet       # 19,210 × 178
+│   ├── processed.parquet       # 19,210 × 179
 │   ├── processed_meta.json
 │   ├── skill_roi.csv           # per-skill salary impact
 │   ├── satisfaction_coefs.csv
@@ -143,17 +143,17 @@ A short report lives at [`report/REPORT.md`](report/REPORT.md).
 
 | Skill | Salary impact | p-value |
 |---|---|---|
-| Microsoft Access | −32.9% | 5×10⁻¹² |
-| Visual Basic .NET | −23.1% | 2×10⁻⁸ |
-| WordPress | −21.6% | 1×10⁻¹⁴ |
-| PHP | −21.0% | 3×10⁻²³ |
-| Ada | −20.9% | 0.045 |
+| Microsoft Access | −27.0% | 5×10⁻²² |
+| Delphi | −24.4% | 7×10⁻¹⁴ |
+| Visual Basic .NET | −21.5% | 5×10⁻²⁰ |
+| PHP | −19.8% | 6×10⁻⁶¹ |
+| Laravel | −19.1% | 6×10⁻²⁵ |
 
 **Hypothesis tests (Module 2):**
 
 | Test | Statistic | p-value | Conclusion |
 |---|---|---|---|
-| AI users' log-comp vs non-users | t = 7.67 | 2×10⁻¹⁴ | AI users earn significantly more |
+| AI users' log-comp vs non-users (raw) | t = −6.15 | 8×10⁻¹⁰ | Raw gap favours non-users; reverses to +9.9% for AI users once country + exp are controlled |
 | AI users' job satisfaction vs non-users | t = 3.36 | 8×10⁻⁴ | AI users are significantly more satisfied |
 | AI usage × remote work (χ², 5 d.f.) | χ² = 10.59 | 0.060 | Marginal association (Cramér's V = 0.023) |
 | Role × most common language (χ²) | χ² = 2416 | < 1×10⁻³⁰ | Strong association (Cramér's V = 0.355) |
@@ -186,7 +186,7 @@ All three sit barely above random — strong evidence that the survey's observab
 
 (18 factors explain 50.1% of the binary-skill variance — the "latent ecosystem" structure underneath the 51 PCA components.)
 
-**ANOVA across personas:** F(2, 19207) = 16.90, p = 4.7×10⁻⁸, η² = 0.002 (small effect). Mean log-comp: .NET 11.84, Systems 11.75, JS/web 11.95. The Systems vs JS/web gap is the driver (p_adj = 3.6×10⁻⁸, ~20% more compensation after exp).
+**ANOVA across personas:** F(2, 18954) = 16.88, p = 4.7×10⁻⁸, η² = 0.002 (small effect). Mean log USD comp: .NET 11.10, Systems 10.94, JS/web 11.00. The .NET vs Systems gap is the driver (p_adj = 4×10⁻¹⁰, ~17% higher pay; raw, not controlled for country).
 
 **Skill co-occurrence network (Module 5/2):** 86 nodes, 182 edges at Jaccard > 0.30. The "connective-tissue" hubs (highest degree centrality) are the cross-persona tools: `npm` 0.235, `Docker` 0.224, `SQL` 0.212, `PostgreSQL` 0.200, `OpenAI GPT chatbot` 0.200. Modularity against the 3-persona partition is 0.21 (weak) — connectivity is driven by architectural/ecosystem groupings rather than the persona labels.
 
@@ -229,14 +229,16 @@ The repo is Streamlit-Cloud-ready. `runtime.txt` pins Python 3.12, `.streamlit/c
   internet-active developers. Generalising to a non-tech or non-SO population
   is unwarranted.
 - **Self-reported compensation** is plausibly missing-not-at-random; we keep
-  the raw `CompTotal` and flag IQR outliers but do not impute.
+  USD-converted pay (`ConvertedCompYearly`) and flag IQR outliers but do not
+  impute. The ~1% of respondents whose pay the survey could not convert are
+  excluded from the salary models only.
 - **Cross-sectional associations.** Coefficients are not causal effects — a
   skill's "ROI" reflects correlation with compensation among people who know
   it, not the effect of learning it. Reverse causality (high-paid engineers
   can afford to learn more) is plausible.
-- **Currency heterogeneity.** `CompTotal` is in the respondent's day-to-day
-  currency; we mitigate with country fixed effects rather than explicit FX
-  conversion.
+- **Currency and cost of living.** Pay is compared in USD at the survey's
+  exchange rate, with a fixed effect for every country; skill coefficients are
+  therefore within-country pay gaps, not purchasing-power adjusted.
 - **Single year.** The 2025 cross-section is a snapshot; skill ROI drifts.
 - **Persona assignment for sparse users** uses skill-overlap with each
   cluster's top skills; a developer with a very unusual stack may be

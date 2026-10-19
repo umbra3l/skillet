@@ -6,74 +6,74 @@
     {
       "cluster": 0,
       "persona": ".NET",
-      "n": 3439,
-      "mean": 11.838947140417044,
-      "std": 1.9060244119473242,
-      "median": 11.652696102959753
+      "n": 3411,
+      "mean": 11.096298475027375,
+      "std": 1.1434192108995145,
+      "median": 11.310637907535396
     },
     {
       "cluster": 1,
       "persona": "Systems/enterprise",
-      "n": 8868,
-      "mean": 11.747606065359612,
-      "std": 2.2898463484111136,
-      "median": 11.608244735642321
+      "n": 8721,
+      "mean": 10.935374945878108,
+      "std": 1.453777482032408,
+      "median": 11.241195478732374
     },
     {
       "cluster": 2,
       "persona": "JS/web",
-      "n": 6903,
-      "mean": 11.95133821502798,
-      "std": 2.1733106092355206,
-      "median": 11.736077016252437
+      "n": 6825,
+      "mean": 10.998685888028753,
+      "std": 1.4096777427754432,
+      "median": 11.304805984955106
     }
   ],
-  "F": 16.89555895920729,
+  "F": 16.880716859873626,
   "df1": 2,
-  "df2": 19207,
-  "p_value": 4.664434762419839e-08,
-  "eta_squared": 0.001756222897037985,
+  "df2": 18954,
+  "p_value": 4.734993125262508e-08,
+  "eta_squared": 0.0017780628768482426,
   "pairwise": [
     {
       "cluster_a": 0,
       "cluster_b": 1,
       "persona_a": ".NET",
       "persona_b": "Systems/enterprise",
-      "mean_a": 11.838947140417044,
-      "mean_b": 11.747606065359612,
-      "mean_diff": 0.09134107505743216,
-      "t": 2.2502561892965396,
-      "p_value": 0.02446171104536448,
+      "mean_a": 11.096298475027375,
+      "mean_b": 10.935374945878108,
+      "mean_diff": 0.160923529149267,
+      "t": 6.433678537183316,
+      "p_value": 1.3184803439836e-10,
       "n_comparisons": 3,
-      "p_value_bonferroni": 0.07338513313609343
+      "p_value_bonferroni": 3.9554410319508e-10
     },
     {
       "cluster_a": 0,
       "cluster_b": 2,
       "persona_a": ".NET",
       "persona_b": "JS/web",
-      "mean_a": 11.838947140417044,
-      "mean_b": 11.95133821502798,
-      "mean_diff": -0.1123910746109349,
-      "t": -2.6938846081644185,
-      "p_value": 0.007077729707470182,
+      "mean_a": 11.096298475027375,
+      "mean_b": 10.998685888028753,
+      "mean_diff": 0.09761258699862196,
+      "t": 3.7586275682108794,
+      "p_value": 0.00017203485182021045,
       "n_comparisons": 3,
-      "p_value_bonferroni": 0.021233189122410547
+      "p_value_bonferroni": 0.0005161045554606314
     },
     {
       "cluster_a": 1,
       "cluster_b": 2,
       "persona_a": "Systems/enterprise",
       "persona_b": "JS/web",
-      "mean_a": 11.747606065359612,
-      "mean_b": 11.95133821502798,
-      "mean_diff": -0.20373214966836706,
-      "t": -5.704506758287398,
-      "p_value": 1.1885759080177835e-08,
+      "mean_a": 10.935374945878108,
+      "mean_b": 10.998685888028753,
+      "mean_diff": -0.06331094215064503,
+      "t": -2.741000371404332,
+      "p_value": 0.006132565817914096,
       "n_comparisons": 3,
-      "p_value_bonferroni": 3.5657277240533506e-08
+      "p_value_bonferroni": 0.018397697453742288
     }
   ],
   "pairwise_correction": "Bonferroni",
-  "headline": "F(2, 19207) = 16.90, p = 4.66e-08; clusters Systems/enterprise and JS/web differ by 0.20 log-points (p_adj = 3.57e-08)"
+  "headline": "F(2, 18954) = 16.88, p = 4.73e-08; clusters .NET and Systems/enterprise differ by 0.16 log-points (p_adj = 3.96e-10)"
 }
