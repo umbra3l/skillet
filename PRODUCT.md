@@ -70,9 +70,10 @@ executed by `run_all.py` from the raw survey CSV.
 - Voice: confident, technical, honest about uncertainty. Reports
   coefficients with their p-values and 95% intervals; never rounds to
   zero without saying so.
-- The cast-iron visual world is **pinned** by the user (see
-  SURFACE_BRIEF.md and DESIGN.md). The app must inhabit that world;
-  no later visual revision may drift to the AI-default look.
+- The Editorial Magazine visual world is **pinned** by the user (see
+  SURFACE_BRIEF.md and DESIGN.md). The app must read as a printed
+  annual — masthead, cover story, figure, notes — backed by data;
+  no later visual revision may drift to the dashboard default.
 
 ## Evidence on Hand
 

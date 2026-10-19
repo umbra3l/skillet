@@ -27,16 +27,16 @@ ASSETS.mkdir(exist_ok=True)
 def main() -> None:
     df = pd.read_parquet(DATA / "processed.parquet")
     print(f"processed shape: {df.shape}\ncolumns: {df.shape[1]}")
-    print(df[["WorkExp", "YearsCode", "CompTotal", "log_comp",
+    print(df[["WorkExp", "YearsCode", "CompUSD", "log_comp",
               "JobSat_num", "JobSat_high", "ai_user"]].describe().round(2))
 
     # ---- 1. Compensation distribution (histogram) ----------------------------
     fig, ax = plt.subplots(figsize=(7, 4))
-    sub = df.loc[df["comp_inlier"] == 1, "CompTotal"].dropna()
+    sub = df.loc[df["comp_inlier"] == 1, "CompUSD"].dropna()
     sub = sub[sub.between(sub.quantile(0.01), sub.quantile(0.99))]
     ax.hist(sub, bins=60, color="#4C72B0", edgecolor="white")
     ax.set_title("Annual compensation (inliers, 1-99% trimmed)")
-    ax.set_xlabel("CompTotal (raw currency)")
+    ax.set_xlabel("Annual compensation (USD, ConvertedCompYearly)")
     ax.set_ylabel("Respondents")
     fig.tight_layout()
     fig.savefig(ASSETS / "01_comp_hist.png", dpi=140)

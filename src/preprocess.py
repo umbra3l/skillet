@@ -122,8 +122,13 @@ def build_processed() -> pd.DataFrame:
     # Numeric conversions
     df["WorkExp"] = df["WorkExp"].apply(_years_to_int)
     df["YearsCode"] = df["YearsCode"].apply(_years_to_int)
+    # CompTotal is in each respondent's local currency (INR, JPY, PLN, ...),
+    # so it is not comparable across countries. The survey also ships
+    # ConvertedCompYearly (annual, USD at the survey's exchange rate);
+    # every salary model uses that. CompTotal is kept for reference only.
     df["CompTotal"] = pd.to_numeric(df["CompTotal"], errors="coerce")
-    df["log_comp"] = np.log1p(df["CompTotal"])
+    df["CompUSD"] = pd.to_numeric(df["ConvertedCompYearly"], errors="coerce")
+    df["log_comp"] = np.log1p(df["CompUSD"])
 
     # JobSat -> numeric 0-10 & binary high
     js_raw = pd.to_numeric(df["JobSat"], errors="coerce")
@@ -165,6 +170,7 @@ def build_processed() -> pd.DataFrame:
         "WorkExp": df["WorkExp"].values,
         "YearsCode": df["YearsCode"].values,
         "CompTotal": df["CompTotal"].values,
+        "CompUSD": df["CompUSD"].values,
         "log_comp": df["log_comp"].values,
         "JobSat_num": df["JobSat_num"].values,
         "JobSat_high": df["JobSat_high"].values,
@@ -181,8 +187,12 @@ def build_processed() -> pd.DataFrame:
     iqr = q3 - q1
     out["comp_inlier"] = ((out["log_comp"] >= q1 - 3 * iqr) & (out["log_comp"] <= q3 + 3 * iqr)).astype(int)
 
-    # Drop rows missing the essentials
-    out = out.dropna(subset=["WorkExp", "log_comp", "JobSat_num"]).reset_index(drop=True)
+    # Drop rows missing the essentials. A respondent who reported pay but
+    # whose pay the survey could not convert to USD (~1%) stays in the
+    # sample with log_comp = NaN: the skill-only analyses (clustering, FA,
+    # network, satisfaction) keep them, and every salary model filters
+    # on log_comp.notna().
+    out = out.dropna(subset=["WorkExp", "CompTotal", "JobSat_num"]).reset_index(drop=True)
 
     OUT_PARQUET.parent.mkdir(parents=True, exist_ok=True)
     out.to_parquet(OUT_PARQUET, index=False)

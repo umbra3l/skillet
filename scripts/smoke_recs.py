@@ -14,10 +14,12 @@ sys.path.insert(0, str(ROOT))
 from src.recommend import SkillRadar  # noqa: E402
 from src.salary_calc import expected_uplift  # noqa: E402
 
+# Baselines from the USD-pay model (ConvertedCompYearly + a fixed effect
+# per country). The earlier local-currency model gave 49.4 / 38.9 / 188.3.
 CASES = [
-    ("python+js+react", ["lang_Python", "lang_JavaScript", "web_React"], 49.4),
-    (".net dev",        ["lang_C_2", "web_ASP_NET", "plat_Microsoft_Azure"], 38.9),
-    ("cold start",      [], 188.3),
+    ("python+js+react", ["lang_Python", "lang_JavaScript", "web_React"], 54.3),
+    (".net dev",        ["lang_C_2", "web_ASP_NET", "plat_Microsoft_Azure"], 69.8),
+    ("cold start",      [], 215.2),
 ]
 
 if __name__ == "__main__":

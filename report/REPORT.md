@@ -37,7 +37,7 @@ of personas, and a noisy, fast-moving skill market. We need a method that
 The processed dataset has `data/processed.parquet` with:
 
 - one row per professional developer;
-- numeric columns: `WorkExp`, `YearsCode`, `CompTotal`, `log_comp`, `JobSat_num` (0–10), `JobSat_high` (≥ 8), `ai_user`;
+- numeric columns: `WorkExp`, `YearsCode`, `CompTotal` (local currency, reference only), `CompUSD` (`ConvertedCompYearly`), `log_comp` = log(1 + `CompUSD`), `JobSat_num` (0–10), `JobSat_high` (≥ 8), `ai_user`;
 - binary skill columns: top-N from `Language`, `Database`, `Platform`,
   `Webframe`, `DevEnvs`, `AIModels`;
 - 10 top-country dummies.
@@ -65,36 +65,48 @@ Significance level α = 0.05 throughout.
 
 | Test | Statistic | p-value | Decision |
 |---|---|---|---|
-| AI users' log-comp vs non-users (Welch's t) | t = 7.67 | 1.9×10⁻¹⁴ | Reject H₀ — AI users earn significantly more |
+| AI users' log-comp vs non-users (Welch's t) | t = −6.15 | 8.3×10⁻¹⁰ | Reject H₀ — raw gap favours non-users (see note) |
 | AI users' job satisfaction vs non-users (Welch's t) | t = 3.36 | 7.8×10⁻⁴ | Reject H₀ — AI users report higher satisfaction |
 | AI usage × remote work (χ², 5 d.f.) | χ² = 10.59, V = 0.023 | 0.060 | Fail to reject H₀ (marginal) |
 | Primary role × most common language (χ²) | χ² = 2416, V = 0.355 | < 1×10⁻³⁰ | Reject H₀ — strong association |
 
 ### 5.2 Module 3 — Regression
 
-- **SLR** `log_comp ~ WorkExp`: R² = 0.002, slope = 0.0063 log-points/year
-  (p = 3.3×10⁻⁹). The very low R² is expected: country fixed effects and
-  skill mix dominate compensation, so work experience alone is a weak
-  univariate predictor.
+- **SLR** `log_comp ~ WorkExp`: R² = 0.128, slope = 0.036 log-points/year
+  (≈ +3.7% pay per year of experience, p ≈ 0).
 - **Full MLR** `log_comp ~ WorkExp + country + 122 skills`:
-  R² = 0.238, adj-R² = 0.233, F p ≈ 0, with 134 features.
+  R² = 0.559, adj-R² = 0.553, F p ≈ 0, with 274 features (a fixed effect
+  for each of the 151 countries in the model sample, US as reference).
 - **Per-skill MLR** (the recommender's salary prior): for each skill s,
   fit `log_comp ~ WorkExp + country + s` and record β_s. The
   standardised coefficient is that skill's **salary ROI** in log points,
   converted to percent via (e^β − 1)·100. 121 skills had enough users
   for a stable estimate.
 
+*Note on the compensation variable.* An earlier version of this pipeline
+modelled `CompTotal`, which the survey records in each respondent's local
+currency (median 1,300,000 for India vs 150,000 for the US). Only the ten
+largest countries had dummies, so the other ~40% of respondents shared one
+baseline with mixed currencies. Switching to USD (`ConvertedCompYearly`) with
+a fixed effect for every country raised the SLR R² from 0.002 to 0.128, flipped
+the sign of 12 of the 121 skill coefficients (all of them small or
+non-significant before), and raised the number of significant skills from 75
+to 98. The AI-user t-test is a Simpson's-paradox case: the raw gap favours
+non-users (t = −6.15) because AI use is more common in lower-paying
+countries, but holding work experience and country fixed AI users earn
+**+9.9%** (p ≈ 6×10⁻¹⁴).
+
 **Top 5 positive ROI:**
 
 | Skill | % salary impact | p-value | n |
 |---|---|---|---|
-| Scala | +29.8% | 4.1×10⁻⁶ | 471 |
-| Terraform | +27.0% | 1.3×10⁻²² | 2,945 |
-| Kubernetes | +26.5% | 9.5×10⁻³⁰ | 4,534 |
-| Go | +26.0% | 9.3×10⁻²² | 3,027 |
-| ClickHouse | +24.5% | 5.9×10⁻⁴ | 370 |
+| Scala | +35.2% | 2.5×10⁻²¹ | 471 |
+| Snowflake | +33.0% | 4.1×10⁻²⁶ | 665 |
+| Terraform | +31.0% | 8.9×10⁻⁸⁷ | 2,958 |
+| ClickHouse | +30.7% | 1.2×10⁻¹³ | 366 |
+| Databricks SQL | +30.1% | 2.8×10⁻¹⁷ | 493 |
 
-**Bottom 5 ROI** (included for honesty): Microsoft Access −32.9%, VB.NET −23.1%, WordPress −21.6%, PHP −21.0%, Ada −20.9% (all p < 0.05).
+**Bottom 5 ROI** (included for honesty): Microsoft Access −27.0%, Delphi −24.4%, VB.NET −21.5%, PHP −19.8%, Laravel −19.1% (all p < 10⁻¹³).
 
 ### 5.3 Module 4 — Classification
 
@@ -169,10 +181,10 @@ The headline numbers (all reproducible):
 
 - 19,210 working developers analysed.
 - 3 interpretable personas (silhouette 0.085).
-- Full MLR R² = 0.238 (134 features, country + skills + work exp).
-- Top 5 skill ROI: Scala +29.8%, Terraform +27.0%, Kubernetes +26.5%, Go +26.0%, ClickHouse +24.5% (all p < 0.001).
+- Full MLR R² = 0.559 (274 features: work exp + 122 skills + a fixed effect per country; USD pay).
+- Top 5 skill ROI: Scala +35.2%, Snowflake +33.0%, Terraform +31.0%, ClickHouse +30.7%, Databricks SQL +30.1% (all p < 10⁻¹²).
 - Logistic satisfaction model AUC = 0.562.
-- AI users earn more (t = 7.67, p ≈ 2×10⁻¹⁴) and are more satisfied (t = 3.36, p ≈ 8×10⁻⁴).
+- AI users earn +9.9% more holding experience and country fixed (p ≈ 6×10⁻¹⁴; the raw gap reverses, t = −6.15) and are more satisfied (t = 3.36, p ≈ 8×10⁻⁴).
 
 ## 7. Recommendations
 
@@ -193,8 +205,8 @@ The headline numbers (all reproducible):
 
 See the README for the full list. In short: sample bias (SO respondents),
 self-reported compensation, cross-sectional associations ≠ causal effects,
-currency heterogeneity, and single-year snapshot. Future work: explicit
-FX conversion, panel methods across multiple survey years, causal
+USD pay at survey exchange rates (not purchasing-power adjusted), and a
+single-year snapshot. Future work: PPP adjustment, panel methods across multiple survey years, causal
 inference with a work-history subsample, and a privacy-preserving
 on-prem deployment for enterprise L&D.
 
@@ -246,17 +258,17 @@ components and the 3 K-means personas. Scree plot:
 
 | Statistic | Value |
 |---|---|
-| F (df1=2, df2=19207) | 16.90 |
-| p | 4.66×10⁻⁸ |
-| η² | 0.00176 (small effect) |
-| Mean log-comp: .NET | 11.839 (n=3,439) |
-| Mean log-comp: Systems/enterprise | 11.748 (n=8,868) |
-| Mean log-comp: JS/web | 11.951 (n=6,903) |
+| F (df1=2, df2=18954) | 16.88 |
+| p | 4.73×10⁻⁸ |
+| η² | 0.00178 (small effect) |
+| Mean log USD comp: .NET | 11.096 (n=3,411) |
+| Mean log USD comp: Systems/enterprise | 10.935 (n=8,721) |
+| Mean log USD comp: JS/web | 10.999 (n=6,825) |
 
-Pairwise (Bonferroni-corrected Welch t): .NET vs Systems p_adj=0.073,
-.NET vs JS/web p_adj=0.021, **Systems vs JS/web p_adj=3.57×10⁻⁸** —
-JS/web developers earn meaningfully more than Systems/enterprise devs
-(~20% higher compensation after exp). Box plot:
+Pairwise (Bonferroni-corrected Welch t): **.NET vs Systems p_adj=3.96×10⁻¹⁰**,
+.NET vs JS/web p_adj=5.2×10⁻⁴, Systems vs JS/web p_adj=0.018 — .NET
+developers earn the most (~17% more than Systems/enterprise). This is a raw
+comparison: it does not control for country or experience. Box plot:
 `assets/anova_personas.png`.
 
 ### 9.4 Skill co-occurrence network (Module 5)

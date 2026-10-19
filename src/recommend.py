@@ -3,9 +3,11 @@
   1. Build the user's binary skill vector in the 86-skill cluster space.
   2. Find the k nearest developers in the survey by Jaccard distance on
      the binary skill matrix (KNN -- Module 4). The KNN is built once on
-     the full dataset; the recommender then intersects the neighbour pool
-     with an optional country / workexp mask (sidebar inputs) so the peer
-     set reflects the visitor's context.
+     the full dataset and ranks every developer; the recommender keeps
+     those who match the visitor's role, country and experience (+/- 10
+     years). When fewer than MIN_PEERS developers match all three, the
+     filters are relaxed one at a time -- experience first, then country,
+     then role -- and the result says which filters were applied.
   3. For every skill the user does NOT have, compute
         score(s) =  peer_prevalence(s)                   # how common in your filtered peers
                 + 0.5 * salary_ROI(s)                   # per-skill MLR coefficient (log pts)
@@ -43,6 +45,11 @@ warnings.filterwarnings("ignore", category=DataConversionWarning)
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
+
+# Smallest peer group the recommender will personalise from. Below this,
+# the profile filters are relaxed in RELAX_ORDER until the pool is big enough.
+MIN_PEERS = 50
+RELAX_ORDER = ("experience", "country", "role")
 
 
 class SkillRadar:
@@ -100,51 +107,32 @@ class SkillRadar:
         persona_id = self.persona_for(current_skills)
         persona = self.personas.get(persona_id, {})
 
-        # Build a mask for the optional sidebar constraints (country,
-        # workexp +/- 10 years) and apply it to the full df. The KNN
-        # is built once on the full df; we query it for a generous
-        # number of neighbours and intersect with the mask.
-        full_idx = np.arange(len(df_full))
-        mask = np.ones(len(df_full), dtype=bool)
-        if country is not None:
-            mask &= (df_full["Country"].values == country)
-        if workexp is not None:
-            lo, hi = max(0, int(workexp) - 10), int(workexp) + 10
-            mask &= (df_full["WorkExp"].values >= lo) & (df_full["WorkExp"].values <= hi)
-        if role is not None and role in df_full.columns:
-            # `role` is the raw column name (e.g. "role_Developer_back_end").
-            mask &= (df_full[role].values == 1)
-        valid_full_idx = set(full_idx[mask].tolist())
-        # If the filter collapses the pool, fall back to the full df.
-        use_mask = len(valid_full_idx) >= 50
+        mask, peer_filter = self._peer_mask(country, workexp, role)
 
         # Cold-start: no skills listed -> recommend globally high-ROI,
-        # high-prevalence skills within the country/experience filter.
+        # high-prevalence skills within the (possibly relaxed) filter.
         if not have:
-            df = df_full[mask] if use_mask else df_full
-            return self._cold_start(top_n, df, ai_user=ai_user)
+            out = self._cold_start(top_n, df_full[mask], ai_user=ai_user)
+            out["peer_filter"] = peer_filter
+            return out
 
         skills = self.skills
         v = np.array([1.0 if s in have else 0.0 for s in skills], dtype=float).reshape(1, -1)
         X = self._skill_matrix()
         if self._nn is None:
             self._nn = NearestNeighbors(
-                n_neighbors=min(5000, X.shape[0]),
-                metric="jaccard", n_jobs=-1,
+                n_neighbors=X.shape[0], metric="jaccard", n_jobs=-1,
             ).fit(X)
-        # Query the KNN for every neighbour it knows, then keep only
-        # those that pass the country/workexp mask. This makes the sidebar
-        # inputs change the peer set (and hence the recommendations).
+        # Rank every developer by distance, then keep only those that pass
+        # the profile mask. Ranking all rows (not a top-5000 shortlist)
+        # means every matching developer is reachable as a peer.
         dists, idxs = self._nn.kneighbors(v, n_neighbors=self._nn.n_neighbors)
-        keep = np.isfinite(dists[0])
-        cand = idxs[0][keep]
-        if use_mask:
-            cand = np.array([i for i in cand if int(i) in valid_full_idx],
-                            dtype=cand.dtype)
+        cand = idxs[0][np.isfinite(dists[0])]
+        cand = cand[mask[cand]]
         if cand.size == 0:
-            return self._cold_start(top_n,
-                                    df_full[mask] if use_mask else df_full,
-                                    ai_user=ai_user)
+            out = self._cold_start(top_n, df_full[mask], ai_user=ai_user)
+            out["peer_filter"] = peer_filter
+            return out
         # Take the top k_neighbors from the filtered set.
         cand = cand[:k_neighbors]
         neighbours = df_full.iloc[cand]
@@ -224,7 +212,45 @@ class SkillRadar:
             "persona_size": int(persona.get("n", 0)),
             "n_neighbours": int(len(neighbours)),
             "salary_premium_log": float(salary_premium),
+            "peer_filter": peer_filter,
             "recommendations": recs,
+        }
+
+    # --- peer filter -----------------------------------------------------------
+    def _peer_mask(self, country: str | None, workexp: int | None,
+                   role: str | None) -> tuple[np.ndarray, dict]:
+        """Rows matching the visitor's profile, relaxed one filter at a time.
+
+        Each requested filter (role, country, experience +/- 10 years) is
+        applied; while fewer than MIN_PEERS developers match, the next
+        filter in RELAX_ORDER is dropped. Returns the mask and a summary:
+        {"requested", "applied", "dropped", "n_pool"}.
+        """
+        df = self._data()
+        conds: dict[str, np.ndarray] = {}
+        if role is not None and role in df.columns:
+            # `role` is the raw column name (e.g. "role_Developer_back_end").
+            conds["role"] = df[role].values == 1
+        if country is not None:
+            conds["country"] = df["Country"].values == country
+        if workexp is not None:
+            lo, hi = max(0, int(workexp) - 10), int(workexp) + 10
+            conds["experience"] = (df["WorkExp"].values >= lo) & (df["WorkExp"].values <= hi)
+
+        requested = [f for f in ("role", "country", "experience") if f in conds]
+        applied = list(requested)
+        while True:
+            mask = np.ones(len(df), dtype=bool)
+            for f in applied:
+                mask &= conds[f]
+            if mask.sum() >= MIN_PEERS or not applied:
+                break
+            applied.remove(next(f for f in RELAX_ORDER if f in applied))
+        return mask, {
+            "requested": requested,
+            "applied": applied,
+            "dropped": [f for f in requested if f not in applied],
+            "n_pool": int(mask.sum()),
         }
 
     # --- cold start ------------------------------------------------------------
