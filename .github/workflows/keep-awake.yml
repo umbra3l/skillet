@@ -1,0 +1,25 @@
+# Visits https://skillet.streamlit.app/ every 4 hours in a headless browser so
+# Streamlit Community Cloud does not put the app to sleep. A failed run means
+# the app did not load, and GitHub emails the repository owner.
+name: Keep app awake
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"   # every 4 hours, at :17 (GitHub may start it a few minutes late)
+  workflow_dispatch:          # "Run workflow" button for a manual check
+
+jobs:
+  visit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Visit the app
+        run: python scripts/keep_awake.py https://skillet.streamlit.app/
