@@ -13,7 +13,7 @@
     },
     {
       "cluster": 1,
-      "persona": "Systems/enterprise",
+      "persona": "Lean generalist",
       "n": 8721,
       "mean": 10.935374945878108,
       "std": 1.453777482032408,
@@ -38,7 +38,7 @@
       "cluster_a": 0,
       "cluster_b": 1,
       "persona_a": ".NET",
-      "persona_b": "Systems/enterprise",
+      "persona_b": "Lean generalist",
       "mean_a": 11.096298475027375,
       "mean_b": 10.935374945878108,
       "mean_diff": 0.160923529149267,
@@ -63,7 +63,7 @@
     {
       "cluster_a": 1,
       "cluster_b": 2,
-      "persona_a": "Systems/enterprise",
+      "persona_a": "Lean generalist",
       "persona_b": "JS/web",
       "mean_a": 10.935374945878108,
       "mean_b": 10.998685888028753,
@@ -75,5 +75,5 @@
     }
   ],
   "pairwise_correction": "Bonferroni",
-  "headline": "F(2, 18954) = 16.88, p = 4.73e-08; clusters .NET and Systems/enterprise differ by 0.16 log-points (p_adj = 3.96e-10)"
+  "headline": "F(2, 18954) = 16.88, p = 4.73e-08; clusters .NET and Lean generalist differ by 0.16 log-points (p_adj = 3.96e-10)"
 }

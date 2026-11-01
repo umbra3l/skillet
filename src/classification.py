@@ -1,6 +1,6 @@
 """Module 4: Binary Logistic Regression + Decision Tree + Gaussian NB.
 
-  Target : JobSat_high  (1 = JobSat >= 7 on the 0-10 scale)
+  Target : JobSat_high  (1 = JobSat >= 8 on the 0-10 scale)
   Features: WorkExp + ai_user + RemoteWork dummies + OrgSize + top-K skills
   Eval   : ROC curve, AUC, optimal threshold (Youden's J), confusion matrix
 
@@ -38,30 +38,34 @@ META_PATH = ROOT / "data" / "satisfaction_metrics.json"
 ASSETS = ROOT / "assets"
 
 SKILL_PREFIXES = ("lang_", "db_", "plat_", "web_", "devenv_", "aimodel_")
-REMOTE_DUMMIES = [
-    "rw_Remote",
-    "rw_Hybrid_remote_heavy",
-    "rw_Hybrid_inperson_heavy",
-    "rw_In_person",
-    "rw_Flexible",
-]
-ORG_DUMMIES = ["org_Small", "org_Medium", "org_Large", "org_Very_large"]
+# Exact 2025 answers -> dummy. Unanswered (and "I don't know" for OrgSize)
+# is the reference level.
+REMOTE_LEVELS = {
+    "rw_Remote": "Remote",
+    "rw_Hybrid_flexible_heavy": "Hybrid (some in-person, leans heavy to flexibility)",
+    "rw_Hybrid_inperson_heavy": "Hybrid (some remote, leans heavy to in-person)",
+    "rw_In_person": "In-person",
+    "rw_Flexible": "Your choice (very flexible, you can come in when you want or just as needed)",
+}
+ORG_LEVELS = {
+    "org_Small": ("Just me - I am a freelancer, sole proprietor, etc.",
+                  "Less than 20 employees", "20 to 99 employees"),
+    "org_Medium": ("100 to 499 employees", "500 to 999 employees"),
+    "org_Large": ("1,000 to 4,999 employees", "5,000 to 9,999 employees"),
+    "org_Very_large": ("10,000 or more employees",),
+}
+REMOTE_DUMMIES = list(REMOTE_LEVELS)
+ORG_DUMMIES = list(ORG_LEVELS)
 
 
 def _engineer(df: pd.DataFrame) -> pd.DataFrame:
     """Build RemoteWork and OrgSize dummies in place."""
     rw = df["RemoteWork"].fillna("")
-    df["rw_Remote"] = (rw == "Remote").astype(int)
-    df["rw_Hybrid_remote_heavy"] = rw.str.contains("Hybrid.*remote", case=False, regex=True).astype(int)
-    df["rw_Hybrid_inperson_heavy"] = rw.str.contains("Hybrid.*in-person", case=False, regex=True).astype(int)
-    df["rw_In_person"] = (rw == "In-person").astype(int)
-    df["rw_Flexible"] = rw.str.contains("flexible", case=False, regex=True).astype(int)
-
-    org = df["OrgSize"].fillna("") if "OrgSize" in df.columns else pd.Series("", index=df.index)
-    df["org_Small"] = org.str.contains(r"2-9|10-19|20-99", case=False, regex=True).astype(int)
-    df["org_Medium"] = org.str.contains(r"100-499|500-999", case=False, regex=True).astype(int)
-    df["org_Large"] = org.str.contains(r"1,000-4,999|5,000-9,999", case=False, regex=True).astype(int)
-    df["org_Very_large"] = org.str.contains(r"10,000 or more", case=False, regex=True).astype(int)
+    for col, answer in REMOTE_LEVELS.items():
+        df[col] = (rw == answer).astype(int)
+    org = df["OrgSize"].fillna("")
+    for col, answers in ORG_LEVELS.items():
+        df[col] = org.isin(answers).astype(int)
     return df
 
 

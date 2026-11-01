@@ -5,7 +5,7 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parent  # run_all.py sits at the repo root
 sys.path.insert(0, str(ROOT))
 
 
@@ -17,8 +17,9 @@ def step(name: str, fn) -> None:
 
 
 if __name__ == "__main__":
-    from src import preprocess, stats_tests, regression, classification, cluster  # noqa: E402
+    from src import preprocess, stats_tests, regression, classification, cluster, want  # noqa: E402
     step("preprocess",     preprocess.build_processed)
+    step("want extract",   want.build_extract)
     step("stats_tests",    stats_tests.run)
     step("regression",     regression.run)
     step("classification", classification.run)

@@ -3,6 +3,75 @@
   "platform": "web",
   "framework": "streamlit",
   "productSurface": "app/streamlit_app.py",
-  "world": "cast-iron-heritage",
-  "mode": "operate"
+  "world": "star-atlas",
+  "mode": "operate",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-21T12:20:37.864Z",
+        "reason": "Claude: canon card is the category standard played straight by design (impeccable new-work canonCard); Inter is that category's face. Mock only, not shipped."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-21T12:51:43.433Z",
+        "reason": "Claude: decision-round sketch drawn in its own candidate world's type (impeccable new-work spent hand), not shipped UI; DESIGN.md governs only the built Star Atlas app"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-21T12:51:43.449Z",
+        "reason": "Claude: decision-round sketch drawn in its own candidate world's type (impeccable new-work spent hand), not shipped UI; DESIGN.md governs only the built Star Atlas app"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-splitflap.html"
+        ],
+        "createdAt": "2026-10-21T12:51:43.465Z",
+        "reason": "Claude: decision-round sketch drawn in its own candidate world's type (impeccable new-work spent hand), not shipped UI; DESIGN.md governs only the built Star Atlas app"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-gateboard.html"
+        ],
+        "createdAt": "2026-10-21T12:51:43.484Z",
+        "reason": "Claude: decision-round sketch drawn in its own candidate world's type (impeccable new-work spent hand), not shipped UI; DESIGN.md governs only the built Star Atlas app"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-21T12:51:43.502Z",
+        "reason": "Claude: decision-round sketch drawn in its own candidate world's type (impeccable new-work spent hand), not shipped UI; DESIGN.md governs only the built Star Atlas app"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "76px",
+        "files": [
+          ".streamlit/style.css"
+        ],
+        "createdAt": "2026-10-21T15:55:58.123Z",
+        "reason": "Claude: the display total's documented under-900px step (DESIGN.md typography: 'display total ... 76px under 900px'), a responsive value of an existing ramp entry"
+      }
+    ]
+  }
 }

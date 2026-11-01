@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>skillet — The Tasting Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#16110e;--panel:#1e1713;--panel-2:#271e19;--rule:#3b2f27;--ink:#efe4d2;--ink-2:#c9bba5;--ink-3:#9a8c78;--brass:#c9a25a;--brass-2:#e2c07e;--sage:#9cc29a;--claret:#d27a6a}
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:15px/1.5 Mulish,system-ui,sans-serif}
+.app{display:grid;grid-template-columns:320px 1fr;height:900px}
+.rail{background:var(--panel);border-right:1px solid var(--rule);padding:32px 28px;display:flex;flex-direction:column;gap:22px}
+.word{font:500 34px/1 'Bodoni Moda',serif;letter-spacing:-.01em}
+.word i{color:var(--brass);font-style:normal}
+.sub{color:var(--ink-3);font-size:13px;margin-top:6px}
+h2{font:600 12px/1 Mulish;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:10px}
+label{display:block;font-size:13px;color:var(--ink-2);margin:12px 0 6px}
+.sel{height:38px;border:1px solid var(--rule);background:var(--panel-2);border-radius:6px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:var(--ink)}
+.sel::after{content:"";width:7px;height:7px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg) translateY(-2px)}
+.slider{height:4px;background:var(--rule);border-radius:2px;position:relative;margin:14px 0 4px}
+.slider b{position:absolute;left:0;width:10%;height:4px;background:var(--brass);border-radius:2px}
+.slider i{position:absolute;left:10%;top:-6px;width:16px;height:16px;border-radius:50%;background:var(--ink);transform:translateX(-50%)}
+.check{display:flex;gap:10px;align-items:center;font-size:14px;margin-top:12px}
+.check span{width:16px;height:16px;border-radius:4px;background:var(--brass)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:var(--panel-2);border-radius:999px;padding:4px 10px;font-size:12.5px;color:var(--ink-2)}
+.main{padding:44px 64px;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--rule);padding-bottom:18px}
+h1{font:400 44px/1.05 'Bodoni Moda',serif;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--ink-2)}
+.who{color:var(--ink-3);font-size:14px;text-align:right}
+.who b{color:var(--ink-2);font-weight:600}
+.menu{display:grid;grid-template-columns:1fr 330px;gap:56px;margin-top:26px}
+.course{display:grid;grid-template-columns:44px 1fr;padding:16px 0;border-bottom:1px solid var(--rule)}
+.num{font:italic 400 26px/1 'Bodoni Moda',serif;color:var(--brass);padding-top:3px}
+.line{display:flex;align-items:baseline;gap:12px}
+.name{font:500 27px/1.1 'Bodoni Moda',serif;white-space:nowrap}
+.dots{flex:1;border-bottom:1.5px dotted var(--ink-3);transform:translateY(-6px);opacity:.6}
+.price{font:600 22px/1 Mulish;font-variant-numeric:tabular-nums;color:var(--sage)}
+.price small{display:block;font:500 11px/1.4 Mulish;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;text-align:right}
+.note{font:italic 400 15.5px/1.45 'Bodoni Moda',serif;color:var(--ink-2);margin-top:4px}
+.ev{display:flex;gap:18px;margin-top:8px;font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.ev b{color:var(--ink-2);font-weight:600}
+.total{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:28px 28px 24px;align-self:start}
+.total h2{font:600 12px/1 Mulish;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.big{font:400 92px/1 'Bodoni Moda',serif;letter-spacing:-.03em;margin:14px 0 4px}
+.big span{color:var(--brass)}
+.ci{font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.facts{margin-top:20px;border-top:1px solid var(--rule)}
+.facts div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+.facts b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
+.fine{font-size:12.5px;color:var(--ink-3);margin-top:14px;line-height:1.55}
+</style></head><body>
+<div class="app">
+  <aside class="rail">
+    <div><div class="word">skillet<i>.</i></div><div class="sub">2025 Stack Overflow survey · 19,210 developers</div></div>
+    <section><h2>Your profile</h2>
+      <label>Role</label><div class="sel">Developer, full-stack</div>
+      <label>Years of professional experience · 5</label><div class="slider"><b></b><i></i></div>
+      <label>Country</label><div class="sel">United States of America</div>
+      <div class="check"><span></span>I use AI tools in my workflow</div>
+    </section>
+    <section><h2>Your current stack</h2>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML / CSS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span><span class="chip">VS Code</span><span class="chip">npm</span></div>
+    </section>
+  </aside>
+  <main class="main">
+    <div class="top">
+      <h1>Your next five skills, <em>in order.</em></h1>
+      <div class="who">Matched against <b>300 nearest peers</b><br>full-stack · United States · 3–15 years · AI users</div>
+    </div>
+    <div class="menu">
+      <div>
+        <div class="course"><div class="num">I</div><div>
+          <div class="line"><span class="name">Docker</span><span class="dots"></span><span class="price">+16.4%<small>salary effect</small></span></div>
+          <p class="note">Weighted by similarity, 59% of your nearest peers know it and 39% want to learn it.</p>
+          <div class="ev"><span>p = <b>9.1×10⁻⁵⁰</b></span><span>n = <b>10,862</b></span><span>95% CI <b>+14.1% → +18.8%</b></span></div></div></div>
+        <div class="course"><div class="num">II</div><div>
+          <div class="line"><span class="name">AWS</span><span class="dots"></span><span class="price">+21.4%<small>salary effect</small></span></div>
+          <p class="note">47% of your peers already use it; 26% want to.</p>
+          <div class="ev"><span>p = <b>7.3×10⁻⁷⁶</b></span><span>n = <b>6,836</b></span><span>95% CI <b>+19.0% → +24.0%</b></span></div></div></div>
+        <div class="course"><div class="num">III</div><div>
+          <div class="line"><span class="name">Python</span><span class="dots"></span><span class="price">+6.3%<small>salary effect</small></span></div>
+          <p class="note">47% of your peers know it; 30% want to learn it.</p>
+          <div class="ev"><span>p = <b>1.4×10⁻⁹</b></span><span>n = <b>9,421</b></span><span>95% CI <b>+4.2% → +8.5%</b></span></div></div></div>
+        <div class="course"><div class="num">IV</div><div>
+          <div class="line"><span class="name">OpenAI GPT (chat)</span><span class="dots"></span><span class="price">+9.1%<small>salary effect</small></span></div>
+          <p class="note">45% of your peers use it; 25% want more of it.</p>
+          <div class="ev"><span>p = <b>1.3×10⁻¹⁷</b></span><span>n = <b>7,885</b></span><span>95% CI <b>+7.0% → +11.3%</b></span></div></div></div>
+        <div class="course"><div class="num">V</div><div>
+          <div class="line"><span class="name">Bash / Shell</span><span class="dots"></span><span class="price">+9.0%<small>salary effect</small></span></div>
+          <p class="note">45% of your peers know it; 24% want to learn it.</p>
+          <div class="ev"><span>p = <b>1.9×10⁻¹⁷</b></span><span>n = <b>8,638</b></span><span>95% CI <b>+6.9% → +11.2%</b></span></div></div></div>
+      </div>
+      <aside class="total">
+        <h2>All five, estimated together</h2>
+        <div class="big"><span>+</span>37%</div>
+        <div class="ci">95% interval +33% → +42%</div>
+        <div class="facts">
+          <div><span>Significant at p &lt; 0.05</span><b>4 of 5</b></div>
+          <div><span>Peer premium (same country, experience)</span><b>−0.5%</b></div>
+          <div><span>Persona</span><b>Systems / enterprise</b></div>
+        </div>
+        <p class="fine">One regression with all five skills plus experience and a fixed effect per country, so skills that come as a set share one premium. Associations, not promises.</p>
+      </aside>
+    </div>
+  </main>
+</div>
+</body></html>

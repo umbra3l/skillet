@@ -2,6 +2,11 @@
 
 Two-sample t-tests (AI users vs non-users) and chi-square tests of independence
 (AI usage vs remote-work, top skills vs developer type) with Cramér's V effect size.
+
+The raw salary t-test is confounded by country (AI use is more common in
+lower-paying countries), so it is paired with an OLS test of the same
+difference holding work experience and country fixed:
+    log_comp ~ ai_user + WorkExp + country fixed effects
 """
 from __future__ import annotations
 
@@ -10,7 +15,10 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 from scipy import stats
+
+from src.regression import country_effects
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed.parquet"
@@ -25,6 +33,33 @@ def cramers_v(confusion: pd.DataFrame) -> float:
         return float("nan")
     r, k = confusion.shape
     return float(np.sqrt(chi2 / (n * (min(r, k) - 1)))) if min(r, k) > 1 else 0.0
+
+
+def _ai_pay_gap_controlled(df: pd.DataFrame) -> dict:
+    """AI users' log-comp gap holding work experience and country fixed.
+
+    Same sample as the salary models (USD pay, IQR inliers).
+    """
+    sub = df[(df["comp_inlier"] == 1) & df["log_comp"].notna()].dropna(
+        subset=["WorkExp", "Country"])
+    X = sm.add_constant(pd.concat(
+        [sub[["ai_user", "WorkExp"]].astype(float), country_effects(sub)], axis=1))
+    m = sm.OLS(sub["log_comp"], X).fit()
+    coef, p = float(m.params["ai_user"]), float(m.pvalues["ai_user"])
+    lo, hi = (float(x) for x in m.conf_int().loc["ai_user"])
+    return {
+        "model": "log_comp ~ ai_user + WorkExp + country fixed effects (OLS)",
+        "n": int(m.nobs),
+        "coef_log_comp": coef,
+        "pct_gap": (np.exp(coef) - 1) * 100,
+        "ci_pct": [(np.exp(lo) - 1) * 100, (np.exp(hi) - 1) * 100],
+        "t": float(m.tvalues["ai_user"]),
+        "p_value": p,
+        "conclusion": ("Reject H0; AI users earn more at the same experience and country"
+                       if p < 0.05 and coef > 0 else
+                       "Reject H0; AI users earn less at the same experience and country"
+                       if p < 0.05 else "Fail to reject H0"),
+    }
 
 
 def run() -> dict:
@@ -52,6 +87,7 @@ def run() -> dict:
             "conclusion": "Reject H0; AI users' log compensation differs" if p_sal < 0.05
                            else "Fail to reject H0",
         },
+        "log_comp_ai_users_vs_non_controlled": _ai_pay_gap_controlled(df),
         "JobSat_ai_users_vs_non": {
             "n_users": int(users_sat.shape[0]), "n_non": int(nonusers_sat.shape[0]),
             "mean_sat_users": float(users_sat.mean()), "mean_sat_non": float(nonusers_sat.mean()),

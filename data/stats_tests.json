@@ -9,6 +9,19 @@
       "p_value": 8.321112645454442e-10,
       "conclusion": "Reject H0; AI users' log compensation differs"
     },
+    "log_comp_ai_users_vs_non_controlled": {
+      "model": "log_comp ~ ai_user + WorkExp + country fixed effects (OLS)",
+      "n": 18388,
+      "coef_log_comp": 0.09484192390610297,
+      "pct_gap": 9.948503908810746,
+      "ci_pct": [
+        7.2680979035604,
+        12.695887668802674
+      ],
+      "t": 7.532127558703764,
+      "p_value": 5.224800635049377e-14,
+      "conclusion": "Reject H0; AI users earn more at the same experience and country"
+    },
     "JobSat_ai_users_vs_non": {
       "n_users": 15312,
       "n_non": 3898,

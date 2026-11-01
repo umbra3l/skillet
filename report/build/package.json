@@ -1,0 +1,6 @@
+{
+  "name": "skillet-report-build",
+  "private": true,
+  "description": "Renders the report Markdown files to PDF (KaTeX + Electron).",
+  "dependencies": { "katex": "0.16.11" }
+}

@@ -1,8 +1,8 @@
 results.csv
 data/archive_*/
 .download.log
-processed.parquet
-processed_meta.json
+# processed.parquet, processed_meta.json and want_sets.parquet are small and
+# committed: the app needs them, and results.csv is too big to deploy.
 models/
 __pycache__/
 *.pyc

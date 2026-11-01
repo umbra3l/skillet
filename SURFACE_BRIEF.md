@@ -1,3 +1,5 @@
+> **Superseded (October 2026).** This brief describes the retired Editorial Magazine world. The current surface brief and direction contract live in `.impeccable/surfaces/app-streamlit-app-py.md` (Star Atlas).
+
 # Surface brief — skillet Streamlit app
 
 ## Scope and visitor mode

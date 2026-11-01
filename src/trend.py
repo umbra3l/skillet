@@ -12,7 +12,7 @@ module:
   4. fits a per-skill multiple linear regression, exactly like
      ``src/regression.py::per_skill_roi``:
 
-         log1p(comp) ~ WorkExp + top-10 country dummies + skill_binary
+         log1p(comp) ~ WorkExp + country fixed effects + skill_binary
 
      and records the skill coefficient, p-value, user count and the
      approximate percentage salary impact ``(exp(coef) - 1) * 100``;
@@ -37,6 +37,8 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 import matplotlib
+
+from src.regression import country_effects
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -263,9 +265,9 @@ def load_year(year: int, path: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     branch = df["MainBranch"].fillna("")
     is_dev = branch.str.contains("developer by profession", case=False)
     emp = df["Employment"].fillna("")
+    # Same rule as src/preprocess.py, so the 2025 fit matches the main model.
     working = emp.str.contains(r"Employed|Independent|freelancer|self-employed",
                                case=False, regex=True)
-    working &= ~emp.str.contains(r"Student|Not employed|Retired", case=False, regex=True)
     df = df[is_dev & working].copy()
     print(f"  {year}: working developers {df.shape}")
 
@@ -273,8 +275,9 @@ def load_year(year: int, path: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     comp = pd.to_numeric(df[comp_col], errors="coerce")
     comp = comp.where(comp > 0)
     df["log_comp"] = np.log1p(comp)
-    df["WorkExp"] = df[workexp_col].apply(_years_to_int)
-    df = df.dropna(subset=["log_comp", "WorkExp"]).reset_index(drop=True)
+    df["WorkExp"] = df[workexp_col].apply(_years_to_int).clip(upper=50)  # as preprocess.py
+    df["Country"] = df[country_col]
+    df = df.dropna(subset=["log_comp", "WorkExp", "Country"]).reset_index(drop=True)
 
     # IQR inlier flag (mirrors preprocess.comp_inlier; don't drop here)
     q1, q3 = df["log_comp"].quantile([0.25, 0.75])
@@ -282,10 +285,8 @@ def load_year(year: int, path: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     df["comp_inlier"] = ((df["log_comp"] >= q1 - 3 * iqr)
                          & (df["log_comp"] <= q3 + 3 * iqr)).astype(int)
 
-    # top-10 country dummies (re-derived per year)
-    top_countries = df[country_col].value_counts().head(10).index.tolist()
-    for c in top_countries:
-        df[f"country_{slugify(c)}"] = (df[country_col] == c).astype(int)
+    # largest countries, for the summary only (the model uses every country)
+    top_countries = df["Country"].value_counts().head(10).index.tolist()
 
     # --- skill binaries --------------------------------------------------
     matrix_cols = sorted(set(matrix.values()))
@@ -299,8 +300,7 @@ def load_year(year: int, path: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
         skills[name] = _delim_match(df[col], alias).astype(int)
         found[name] = f"{alias} @ {col}"
 
-    base = df[["log_comp", "WorkExp", "comp_inlier"] + [c for c in df.columns
-                                                        if c.startswith("country_")]].copy()
+    base = df[["log_comp", "WorkExp", "comp_inlier", "Country"]].copy()
     info = {
         "comp_column": comp_col,
         "matrix_columns": matrix,
@@ -317,18 +317,20 @@ def load_year(year: int, path: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
 # ---------------------------------------------------------------------------
 def per_skill_roi_year(base: pd.DataFrame, skills: pd.DataFrame,
                        year: int) -> list[dict]:
-    country_cols = [c for c in base.columns if c.startswith("country_")]
+    # Keep the original row labels: `skills` is indexed like `base`, so
+    # resetting the index here would pair each salary with another
+    # respondent's skills.
     sub = base[(base["comp_inlier"] == 1) & base["log_comp"].notna()] \
-        .dropna(subset=["WorkExp"] + country_cols).reset_index(drop=True)
+        .dropna(subset=["WorkExp", "Country"])
     sub_skills = skills.loc[sub.index]
+    fe = country_effects(sub)
     rows: list[dict] = []
     for name in skills.columns:
         d = sub_skills[name]
         users = int(d.sum())
         if users < MIN_SKILL_USERS:
             continue
-        X = sm.add_constant(pd.concat([sub[["WorkExp"] + country_cols],
-                                       d.rename(name)], axis=1))
+        X = sm.add_constant(pd.concat([sub[["WorkExp"]], fe, d.rename(name)], axis=1))
         try:
             m = sm.OLS(sub["log_comp"], X).fit()
         except Exception:
@@ -432,7 +434,7 @@ def plot_trend(df: pd.DataFrame, path: Path) -> None:
     ax.set_xlabel("Survey year", fontsize=11)
     ax.set_ylabel("% salary impact (exp(coef) - 1) x 100", fontsize=11)
     ax.set_title("Stack Overflow skill salary ROI trend, 2022-2025\n"
-                 "(per-skill MLR: log comp ~ WorkExp + top-10 country + skill)",
+                 "(per-skill MLR: log comp ~ WorkExp + country fixed effects + skill)",
                  fontsize=13)
     ax.set_xticks(sorted(pivot.index))
     ax.grid(True, which="both", alpha=0.3)
@@ -458,7 +460,7 @@ def write_readme(df: pd.DataFrame, summary: dict) -> None:
         "- For each survey year, professional developers currently in work are",
         "  selected with the `MainBranch` + `Employment` heuristic from",
         "  `src/preprocess.py`.",
-        "- Per skill: `log1p(comp) ~ WorkExp + top-10 country dummies + skill`,",
+        "- Per skill: `log1p(comp) ~ WorkExp + country fixed effects + skill`,",
         "  fitted separately per skill (avoids multicollinearity), exactly like",
         "  `src/regression.py::per_skill_roi`. Rows need >= "
         f"{MIN_SKILL_USERS} users and a non-NaN p-value.",

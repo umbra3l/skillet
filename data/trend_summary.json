@@ -6,144 +6,144 @@
     2025
   ],
   "per_year_n_working_devs": {
-    "2022": 25244,
-    "2023": 30728,
-    "2024": 14217,
-    "2025": 20083
+    "2022": 25249,
+    "2023": 30739,
+    "2024": 15163,
+    "2025": 20472
   },
   "per_year_n_model_sample": {
-    "2022": 24929,
-    "2023": 30079,
-    "2024": 13842,
-    "2025": 19441
+    "2022": 24934,
+    "2023": 30089,
+    "2024": 14841,
+    "2025": 19808
   },
   "per_year_top5_skills": {
     "2022": [
       {
-        "skill": "Rust",
-        "pct_salary_impact": 4.553,
-        "p_value": 0.033,
-        "n_users": 1993
+        "skill": "Terraform",
+        "pct_salary_impact": 31.878,
+        "p_value": 0.0,
+        "n_users": 3052
       },
       {
-        "skill": "Ruby",
-        "pct_salary_impact": 4.076,
-        "p_value": 0.062,
-        "n_users": 1903
-      },
-      {
-        "skill": "Redis",
-        "pct_salary_impact": 2.264,
-        "p_value": 0.089,
-        "n_users": 6162
+        "skill": "Kubernetes",
+        "pct_salary_impact": 29.608,
+        "p_value": 0.0,
+        "n_users": 5878
       },
       {
         "skill": "Docker",
-        "pct_salary_impact": 2.061,
-        "p_value": 0.078,
-        "n_users": 15002
+        "pct_salary_impact": 26.985,
+        "p_value": 0.0,
+        "n_users": 15022
       },
       {
-        "skill": "C#",
-        "pct_salary_impact": 1.964,
-        "p_value": 0.114,
-        "n_users": 7614
+        "skill": "Redis",
+        "pct_salary_impact": 25.829,
+        "p_value": 0.0,
+        "n_users": 6161
+      },
+      {
+        "skill": "AWS",
+        "pct_salary_impact": 25.571,
+        "p_value": 0.0,
+        "n_users": 11297
       }
     ],
     "2023": [
       {
-        "skill": "Django",
-        "pct_salary_impact": 1.543,
-        "p_value": 0.274,
-        "n_users": 2690
+        "skill": "Terraform",
+        "pct_salary_impact": 28.198,
+        "p_value": 0.0,
+        "n_users": 4517
       },
       {
-        "skill": "C#",
-        "pct_salary_impact": 1.089,
-        "p_value": 0.216,
-        "n_users": 8872
-      },
-      {
-        "skill": "SQL",
-        "pct_salary_impact": 0.955,
-        "p_value": 0.235,
-        "n_users": 15926
-      },
-      {
-        "skill": "VS Code",
-        "pct_salary_impact": 0.752,
-        "p_value": 0.416,
-        "n_users": 22527
+        "skill": "Kubernetes",
+        "pct_salary_impact": 24.913,
+        "p_value": 0.0,
+        "n_users": 7068
       },
       {
         "skill": "Go",
-        "pct_salary_impact": 0.542,
-        "p_value": 0.627,
-        "n_users": 4584
+        "pct_salary_impact": 21.816,
+        "p_value": 0.0,
+        "n_users": 4609
+      },
+      {
+        "skill": "AWS",
+        "pct_salary_impact": 21.813,
+        "p_value": 0.0,
+        "n_users": 14381
+      },
+      {
+        "skill": "Ruby",
+        "pct_salary_impact": 17.918,
+        "p_value": 0.0,
+        "n_users": 2343
       }
     ],
     "2024": [
       {
-        "skill": "Flask",
-        "pct_salary_impact": 4.063,
-        "p_value": 0.07,
-        "n_users": 1301
+        "skill": "Terraform",
+        "pct_salary_impact": 34.435,
+        "p_value": 0.0,
+        "n_users": 2004
       },
       {
-        "skill": "Jupyter",
-        "pct_salary_impact": 2.394,
-        "p_value": 0.262,
-        "n_users": 1436
+        "skill": "Kubernetes",
+        "pct_salary_impact": 28.725,
+        "p_value": 0.0,
+        "n_users": 3505
+      },
+      {
+        "skill": "AWS",
+        "pct_salary_impact": 20.797,
+        "p_value": 0.0,
+        "n_users": 6687
+      },
+      {
+        "skill": "Redis",
+        "pct_salary_impact": 19.297,
+        "p_value": 0.0,
+        "n_users": 3391
       },
       {
         "skill": "Go",
-        "pct_salary_impact": 2.221,
-        "p_value": 0.22,
-        "n_users": 2096
-      },
-      {
-        "skill": "Docker",
-        "pct_salary_impact": 2.193,
-        "p_value": 0.098,
-        "n_users": 8291
-      },
-      {
-        "skill": "Django",
-        "pct_salary_impact": 1.995,
-        "p_value": 0.37,
-        "n_users": 1298
+        "pct_salary_impact": 17.828,
+        "p_value": 0.0,
+        "n_users": 2276
       }
     ],
     "2025": [
       {
-        "skill": "Jupyter",
-        "pct_salary_impact": 5.671,
-        "p_value": 0.004,
-        "n_users": 1798
+        "skill": "Terraform",
+        "pct_salary_impact": 31.512,
+        "p_value": 0.0,
+        "n_users": 3210
       },
       {
-        "skill": "Flask",
-        "pct_salary_impact": 4.058,
-        "p_value": 0.035,
-        "n_users": 1805
+        "skill": "Kubernetes",
+        "pct_salary_impact": 27.488,
+        "p_value": 0.0,
+        "n_users": 4959
       },
       {
-        "skill": "VS Code",
-        "pct_salary_impact": 3.555,
-        "p_value": 0.002,
-        "n_users": 12032
+        "skill": "AWS",
+        "pct_salary_impact": 21.914,
+        "p_value": 0.0,
+        "n_users": 7354
       },
       {
-        "skill": "Azure",
-        "pct_salary_impact": 3.125,
-        "p_value": 0.019,
-        "n_users": 4361
+        "skill": "Go",
+        "pct_salary_impact": 18.534,
+        "p_value": 0.0,
+        "n_users": 3267
       },
       {
-        "skill": "JavaScript",
-        "pct_salary_impact": 2.963,
-        "p_value": 0.011,
-        "n_users": 12556
+        "skill": "Redis",
+        "pct_salary_impact": 17.2,
+        "p_value": 0.0,
+        "n_users": 5109
       }
     ]
   },
@@ -182,69 +182,69 @@
     "Vue.js"
   ],
   "n_skills_tracked": 32,
-  "headline": "Jupyter salary impact rose from -3.3% in 2022 to 5.7% in 2025 (+8.9 pts), while Redis fell from 2.3% to -1.6% (-3.8 pts).",
+  "headline": "VS Code salary impact rose from -2.4% in 2022 to 4.3% in 2025 (+6.7 pts), while Docker fell from 27.0% to 16.8% (-10.2 pts).",
   "biggest_risers": [
     {
-      "skill": "Jupyter",
-      "pct_first": -3.257684350302703,
-      "pct_last": 5.671395753989006,
-      "delta": 8.929080104291709
-    },
-    {
-      "skill": "Flask",
-      "pct_first": -4.766099349583053,
-      "pct_last": 4.058328649257148,
-      "delta": 8.8244279988402
-    },
-    {
       "skill": "VS Code",
-      "pct_first": -0.8132431840668253,
-      "pct_last": 3.5552487105004804,
-      "delta": 4.368491894567306
+      "pct_first": -2.3898957659214792,
+      "pct_last": 4.340237418239057,
+      "delta": 6.730133184160536
     },
     {
       "skill": "JavaScript",
-      "pct_first": -1.3190622732814905,
-      "pct_last": 2.9631777779973056,
-      "delta": 4.282240051278796
+      "pct_first": -8.137963223868239,
+      "pct_last": -5.556507552153045,
+      "delta": 2.5814556717151937
     },
     {
       "skill": "HTML/CSS",
-      "pct_first": -1.289344536267567,
-      "pct_last": 2.303609056654321,
-      "delta": 3.592953592921888
+      "pct_first": -12.679645655174621,
+      "pct_last": -10.38960808924745,
+      "delta": 2.2900375659271717
+    },
+    {
+      "skill": "SQL",
+      "pct_first": -6.453704131850868,
+      "pct_last": -5.756083249292043,
+      "delta": 0.6976208825588248
+    },
+    {
+      "skill": "Python",
+      "pct_first": 6.21890489121264,
+      "pct_last": 6.745664248268346,
+      "delta": 0.5267593570557061
     }
   ],
   "biggest_fallers": [
     {
-      "skill": "Redis",
-      "pct_first": 2.2642292731701152,
-      "pct_last": -1.566603200762351,
-      "delta": -3.830832473932466
-    },
-    {
-      "skill": "Rust",
-      "pct_first": 4.552922777373891,
-      "pct_last": 0.821929265998067,
-      "delta": -3.730993511375824
-    },
-    {
-      "skill": "Ruby",
-      "pct_first": 4.075768770623234,
-      "pct_last": 1.344168932798917,
-      "delta": -2.7315998378243167
-    },
-    {
       "skill": "Docker",
-      "pct_first": 2.0606144913703384,
-      "pct_last": 0.005949272155336693,
-      "delta": -2.0546652192150017
+      "pct_first": 26.985486850536766,
+      "pct_last": 16.820405724577125,
+      "delta": -10.165081125959642
     },
     {
-      "skill": "C#",
-      "pct_first": 1.9642084974399232,
-      "pct_last": 0.2702745703249354,
-      "delta": -1.6939339271149878
+      "skill": "Redis",
+      "pct_first": 25.828841503938115,
+      "pct_last": 17.199890116216544,
+      "delta": -8.628951387721571
+    },
+    {
+      "skill": "Flask",
+      "pct_first": 9.645916894688389,
+      "pct_last": 2.646182066782976,
+      "delta": -6.999734827905413
+    },
+    {
+      "skill": "Go",
+      "pct_first": 25.15816186314963,
+      "pct_last": 18.53426699644838,
+      "delta": -6.623894866701249
+    },
+    {
+      "skill": "Django",
+      "pct_first": 1.3153165641625941,
+      "pct_last": -4.667834780943747,
+      "delta": -5.983151345106341
     }
   ],
   "comp_columns": {

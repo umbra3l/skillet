@@ -41,12 +41,12 @@ def label(label_: str) -> None:
 def main() -> None:
     sr = SkillRadar()
 
-    # Discover the role_ / country_ columns the app's selects actually use.
+    # Discover the roles and countries the app's selects actually offer.
     df = sr._data()
     role_cols = sorted([c for c in df.columns if c.startswith("role_")])
-    country_cols = sorted([c for c in df.columns if c.startswith("country_")])
+    countries = sorted(df["Country"].dropna().unique())
     print(f"[audit] {len(df):,} rows · "
-          f"{len(role_cols)} roles · {len(country_cols)} countries · "
+          f"{len(role_cols)} roles · {len(countries)} countries · "
           f"{len(sr.roi)} ROI rows")
 
     # ------------------------------------------------------------------
@@ -196,10 +196,9 @@ def main() -> None:
     # 8. The "score" formula sanity: written-down vs. observed.
     # ------------------------------------------------------------------
     label("8.  SCORE FORMULA — written in the methodology")
-    print("  score(s) = peer_prevalence(s)")
+    print("  score(s) = peer_prevalence(s)          # similarity-weighted")
     print("           + 0.5 * salary_ROI_coef_log")
-    print("           + 0.2 * max(peer_salary_premium_log, 0)")
-    print("           + 0.3 * peer_demand(s)")
+    print("           + 0.3 * peer_demand(s)          # similarity-weighted")
     print("           + 0.02 if ai_user and s starts with 'aimodel_'")
     print("           + 0.05 if p(s) < 0.05")
     # Spot-check the top recommendation.
@@ -208,9 +207,14 @@ def main() -> None:
                      role="role_Developer_back_end", ai_user=True)
     if r["recommendations"]:
         rec = r["recommendations"][0]
-        # Recompute manually from the same data the model used.
-        neighbours = sr._data().iloc[:]  # placeholder; we can read score directly
-        print(f"  observed top1 score = {rec['score']}")
+        # Recompute the score from the components the model reports.
+        roi = sr.roi_map[rec["skill"]]
+        expect = (rec["nbr_prevalence_pct"] / 100 + 0.5 * roi["coef_log_comp"]
+                  + 0.3 * rec["nbr_want_pct"] / 100
+                  + (0.02 if rec["skill"].startswith("aimodel_") else 0.0)
+                  + (0.05 if roi["p_value"] < 0.05 else 0.0))
+        print(f"  observed top1 score = {rec['score']}  (recomputed {expect:.4f}, "
+              f"differs only by display rounding)")
         print(f"  observed top1       = {rec['skill']!r}")
         print(f"  observed impact%    = {rec['salary_impact_pct']}%")
         print(f"  observed prevalence = {rec['nbr_prevalence_pct']}% (peer share)")

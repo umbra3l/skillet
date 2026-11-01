@@ -1,0 +1,494 @@
+{
+ "method": "t-SNE (perplexity=12, seed=42) on 1 - Jaccard similarity of the developers who know each pair of skills",
+ "n_developers": 19210,
+ "skills": {
+  "lang_Ada": [
+   -0.6132,
+   0.8679
+  ],
+  "lang_Assembly": [
+   -0.4163,
+   0.528
+  ],
+  "lang_Bash_Shell_all_shells": [
+   0.0497,
+   0.0241
+  ],
+  "lang_C": [
+   -0.3676,
+   0.4695
+  ],
+  "lang_C_2": [
+   0.2973,
+   -0.8942
+  ],
+  "lang_C_3": [
+   -0.3699,
+   0.4354
+  ],
+  "lang_COBOL": [
+   -0.6908,
+   0.8859
+  ],
+  "lang_Dart": [
+   -0.4156,
+   -0.3706
+  ],
+  "lang_Delphi": [
+   -0.8053,
+   0.2249
+  ],
+  "lang_Elixir": [
+   -0.8258,
+   0.562
+  ],
+  "lang_Erlang": [
+   -0.7986,
+   0.5825
+  ],
+  "lang_F": [
+   -0.7526,
+   0.7201
+  ],
+  "lang_Fortran": [
+   -0.7059,
+   0.8455
+  ],
+  "lang_GDScript": [
+   -0.4434,
+   0.2595
+  ],
+  "lang_Gleam": [
+   -0.7343,
+   0.6193
+  ],
+  "lang_Go": [
+   0.067,
+   0.2637
+  ],
+  "lang_Groovy": [
+   -0.4922,
+   -0.6491
+  ],
+  "lang_HTML_CSS": [
+   0.2635,
+   -0.2045
+  ],
+  "lang_Java": [
+   -0.3488,
+   -0.6452
+  ],
+  "lang_JavaScript": [
+   0.2359,
+   -0.17
+  ],
+  "lang_Kotlin": [
+   -0.458,
+   -0.5058
+  ],
+  "lang_Lisp": [
+   -0.6155,
+   0.6936
+  ],
+  "lang_Lua": [
+   -0.3726,
+   0.2271
+  ],
+  "lang_MATLAB": [
+   -0.3707,
+   0.6559
+  ],
+  "lang_MicroPython": [
+   -0.3784,
+   0.7143
+  ],
+  "lang_Mojo": [
+   -0.5764,
+   0.8121
+  ],
+  "lang_OCaml": [
+   -0.6876,
+   0.7025
+  ],
+  "lang_PHP": [
+   0.5091,
+   -0.3763
+  ],
+  "lang_Perl": [
+   -0.3099,
+   0.5302
+  ],
+  "lang_PowerShell": [
+   0.2387,
+   -0.8179
+  ],
+  "lang_Prolog": [
+   -0.6193,
+   0.7603
+  ],
+  "lang_Python": [
+   0.0374,
+   0.1156
+  ],
+  "lang_R": [
+   -0.1032,
+   0.6317
+  ],
+  "lang_Ruby": [
+   0.2697,
+   0.1587
+  ],
+  "lang_Rust": [
+   -0.2903,
+   0.3194
+  ],
+  "lang_SQL": [
+   0.317,
+   -0.1568
+  ],
+  "lang_Scala": [
+   0.1407,
+   0.7951
+  ],
+  "lang_Swift": [
+   -0.5287,
+   -0.4469
+  ],
+  "lang_TypeScript": [
+   0.1777,
+   -0.2346
+  ],
+  "lang_VBA": [
+   -0.8147,
+   0.106
+  ],
+  "lang_Visual_Basic_Net": [
+   -0.8164,
+   0.053
+  ],
+  "lang_Zig": [
+   -0.6512,
+   0.5525
+  ],
+  "db_BigQuery": [
+   -0.2535,
+   -0.0684
+  ],
+  "db_Cassandra": [
+   0.0703,
+   0.8085
+  ],
+  "db_Clickhouse": [
+   0.3288,
+   0.5948
+  ],
+  "db_Cloud_Firestore": [
+   -0.3828,
+   -0.2175
+  ],
+  "db_Cosmos_DB": [
+   0.4478,
+   -0.9965
+  ],
+  "db_Databricks_SQL": [
+   0.2115,
+   0.7499
+  ],
+  "db_DuckDB": [
+   0.2897,
+   0.6456
+  ],
+  "db_Dynamodb": [
+   0.2907,
+   0.3219
+  ],
+  "db_Elasticsearch": [
+   0.398,
+   0.2115
+  ],
+  "db_Firebase_Realtime_Database": [
+   -0.4316,
+   -0.2268
+  ],
+  "db_H2": [
+   -0.2924,
+   -0.7737
+  ],
+  "db_InfluxDB": [
+   0.4475,
+   0.2722
+  ],
+  "db_MariaDB": [
+   0.4753,
+   -0.3258
+  ],
+  "db_Microsoft_Access": [
+   -0.8137,
+   0.1457
+  ],
+  "db_Microsoft_SQL_Server": [
+   0.2892,
+   -0.9597
+  ],
+  "db_MongoDB": [
+   0.2712,
+   -0.3653
+  ],
+  "db_MySQL": [
+   0.4095,
+   -0.2904
+  ],
+  "db_Neo4J": [
+   0.0157,
+   0.7972
+  ],
+  "db_Oracle": [
+   -0.3915,
+   -0.7994
+  ],
+  "db_PostgreSQL": [
+   0.2195,
+   -0.0233
+  ],
+  "db_Redis": [
+   0.348,
+   0.1374
+  ],
+  "db_SQLite": [
+   0.1382,
+   -0.0659
+  ],
+  "db_Snowflake": [
+   0.2443,
+   0.7239
+  ],
+  "db_Supabase": [
+   0.0294,
+   -0.472
+  ],
+  "db_Valkey": [
+   0.3693,
+   0.4286
+  ],
+  "plat_APT": [
+   -0.1018,
+   0.1853
+  ],
+  "plat_Amazon_Web_Services_AWS": [
+   0.2452,
+   0.057
+  ],
+  "plat_Cloudflare": [
+   0.3675,
+   0.0178
+  ],
+  "plat_Docker": [
+   0.1718,
+   0.0197
+  ],
+  "plat_Firebase": [
+   -0.3579,
+   -0.2524
+  ],
+  "plat_Google_Cloud": [
+   -0.2431,
+   -0.1288
+  ],
+  "plat_Gradle": [
+   -0.4456,
+   -0.5721
+  ],
+  "plat_Homebrew": [
+   0.1751,
+   0.1041
+  ],
+  "plat_Kubernetes": [
+   0.1615,
+   0.2173
+  ],
+  "plat_Make": [
+   -0.0441,
+   0.2262
+  ],
+  "plat_Maven_build_tool": [
+   -0.3834,
+   -0.6972
+  ],
+  "plat_Microsoft_Azure": [
+   0.3642,
+   -1.0
+  ],
+  "plat_NuGet": [
+   0.3652,
+   -0.9186
+  ],
+  "plat_Pip": [
+   -0.0037,
+   0.1621
+  ],
+  "plat_Terraform": [
+   0.1999,
+   0.2705
+  ],
+  "plat_Vite": [
+   -0.0062,
+   -0.283
+  ],
+  "plat_Webpack": [
+   0.0352,
+   -0.2263
+  ],
+  "plat_Yarn": [
+   0.0492,
+   -0.1678
+  ],
+  "plat_npm": [
+   0.1555,
+   -0.1638
+  ],
+  "plat_pnpm": [
+   -0.0254,
+   -0.3572
+  ],
+  "web_ASP_NET": [
+   0.3873,
+   -0.819
+  ],
+  "web_ASP_NET_Core": [
+   0.3534,
+   -0.8662
+  ],
+  "web_Angular": [
+   0.2196,
+   -0.5609
+  ],
+  "web_Django": [
+   0.1139,
+   0.4945
+  ],
+  "web_Express": [
+   0.1788,
+   -0.3904
+  ],
+  "web_FastAPI": [
+   0.0539,
+   0.4429
+  ],
+  "web_Flask": [
+   0.0626,
+   0.4827
+  ],
+  "web_Laravel": [
+   0.5667,
+   -0.3627
+  ],
+  "web_Next_js": [
+   0.0848,
+   -0.3977
+  ],
+  "web_Node_js": [
+   0.1942,
+   -0.3101
+  ],
+  "web_React": [
+   0.1232,
+   -0.2973
+  ],
+  "web_Spring_Boot": [
+   -0.3382,
+   -0.7175
+  ],
+  "web_Vue_js": [
+   -0.0812,
+   -0.2595
+  ],
+  "web_WordPress": [
+   0.5356,
+   -0.4518
+  ],
+  "web_jQuery": [
+   0.429,
+   -0.4327
+  ],
+  "devenv_Android_Studio": [
+   -0.4372,
+   -0.4398
+  ],
+  "devenv_Cursor": [
+   0.5582,
+   0.0209
+  ],
+  "devenv_IntelliJ_IDEA": [
+   -0.3172,
+   -0.6158
+  ],
+  "devenv_Jupyter_Notebook_JupyterLab": [
+   -0.0716,
+   0.5568
+  ],
+  "devenv_Neovim": [
+   -0.3333,
+   0.2168
+  ],
+  "devenv_Notepad": [
+   0.1691,
+   -0.9076
+  ],
+  "devenv_PyCharm": [
+   -0.0688,
+   0.4314
+  ],
+  "devenv_Vim": [
+   -0.0424,
+   0.0425
+  ],
+  "devenv_Visual_Studio": [
+   0.2419,
+   -0.902
+  ],
+  "devenv_Visual_Studio_Code": [
+   0.2688,
+   -0.1027
+  ],
+  "aimodel_Anthropic": [
+   0.5665,
+   -0.0409
+  ],
+  "aimodel_DeepSeek_R_Reasoning_models": [
+   0.8939,
+   0.0206
+  ],
+  "aimodel_DeepSeek_V_General_purpose_models": [
+   0.9305,
+   0.0112
+  ],
+  "aimodel_Gemini_Flash_general_purpose_models": [
+   0.7288,
+   -0.1072
+  ],
+  "aimodel_Gemini_Pro_Reasoning_models": [
+   0.76,
+   -0.0971
+  ],
+  "aimodel_Meta_Llama_all_models": [
+   0.8526,
+   0.0767
+  ],
+  "aimodel_X_Grok_models": [
+   0.8733,
+   -0.0713
+  ],
+  "aimodel_openAI_GPT_chatbot_models": [
+   0.5071,
+   -0.077
+  ],
+  "aimodel_openAI_Image_generating_models": [
+   0.7141,
+   0.0345
+  ],
+  "aimodel_openAI_Reasoning_models": [
+   0.6841,
+   0.0068
+  ]
+ }
+}

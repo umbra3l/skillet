@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>skillet — The Departure Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#0d0e10;--steel:#1c1e22;--steel-2:#26292f;--rule:#34373e;--ink:#f3f1ea;--ink-2:#c3c1ba;--ink-3:#8e8c86;--amber:#f2a93b;--green:#6fbf8e;--red:#d0564c;--flap:#141518}
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:15px/1.5 Barlow,system-ui,sans-serif}
+.app{display:grid;grid-template-columns:300px 1fr;height:900px}
+.rail{background:var(--steel);border-right:1px solid var(--rule);padding:30px 26px;display:flex;flex-direction:column;gap:22px}
+.word{font:700 34px/1 'Barlow Condensed';letter-spacing:.02em}.word i{color:var(--amber);font-style:normal}
+.sub{color:var(--ink-3);font-size:13px;margin-top:6px}
+h2{font:600 13px/1 'Barlow Condensed';letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+label{display:block;font-size:13px;color:var(--ink-2);margin:12px 0 6px}
+.sel{height:38px;border:1px solid var(--rule);background:var(--steel-2);border-radius:4px;display:flex;align-items:center;padding:0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid var(--rule);border-radius:4px;padding:3px 9px;font-size:12.5px;color:var(--ink-2)}
+.main{padding:34px 48px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px}
+.head h1{font:700 40px/1 'Barlow Condensed';letter-spacing:.04em;text-transform:uppercase}
+.head p{color:var(--ink-3);font-size:14px;margin-top:6px}
+.tot{text-align:right}.tot b{font:700 64px/1 'Barlow Condensed';color:var(--amber);font-variant-numeric:tabular-nums}
+.tot small{display:block;color:var(--ink-2);font-size:14px}
+.board{background:var(--steel);border:1px solid var(--rule);border-radius:6px;padding:14px 18px 8px}
+.cols,.row{display:grid;grid-template-columns:56px 1.6fr 130px 150px 110px 110px 150px;gap:10px;align-items:center}
+.cols{font:600 12px/1 'Barlow Condensed';letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);padding:6px 0 12px;border-bottom:1px solid var(--rule)}
+.row{padding:10px 0;border-bottom:1px solid var(--rule)}
+.flap{background:var(--flap);border-radius:3px;padding:6px 10px;font:600 26px/1 'Barlow Condensed';letter-spacing:.06em;text-transform:uppercase;position:relative;font-variant-numeric:tabular-nums}
+.flap::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000;opacity:.9}
+.flap.n{color:var(--amber);text-align:center}
+.flap.g{color:var(--green)}
+.status{font:600 14px/1 'Barlow Condensed';letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:8px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.status.w{color:var(--amber)}.status.w i{background:var(--amber)}
+.changed{outline:1px solid var(--amber);outline-offset:2px}
+.foot{display:flex;gap:28px;color:var(--ink-3);font-size:13px;margin-top:16px}
+.foot b{color:var(--ink-2);font-weight:600}
+</style></head><body>
+<div class="app">
+  <aside class="rail">
+    <div><div class="word">SKILLET<i>.</i></div><div class="sub">2025 Stack Overflow survey · 19,210 developers</div></div>
+    <section><h2>Your profile</h2>
+      <label>Role</label><div class="sel">Developer, full-stack</div>
+      <label>Years of professional experience</label><div class="sel">5</div>
+      <label>Country</label><div class="sel">United States of America</div>
+      <label>AI tools</label><div class="sel">I use AI tools in my workflow</div>
+    </section>
+    <section><h2>Your current stack</h2><div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML / CSS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span><span class="chip">VS Code</span><span class="chip">npm</span></div></section>
+  </aside>
+  <main class="main">
+    <div class="head">
+      <div><h1>Next skills</h1><p>Ranked for a full-stack developer in the United States with 5 years · 300 nearest peers</p></div>
+      <div class="tot"><b>+37%</b><small>all five together · 95% CI +33% → +42%</small></div>
+    </div>
+    <div class="board">
+      <div class="cols"><span>No.</span><span>Skill</span><span>Salary effect</span><span>p-value</span><span>Peers know</span><span>Peers want</span><span>Status</span></div>
+      <div class="row"><span class="flap n">1</span><span class="flap">Docker</span><span class="flap g">+16.4%</span><span class="flap">9.1E-50</span><span class="flap">59%</span><span class="flap">39%</span><span class="status"><i></i>Significant</span></div>
+      <div class="row"><span class="flap n">2</span><span class="flap changed">AWS</span><span class="flap g">+21.4%</span><span class="flap">7.3E-76</span><span class="flap">47%</span><span class="flap">26%</span><span class="status"><i></i>Significant</span></div>
+      <div class="row"><span class="flap n">3</span><span class="flap">Python</span><span class="flap g">+6.3%</span><span class="flap">1.4E-09</span><span class="flap">47%</span><span class="flap">30%</span><span class="status w"><i></i>Not sig. jointly</span></div>
+      <div class="row"><span class="flap n">4</span><span class="flap">OpenAI GPT</span><span class="flap g">+9.1%</span><span class="flap">1.3E-17</span><span class="flap">45%</span><span class="flap">25%</span><span class="status"><i></i>Significant</span></div>
+      <div class="row"><span class="flap n">5</span><span class="flap">Bash / Shell</span><span class="flap g">+9.0%</span><span class="flap">1.9E-17</span><span class="flap">45%</span><span class="flap">24%</span><span class="status"><i></i>Significant</span></div>
+    </div>
+    <div class="foot"><span>Persona <b>Systems / enterprise</b></span><span>Peer premium <b>−0.5%</b></span><span>Amber outline: changed since your last edit</span></div>
+  </main>
+</div>
+</body></html>

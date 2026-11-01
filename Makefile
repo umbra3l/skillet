@@ -10,9 +10,11 @@ all: data
 	$(PY) notebooks/04_classification.py
 	$(PY) notebooks/05_clustering.py
 	$(PY) notebooks/06_recommend.py
+	$(PY) -m src.evaluate
 	$(PY) -m src.fa
 	$(PY) -m src.anova
 	$(PY) -m src.network
+	$(PY) -m src.skymap
 	$(PY) notebooks/07_fa_anova.py
 	$(PY) notebooks/08_network.py
 
@@ -28,7 +30,7 @@ app:
 	$(PY) -m streamlit run app/streamlit_app.py
 
 clean:
-	rm -f data/processed.parquet data/processed_meta.json
+	rm -f data/processed.parquet data/processed_meta.json data/want_sets.parquet
 	rm -f data/skill_roi.csv data/regression_summary.json
 	rm -f data/satisfaction_coefs.csv data/satisfaction_metrics.json data/satisfaction_model.joblib
 	rm -f data/satisfaction_model_dt.joblib data/satisfaction_model_nb.joblib
@@ -37,4 +39,5 @@ clean:
 	rm -f data/anova_personas.json
 	rm -f data/skill_network.json data/network_meta.json
 	rm -f data/trend_roi.csv data/trend_summary.json
+	rm -f data/recommender_eval.json data/skill_map.json
 	rm -f assets/*.png

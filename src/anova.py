@@ -30,7 +30,7 @@ OUT_JSON = ROOT / "data" / "anova_personas.json"
 ASSETS = ROOT / "assets"
 
 # Cluster id -> persona name (matches the top-skill personas in cluster_meta.json)
-PERSONA_NAMES = {0: ".NET", 1: "Systems/enterprise", 2: "JS/web"}
+PERSONA_NAMES = {0: ".NET", 1: "Lean generalist", 2: "JS/web"}
 
 
 def _persona_names() -> dict[int, str]:

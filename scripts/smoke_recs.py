@@ -14,12 +14,14 @@ sys.path.insert(0, str(ROOT))
 from src.recommend import SkillRadar  # noqa: E402
 from src.salary_calc import expected_uplift  # noqa: E402
 
-# Baselines from the USD-pay model (ConvertedCompYearly + a fixed effect
-# per country). The earlier local-currency model gave 49.4 / 38.9 / 188.3.
+# Baselines: the five skills' joint uplift (one regression with all five,
+# USD pay, a fixed effect per country -- src/salary_calc.py). Summing the
+# separate per-skill coefficients gave 54.3 / 69.8 / 215.2 for the same
+# skills; the local-currency model before that gave 49.4 / 38.9 / 188.3.
 CASES = [
-    ("python+js+react", ["lang_Python", "lang_JavaScript", "web_React"], 54.3),
-    (".net dev",        ["lang_C_2", "web_ASP_NET", "plat_Microsoft_Azure"], 69.8),
-    ("cold start",      [], 215.2),
+    ("python+js+react", ["lang_Python", "lang_JavaScript", "web_React"], 24.8),
+    (".net dev",        ["lang_C_2", "web_ASP_NET", "plat_Microsoft_Azure"], 32.8),
+    ("cold start",      [], 81.7),
 ]
 
 if __name__ == "__main__":
@@ -29,8 +31,7 @@ if __name__ == "__main__":
         rec = eng.recommend(current_skills=skills, top_n=5)
         recs = rec["recommendations"]
         hero = expected_uplift([r["skill"] for r in recs])
-        # tolerance: the brief quotes ~+38.9 for the .NET stack; the exact
-        # value depends on the precise stack picked, so allow 0.5pp.
+        # tolerance: allow 0.5pp.
         ok = abs(hero["total_pct"] - expect) < 0.5
         failed |= not ok
         flag = "OK  " if ok else "DRIFT"

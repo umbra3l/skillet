@@ -33,7 +33,7 @@ MATRIX_COLS = [
 ]
 
 # JobSat in 2025 is a 0-10 numeric rating scale. "High" = >= 8, which
-# yields a roughly balanced positive class (~47%) for the logistic model.
+# yields a roughly balanced positive class (~50%) for the logistic model.
 JOBSAT_HIGH_CUTOFF = 8
 
 SLUG = re.compile(r"[^A-Za-z0-9]+")
@@ -60,14 +60,15 @@ def _parse_multiselect(series: pd.Series) -> pd.Series:
     return pd.Series(out, index=series.index)
 
 
-def _explode(token_lists: pd.Series, prefix: str, top_n: int) -> tuple[pd.DataFrame, list[str]]:
-    counts = Counter()
-    for lst in token_lists:
-        counts.update(lst)
-    keep = [k for k, _ in counts.most_common(top_n)] if top_n > 0 else [k for k, _ in counts.most_common()]
-    keep = sorted(keep)
-    # Ensure unique column names (C / C++ / C# all slug to "C")
-    cols: list[str] = []
+def skill_column_names(keep: list[str], prefix: str) -> dict[str, str]:
+    """Map each kept survey answer to its column name.
+
+    `keep` must be sorted. Answers that slug to the same name get a numeric
+    suffix in sorted order (C -> lang_C, C# -> lang_C_2, C++ -> lang_C_3).
+    Anything that maps survey answers to columns (e.g. src/want.py) must
+    use this function so the names agree.
+    """
+    name_to_col: dict[str, str] = {}
     seen: dict[str, int] = {}
     for k in keep:
         s = f"{prefix}_{slugify(k)}"
@@ -76,9 +77,19 @@ def _explode(token_lists: pd.Series, prefix: str, top_n: int) -> tuple[pd.DataFr
             s = f"{s}_{seen[s]}"
         else:
             seen[s] = 1
-        cols.append(s)
+        name_to_col[k] = s
+    return name_to_col
+
+
+def _explode(token_lists: pd.Series, prefix: str, top_n: int) -> tuple[pd.DataFrame, list[str]]:
+    counts = Counter()
+    for lst in token_lists:
+        counts.update(lst)
+    keep = [k for k, _ in counts.most_common(top_n)] if top_n > 0 else [k for k, _ in counts.most_common()]
+    keep = sorted(keep)
+    name_to_col = skill_column_names(keep, prefix)
+    cols = [name_to_col[k] for k in keep]
     M = pd.DataFrame(0, index=token_lists.index, columns=cols, dtype=np.int8)
-    name_to_col = {k: c for k, c in zip(keep, cols)}
     for i, lst in token_lists.items():
         for t in lst:
             col = name_to_col.get(t)
@@ -120,8 +131,11 @@ def build_processed() -> pd.DataFrame:
     print(f"  working developers: {df.shape}")
 
     # Numeric conversions
-    df["WorkExp"] = df["WorkExp"].apply(_years_to_int)
-    df["YearsCode"] = df["YearsCode"].apply(_years_to_int)
+    # Years are capped at 50: a handful of respondents enter 53-100 years of
+    # professional experience, which is implausible and would give those
+    # rows outsized leverage on the experience slope.
+    df["WorkExp"] = df["WorkExp"].apply(_years_to_int).clip(upper=50)
+    df["YearsCode"] = df["YearsCode"].apply(_years_to_int).clip(upper=50)
     # CompTotal is in each respondent's local currency (INR, JPY, PLN, ...),
     # so it is not comparable across countries. The survey also ships
     # ConvertedCompYearly (annual, USD at the survey's exchange rate);
@@ -151,14 +165,10 @@ def build_processed() -> pd.DataFrame:
         parts[col] = M
         labels[col] = {"prefix": pref, "kept": keep, "n_cols": int(M.shape[1])}
 
-    # Top countries -> dummies
+    # Largest countries, recorded in the meta file for reference. No country
+    # dummies are stored: every model builds a fixed effect per country from
+    # the Country column (src/regression.py::country_effects).
     top_countries = df["Country"].value_counts().head(10).index.tolist()
-    cmat = pd.DataFrame(0, index=df.index,
-                        columns=[f"country_{slugify(c)}" for c in top_countries], dtype=np.int8)
-    for c, col in zip(top_countries, cmat.columns):
-        cmat[col] = (df["Country"] == c).astype(int)
-    parts["country"] = cmat
-    labels["country"] = {"prefix": "country", "kept": top_countries, "n_cols": int(cmat.shape[1])}
 
     # Base frame
     id_col = "ResponseId" if "ResponseId" in df.columns else df.columns[0]
@@ -166,6 +176,7 @@ def build_processed() -> pd.DataFrame:
         "id": df[id_col].values,
         "Country": df["Country"].values,
         "RemoteWork": df["RemoteWork"].values,
+        "OrgSize": df["OrgSize"].values,
         "EdLevel": df["EdLevel"].values,
         "WorkExp": df["WorkExp"].values,
         "YearsCode": df["YearsCode"].values,

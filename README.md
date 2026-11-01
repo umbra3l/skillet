@@ -3,7 +3,7 @@
 > **A data-driven recommender for tech upskilling.** Built on the 2025 Stack Overflow Developer Survey, skillet answers *"what should this specific engineer learn next?"* with statistical evidence from the Business Analytics syllabus.
 
 [![2025 survey](https://img.shields.io/badge/data-2025%20Stack%20Overflow%20Survey-blue)](https://github.com/StackExchange/Survey/tree/main/packages/archive/2025)
-[![Python 3.14](https://img.shields.io/badge/python-3.14-green)]()
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-green)]()
 [![Streamlit](https://img.shields.io/badge/demo-Streamlit-FF4B4B)]()
 
 ---
@@ -13,7 +13,7 @@
 - **19,210** full-time professional developers analysed.
 - **Three interpretable personas** discovered by PCA + K-means on the skill space:
   - **.NET stack** (18%) — ASP.NET, NuGet, Visual Studio
-  - **Systems / enterprise languages** (46%) — C, C++, Java, Swift, Oracle
+  - **Lean generalist stacks** (46%) — smaller stacks (about 10 common skills vs 21–27 in the other two); C, C++, Java, Swift and Oracle set it apart only slightly
   - **Modern JS / web tooling** (36%) — pnpm, Express, Vite, Webpack
 - **Top 5 skills by salary ROI** (per-skill MLR on USD pay, control = work exp + a fixed effect for every country):
   | Skill | Salary impact | p-value | n |
@@ -23,9 +23,9 @@
   | Terraform | **+31.0%** | 9×10⁻⁸⁷ | 2,958 |
   | ClickHouse | **+30.7%** | 1×10⁻¹³ | 366 |
   | Databricks SQL | **+30.1%** | 3×10⁻¹⁷ | 493 |
-- **AI-tool users earn more once country is controlled** (+9.9%, p ≈ 6×10⁻¹⁴, holding work exp + country fixed) and report higher job satisfaction (Welch's t = 3.36, p = 8×10⁻⁴). The raw comparison points the other way (Welch's t = −6.15 on log-comp) because AI use is more common in lower-paying countries — a Simpson's-paradox case.
+- **AI-tool users earn more once country is controlled** (+9.9%, 95% CI +7.3% to +12.7%, p ≈ 5×10⁻¹⁴, holding work exp + country fixed) and report higher job satisfaction (Welch's t = 3.36, p = 8×10⁻⁴). The raw comparison points the other way (Welch's t = −6.15 on log-comp) because AI use is more common in lower-paying countries — a Simpson's-paradox case.
 - **Full MLR** of log USD compensation on work exp + country fixed effects + 122 skills → R² = 0.559, adj-R² = 0.553.
-- **Logistic model** of high job satisfaction → AUC = 0.562 (honest, with discussion in the report).
+- **Logistic model** of high job satisfaction → AUC = 0.565 (honest, with discussion in the report).
 
 ![Personas in PCA skill-space](assets/05_pca_scatter.png)
 
@@ -35,13 +35,15 @@
 
 Given a developer's profile (role, experience, country, current stack, AI-tool usage), skillet:
 
-1. assigns them to a **persona** by overlap with each cluster's top skills,
-2. finds their **k nearest peers** in the survey by Jaccard distance on the binary skill matrix (KNN — Module 4),
+1. assigns them to a **persona** with the fitted PCA + K-means model,
+2. finds their **k nearest peers** in the survey by Jaccard distance on the binary matrix of all 122 skills (KNN — Module 4), keeping peers who share their role, country, experience (±10 years) and AI-tool use and weighting each peer by its similarity,
 3. ranks every skill they don't have by
-   *neighbour prevalence* + 0.5 × *salary ROI* + 0.2 × *peer salary premium*,
-4. returns the **top 5 skills to learn next**, each with the regression coefficient, p-value, and the evidence sentence.
+   *peer prevalence* + 0.5 × *salary ROI* + 0.3 × *peer demand* (+ small bonuses),
+4. returns the **top 5 skills to learn next**, each with the regression coefficient, p-value, and the evidence sentence, plus their **joint** modelled salary lift with a 95% interval.
 
-A cold-start fallback recommends the globally most lucrative skills when no stack is entered.
+When fewer than 50 developers share the whole profile, the filters are relaxed one at a time (AI-tool use, then experience, then country, then role) and the app says which ones were used. A cold-start fallback recommends the most lucrative skills within that comparison group when no stack is entered.
+
+**Validated offline** (`src/evaluate.py`, 500 held-out respondents): the recommender recovers a hidden skill in 78% of cases (popularity baseline 72%) and 15.8% of its picks are skills the respondent says they want to learn (baseline 12.6%), while recommending skills with a higher salary effect (+12.1% vs +9.5%). See `report/REPORT.md` §9.7.
 
 ---
 
@@ -52,7 +54,7 @@ A cold-start fallback recommends the globally most lucrative skills when no stac
 | **M1** Data types, scales, cleansing, supervised vs unsupervised | `src/preprocess.py` — filters to professional developers, explodes multi-select skills, IQR outlier flag, derives `log_comp` (log of USD-converted pay, `ConvertedCompYearly`) and `JobSat_high` (≥ 8 on 0–10 scale) |
 | **M2** Descriptive analytics, all chart types, hypothesis testing, p-values, relationships | `notebooks/01_eda.py` (histogram, bar, scatter, pie, box, heatmap); `src/stats_tests.py` — Welch's t-tests (AI users vs not, on salary + satisfaction), chi-square tests of independence with Cramér's V |
 | **M3** SLR, MLR, assumptions, goodness of fit, model comparison | `src/regression.py` — SLR `log_comp ~ WorkExp`; per-skill MLR `log_comp ~ WorkExp + country + skill_s` (121 skills); full MLR with VIF sample |
-| **M4** Logistic regression, decision tree, KNN, Naive Bayes, LDA, ROC, confusion matrix | `src/classification.py` — logistic on `JobSat_high` with ROC, AUC, Youden-optimal threshold, confusion matrix; `src/recommend.py` — **KNN core** (Jaccard, k=300) drives the personalised recommendations |
+| **M4** Logistic regression, decision tree, KNN, Naive Bayes, LDA, ROC, confusion matrix | `src/classification.py` — logistic on `JobSat_high` with ROC, AUC, Youden-optimal threshold, confusion matrix; `src/recommend.py` — **similarity-weighted KNN core** (Jaccard, k=300) drives the personalised recommendations |
 | **M5** K-means, hierarchical clustering, PCA, FA | `src/cluster.py` — PCA(80% var, 51 components) → K-means (silhouette-tuned, k=3) → hierarchical dendrogram |
 | **M6** Domain application — HR analytics | The whole project: L&D / upskilling decision-making for engineering teams |
 | **M7** Report writing (summary → problem → objectives → data viz → analysis → findings → recommendations) | `report/REPORT.md` |
@@ -71,7 +73,7 @@ skillet/
 │   ├── download.sh             # fetches results.csv (LFS) + schema.csv
 │   ├── results.csv             # ~135MB, gitignored
 │   ├── schema.csv              # column metadata
-│   ├── processed.parquet       # 19,210 × 179
+│   ├── processed.parquet       # 19,210 × 170 (committed; ≈ 0.8 MB)
 │   ├── processed_meta.json
 │   ├── skill_roi.csv           # per-skill salary impact
 │   ├── satisfaction_coefs.csv
@@ -160,17 +162,17 @@ A short report lives at [`report/REPORT.md`](report/REPORT.md).
 
 **Clustering (Module 5):** PCA 51 components for 80% variance → K-means k=3 (silhouette 0.085). The low silhouette reflects the sparsity of the binary skill space; the three clusters are nonetheless sharply interpretable as .NET, enterprise-systems, and JS/web stacks.
 
-**Logistic satisfaction model (Module 4):** AUC 0.562, F1 0.602, accuracy 0.549. The modest AUC is honest: observable skill/experience features explain a small portion of satisfaction variance, consistent with the well-known dominance of intrinsic factors (autonomy, team, manager) over skills in developer satisfaction.
+**Logistic satisfaction model (Module 4):** AUC 0.565, F1 0.614, accuracy 0.548. The modest AUC is honest: observable skill/experience features explain a small portion of satisfaction variance, consistent with the well-known dominance of intrinsic factors (autonomy, team, manager) over skills in developer satisfaction.
 
 **Model comparison on the same target (Module 4):**
 
 | Model | AUC | F1 | Accuracy |
 |---|---|---|---|
-| Logistic regression | 0.562 | 0.602 | 0.549 |
-| **Naive Bayes** | **0.566** | 0.579 | 0.550 |
-| Decision tree (max_depth=6) | 0.552 | 0.569 | 0.539 |
+| Logistic regression | 0.565 | 0.614 | 0.548 |
+| **Naive Bayes** | **0.569** | 0.580 | 0.551 |
+| Decision tree (max_depth=6) | 0.560 | 0.461 | 0.553 |
 
-All three sit barely above random — strong evidence that the survey's observable features (skills, work arrangement, experience) explain only a small slice of job-satisfaction variance. Top features by tree Gini importance: **WorkExp (0.44)**, `rw_Flexible` (0.05), `lang_JavaScript` (0.04).
+All three sit barely above random — strong evidence that the survey's observable features (skills, work arrangement, experience) explain only a small slice of job-satisfaction variance. Top features by tree Gini importance: **WorkExp (0.44)**, `rw_Flexible` (0.08), `org_Small` (0.04), `rw_Remote` (0.04). In the logistic model, holding the rest fixed, people at small organisations (≤ 99 staff) are the most likely to report high satisfaction, and "your choice" working arrangements are the most satisfied of the remote-work answers.
 
 **Factor Analysis (Module 5):** 18 factors chosen by Kaiser criterion (eigenvalue > 1) on the 86-skill matrix, varimax-rotated. They map cleanly onto technology ecosystems:
 
@@ -186,30 +188,29 @@ All three sit barely above random — strong evidence that the survey's observab
 
 (18 factors explain 50.1% of the binary-skill variance — the "latent ecosystem" structure underneath the 51 PCA components.)
 
-**ANOVA across personas:** F(2, 18954) = 16.88, p = 4.7×10⁻⁸, η² = 0.002 (small effect). Mean log USD comp: .NET 11.10, Systems 10.94, JS/web 11.00. The .NET vs Systems gap is the driver (p_adj = 4×10⁻¹⁰, ~17% higher pay; raw, not controlled for country).
+**ANOVA across personas:** F(2, 18954) = 16.88, p = 4.7×10⁻⁸, η² = 0.002 (small effect). Mean log USD comp: .NET 11.10, lean generalist 10.94, JS/web 11.00. The .NET vs lean-generalist gap is the driver (p_adj = 4×10⁻¹⁰, ~17% higher pay; raw, not controlled for country).
 
 **Skill co-occurrence network (Module 5/2):** 86 nodes, 182 edges at Jaccard > 0.30. The "connective-tissue" hubs (highest degree centrality) are the cross-persona tools: `npm` 0.235, `Docker` 0.224, `SQL` 0.212, `PostgreSQL` 0.200, `OpenAI GPT chatbot` 0.200. Modularity against the 3-persona partition is 0.21 (weak) — connectivity is driven by architectural/ecosystem groupings rather than the persona labels.
 
-**"What if I learn this?" calculator (app):** pick 2-3 candidate skills and see the predicted salary lift, summed from the per-skill MLR coefficients. Each skill shows its own % and 95% CI; the total is flagged with a caveat that the sum assumes independent effects.
+**"What if I learn this?" calculator (app):** pick candidate skills and see the predicted salary lift from one MLR fitted with all of them together (work exp + country fixed effects + the chosen skills). The total and its 95% interval come from that joint model, so skills that usually come as a set (Docker, Kubernetes, Terraform…) do not each claim the same premium. Summing the separate per-skill coefficients instead overstates the lift — for the plan Docker + Kubernetes + AWS + Python + Terraform, +152% summed vs +57% jointly.
 
 **WantToWorkWith demand signal (recommender):** the 2025 survey's `*WantToWorkWith` columns are loaded once and the share of a candidate skill's *wanting* among the user's k nearest peers is added (0.3 weight) to the recommendation score. The evidence string now reports both "X% of peers know it" and "Y% of peers want to learn it."
 
-**Multi-year skill ROI trend (2022 → 2025):** the per-skill MLR was re-fit on each of the last four Stack Overflow surveys for the 32 skills present in every year, with USD-converted compensation throughout and country fixed effects absorbed. Headline drifts:
+**Multi-year skill ROI trend (2022 → 2025):** the per-skill MLR was re-fit on each of the last four Stack Overflow surveys for the 32 skills present in every year, with USD-converted compensation, a fixed effect for every country, and the same sample filter as the main pipeline. The 2025 estimates agree with the main ROI table to within about a point (Docker +16.8% vs +16.4%; the main table also requires a job-satisfaction answer). Terraform and Kubernetes carry the largest premium in every year. Biggest moves:
 
 | Skill | 2022 | 2025 | Δ |
 |---|---|---|---|
-| **Jupyter** | -3.3% | **+5.7%** | **+8.9 pts** |
-| **Flask** | -4.8% | +4.1% | +8.8 pts |
-| VS Code | -0.8% | +3.6% | +4.4 pts |
-| JavaScript | -1.3% | +3.0% | +4.3 pts |
-| HTML/CSS | -1.3% | +2.3% | +3.6 pts |
-| C# | +2.0% | +0.3% | -1.7 pts |
-| Docker | +2.1% | +0.0% | -2.1 pts |
-| Ruby | +4.1% | +1.3% | -2.7 pts |
-| Rust | +4.6% | +0.8% | -3.7 pts |
-| **Redis** | +2.3% | -1.6% | -3.8 pts |
+| **VS Code** | -2.4% | +4.3% | **+6.7 pts** |
+| JavaScript | -8.1% | -5.6% | +2.6 pts |
+| HTML/CSS | -12.7% | -10.4% | +2.3 pts |
+| Go | +25.2% | +18.5% | -6.6 pts |
+| Flask | +9.6% | +2.6% | -7.0 pts |
+| Redis | +25.8% | +17.2% | -8.6 pts |
+| **Docker** | +27.0% | +16.8% | **-10.2 pts** |
 
-Jupyter / Flask and the Python-data stack are the big risers (the AI / data-science wave); Redis, Rust, Ruby, Docker and C# are the most notable fallers as the market matures. Chart: `assets/trend_roi.png`. Data: `data/trend_roi.csv`. Full per-year column-harmonisation map (column names change every year, e.g. "Docker" moved from `ToolsTechHaveWorkedWith` to `PlatformHaveWorkedWith` in 2025) is in `data/trend_summary.json`.
+The premiums for once-specialist infrastructure skills (Docker, Redis, Go) shrank by a third or more between 2022 and 2023 and have held steady since, consistent with those skills going mainstream; Terraform (+31%) and Kubernetes (+27%) have not moved. Chart: `assets/trend_roi.png`. Data: `data/trend_roi.csv`. Full per-year column-harmonisation map (column names change every year, e.g. "Docker" moved from `ToolsTechHaveWorkedWith` to `PlatformHaveWorkedWith` in 2025) is in `data/trend_summary.json`.
+
+An earlier version of this analysis misaligned salaries and skills (an index reset after the outlier filter paired each salary with another respondent's skills), so its tables — e.g. "Jupyter and Flask are the big risers" — were noise. Fixed in `src/trend.py`.
 
 ---
 
@@ -221,7 +222,7 @@ The repo is Streamlit-Cloud-ready. `runtime.txt` pins Python 3.12, `.streamlit/c
 2. Sign in to [share.streamlit.io](https://share.streamlit.io) → **New app** → point at this repo, branch `main`, main file `app/streamlit_app.py` → **Deploy**.
 3. ~3-5 min later you have a public URL like `https://<your-handle>-skillet.streamlit.app` — put it in the repo description and in your report.
 
-> Note: the first launch will re-run the pipeline (preprocess → recommend artefacts) on Streamlit's servers. The raw `results.csv` is gitignored and must be downloaded at build time. Either host it somewhere and download in the app, or bake the pipeline outputs into the repo (they're small — `processed.parquet` ≈ 4 MB).
+> Note: the app runs entirely from committed files — `data/processed.parquet` (≈ 0.8 MB), `data/processed_meta.json`, `data/want_sets.parquet` (the WantToWorkWith answers extracted from the raw survey) and the model artefacts in `data/`. The raw `results.csv` (~135 MB) stays gitignored and is only needed to re-run the pipeline. The code is syntax-checked against Python 3.12 (the `runtime.txt` pin) and developed on 3.14.
 
 ## ⚠️ Limitations
 
@@ -240,14 +241,13 @@ The repo is Streamlit-Cloud-ready. `runtime.txt` pins Python 3.12, `.streamlit/c
   exchange rate, with a fixed effect for every country; skill coefficients are
   therefore within-country pay gaps, not purchasing-power adjusted.
 - **Single year.** The 2025 cross-section is a snapshot; skill ROI drifts.
-- **Persona assignment for sparse users** uses skill-overlap with each
-  cluster's top skills; a developer with a very unusual stack may be
-  mis-classified.
-- **`OrgSize` not in 2025 parquet** so the four `org_*` dummies in the
-  logistic / tree / NB models are constant zero — they carry no
-  information. All three models were trained on the same design matrix
-  so the comparison is still fair, but the absolute AUCs could be a
-  little higher with the right controls.
+- **Personas use the 86 common skills only.** A stack made entirely of
+  rare skills (< 5% prevalence) carries no persona signal and is shown
+  the largest persona.
+- **Small roles.** Nine roles (e.g. Product manager, Student, Retired) have
+  fewer than 50 respondents in the whole survey, so their peer group is the
+  whole survey and the role does not change their recommendations; the app
+  says so.
 
 ---
 

@@ -48,9 +48,12 @@ executed by `run_all.py` from the raw survey CSV.
 
 ## Capabilities and Constraints
 
-- Recommender: Jaccard-distance KNN over 19,210 working developers,
-  combined with per-skill MLR coefficients, peer salary premium, and
-  peer "want-to-learn" share from the 2025 `*WantToWorkWith` columns.
+- Recommender: similarity-weighted Jaccard KNN over 19,210 working
+  developers (peers filtered by role, country, experience and AI-tool
+  use, relaxed one filter at a time when fewer than 50 match), combined
+  with per-skill MLR coefficients and peer "want-to-learn" share from the
+  2025 `*WantToWorkWith` columns; the headline lift is one joint
+  regression of the five skills. Validated offline in `src/evaluate.py`.
 - Models: SLR + per-skill MLR, binary logistic (with Decision Tree and
   Gaussian Naive Bayes comparators), PCA + K-means clustering,
   Factor Analysis, one-way ANOVA across personas, skill co-occurrence
@@ -70,10 +73,12 @@ executed by `run_all.py` from the raw survey CSV.
 - Voice: confident, technical, honest about uncertainty. Reports
   coefficients with their p-values and 95% intervals; never rounds to
   zero without saying so.
-- The Editorial Magazine visual world is **pinned** by the user (see
-  SURFACE_BRIEF.md and DESIGN.md). The app must read as a printed
-  annual — masthead, cover story, figure, notes — backed by data;
-  no later visual revision may drift to the dashboard default.
+- The **Star Atlas** dark visual world was chosen by the user (October
+  2026, replacing the earlier Editorial Magazine world; see
+  `.impeccable/surfaces/app-streamlit-app-py.md` and DESIGN.md): skill
+  space drawn as a night sky, the visitor's stack as a constellation,
+  the five recommendations ringed in amber. Must not drift to neon /
+  terminal looks, generic SaaS dashboard tiles, or low-contrast greys.
 
 ## Evidence on Hand
 
@@ -86,9 +91,7 @@ executed by `run_all.py` from the raw survey CSV.
 - Honest limitations: self-reported compensation; sample bias
   (English-speaking, internet-active developers); associations ≠
   causal effects; single-currency comparison (USD-converted columns
-  used); `OrgSize` not present in the 2025 processed parquet (the
-  four `org_*` dummies are constant zero across all classifiers — a
-  data-pipeline gap, documented in the report and README).
+  used).
 
 ## Product Principles
 
@@ -96,7 +99,7 @@ executed by `run_all.py` from the raw survey CSV.
    p-value, CI, persona, peer-prevalence, peer-want — each is the
    output of a specific estimator in `src/`. The UI shows the evidence
    sentence, not just the number.
-2. **Honesty over reassurance.** Weak predictions (logistic AUC ≈ 0.56)
+2. **Honesty over reassurance.** Weak predictions (logistic AUC ≈ 0.57)
    are reported as findings, not hidden. Negative ROI is filtered from
    *recommendations* but kept on the coefficient chart.
 3. **Personalised, not generic.** The KNN-with-Jaccard recommender
@@ -110,6 +113,6 @@ executed by `run_all.py` from the raw survey CSV.
 
 Web app; standard keyboard navigation and focus rings through the
 app. Animations respect `prefers-reduced-motion`. Colour contrast
-meets WCAG AA on the cast-iron palette (body text on cream ≥ 4.5:1;
-display on dark hero panel ≥ 7:1). No accessibility-only fallback for
-the recommender's core value.
+meets WCAG AA on the Star Atlas palette (body and caption text on the
+navy ground ≥ 4.5:1). No accessibility-only fallback for the
+recommender's core value.

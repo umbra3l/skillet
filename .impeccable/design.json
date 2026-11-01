@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T15:55:25+00:00",
+  "title": "Design System: skillet",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "neutral",
+        "displayName": "Chart Navy",
+        "canonical": "#0b1220",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#22252c",
+          "#3c424d",
+          "#596171",
+          "#798395",
+          "#9ca5b8",
+          "#c3c9d5",
+          "#edeef2"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Raised Panel (hover labels)",
+        "canonical": "#111a2d",
+        "tonalRamp": [
+          "#090b0f",
+          "#21252e",
+          "#3b4250",
+          "#576176",
+          "#76839b",
+          "#99a5bd",
+          "#c2c9d8",
+          "#eceef3"
+        ]
+      },
+      "panel-2": {
+        "role": "neutral",
+        "displayName": "Inset Panel (Streamlit menus)",
+        "canonical": "#17223a",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252f",
+          "#3a4253",
+          "#55617a",
+          "#7482a0",
+          "#97a5c2",
+          "#c1c9db",
+          "#eceef4"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "#25324d",
+        "tonalRamp": [
+          "#090b10",
+          "#202530",
+          "#394254",
+          "#54617c",
+          "#7382a2",
+          "#96a5c4",
+          "#c0c9dc",
+          "#ebeef4"
+        ]
+      },
+      "graticule": {
+        "role": "neutral",
+        "displayName": "Graticule",
+        "canonical": "#18233a",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252f",
+          "#3a4253",
+          "#556179",
+          "#74839f",
+          "#97a5c1",
+          "#c1c9da",
+          "#eceef4"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Chalk",
+        "canonical": "#e9edf5",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242528",
+          "#404246",
+          "#5e6167",
+          "#7f828a",
+          "#a2a5ac",
+          "#c7c9cd",
+          "#eeeef0"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Secondary Chalk",
+        "canonical": "#b7c1d6",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#22252c",
+          "#3d424d",
+          "#5a6172",
+          "#798296",
+          "#9ca5b8",
+          "#c4c9d5",
+          "#edeef2"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Faint Chalk",
+        "canonical": "#8593ad",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252e",
+          "#3a4251",
+          "#566277",
+          "#75839c",
+          "#98a6be",
+          "#c1c9d9",
+          "#eceef3"
+        ]
+      },
+      "dim": {
+        "role": "neutral",
+        "displayName": "Dim Star",
+        "canonical": "#4f5d7a",
+        "tonalRamp": [
+          "#090b0f",
+          "#202530",
+          "#394254",
+          "#55617b",
+          "#7382a1",
+          "#97a5c3",
+          "#c0c9dc",
+          "#eceef4"
+        ]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "Recommendation Amber",
+        "canonical": "#f0a65a",
+        "tonalRamp": [
+          "#120902",
+          "#361f06",
+          "#5e3809",
+          "#8a520b",
+          "#b37126",
+          "#d59655",
+          "#e8c19d",
+          "#f8ece1"
+        ]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Control Sky",
+        "canonical": "#7fb3d5",
+        "tonalRamp": [
+          "#060c11",
+          "#162733",
+          "#284659",
+          "#3b6782",
+          "#5689a9",
+          "#7caccb",
+          "#b2cee1",
+          "#e7f0f6"
+        ]
+      },
+      "sage": {
+        "role": "tertiary",
+        "displayName": "Positive Sage",
+        "canonical": "#9bd3a4",
+        "tonalRamp": [
+          "#060d07",
+          "#182a1b",
+          "#2b4b31",
+          "#406e49",
+          "#5b9165",
+          "#81b489",
+          "#b4d2b9",
+          "#e8f1e9"
+        ]
+      },
+      "rose": {
+        "role": "tertiary",
+        "displayName": "Negative Rose",
+        "canonical": "#d9776b",
+        "tonalRamp": [
+          "#140706",
+          "#3a1a17",
+          "#65302a",
+          "#94473e",
+          "#c06459",
+          "#e2897d",
+          "#f1bab1",
+          "#fceae7"
+        ]
+      },
+      "ramp-low": {
+        "role": "data",
+        "displayName": "Significance Ramp, Low",
+        "canonical": "#41678f",
+        "tonalRamp": [
+          "#070c12",
+          "#192635",
+          "#2d445c",
+          "#436487",
+          "#5f86b0",
+          "#83a9d1",
+          "#b5cce5",
+          "#e8eff7"
+        ]
+      },
+      "ramp-mid": {
+        "role": "data",
+        "displayName": "Significance Ramp, Mid",
+        "canonical": "#7fa7cb",
+        "tonalRamp": [
+          "#000c1a",
+          "#11273a",
+          "#29455d",
+          "#446582",
+          "#6087a9",
+          "#86a9c9",
+          "#aecdea",
+          "#d7f2ff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The joint total in the plan only; 76px under 900px; raised 0.42em unit, amber sign."
+      },
+      "readout": {
+        "displayName": "Readout",
+        "purpose": "The what-if lift (sky sign); the first-load wordmark at the same size."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page heading; second clause italic in ink-2."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "\"skillet.\" at the top of the rail; footer repeats it at 26px."
+      },
+      "persona-name": {
+        "displayName": "Persona Name",
+        "purpose": "Italic persona name under the persona section head."
+      },
+      "section-head": {
+        "displayName": "Section Head",
+        "purpose": "The four catalogue sections below the fold."
+      },
+      "plate-head": {
+        "displayName": "Plate Head",
+        "purpose": "Italic plan heading (ink-2) and method-notes summary (ink)."
+      },
+      "object-name": {
+        "displayName": "Object Name",
+        "purpose": "Skill names in plan rows and the index table."
+      },
+      "rail-head": {
+        "displayName": "Rail Head",
+        "purpose": "Italic rail group headings under a hairline."
+      },
+      "list": {
+        "displayName": "List",
+        "purpose": "Italic persona tag list, middot-separated; index rank numerals."
+      },
+      "note": {
+        "displayName": "Note",
+        "purpose": "Italic captions, empty states, footer line; 13.5px table heads and facts labels; 13px plate caption, rail footnote, movement tag, ramp label."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Salary effects in sage or rose; facts values."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Lead paragraphs, max 68ch; notes body 14.5px/1.7."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Index evidence lines, chart legend; 12.5px plan evidence and widget labels."
+      },
+      "tick": {
+        "displayName": "Tick",
+        "purpose": "Ramp ticks and figure axis ticks."
+      }
+    },
+    "shadows": [],
+    "focus": [
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #f0a65a; outline-offset: 2px",
+        "purpose": "Global :focus-visible; amber's only control-side job."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All transitions and entrance motion."
+      },
+      {
+        "name": "settle",
+        "value": "800ms opacity/translateY(12px)/blur(6px) to rest",
+        "purpose": "Joint total, first render of a session only."
+      },
+      {
+        "name": "rise",
+        "value": "560ms opacity/translateY(6px), 120ms then 60ms stagger",
+        "purpose": "Plan rows, first render of a session only."
+      },
+      {
+        "name": "hover",
+        "value": "160ms border-color, color, background-color",
+        "purpose": "Field rules, notes summary, index row wash."
+      },
+      {
+        "name": "disclosure",
+        "value": "200ms transform",
+        "purpose": "Method notes chevron."
+      },
+      {
+        "name": "fold-fill",
+        "value": "1.6s scaleX loop",
+        "purpose": "Amber hairline on the first-load fold; off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack-sky",
+        "value": "1200px",
+        "purpose": "Sky row stacks, plan first; plan drops its left hairline and inset."
+      },
+      {
+        "name": "compact",
+        "value": "900px",
+        "purpose": "Rail stacks above content, not sticky, bottom hairline instead of right; sections one column, 48px apart; calc readout stacks; display 76px; padding 1.4rem 1rem 2rem."
+      }
+    ],
+    "selection": [
+      {
+        "name": "selection",
+        "value": "::selection { background: rgba(127,179,213,0.28); color: #e9edf5 } * { caret-color: #7fb3d5 }",
+        "purpose": "Selection and caret in sky, never amber."
+      }
+    ],
+    "hairlines": [
+      {
+        "name": "head-rule",
+        "value": "1px solid #8593ad",
+        "purpose": "Over the plan list and under index table heads."
+      },
+      {
+        "name": "section-rule",
+        "value": "1px solid #25324d",
+        "purpose": "Above each section, rail and plan column edges, field bottoms, plate border, notes, footer."
+      },
+      {
+        "name": "row-rule",
+        "value": "1px solid #18233a",
+        "purpose": "Between plan and index rows; calculator readout top and bottom."
+      },
+      {
+        "name": "plate-outline",
+        "value": "outline: 1px solid #18233a; outline-offset: 4px",
+        "purpose": "Second neatline around the sky plate only."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Plan Column",
+      "kind": "card",
+      "refersTo": "plan-column",
+      "description": "Open column beside the plate: joint total, interval, five ranked rows, facts. Left hairline, no box.",
+      "html": "<section class=\"ds-plan\"><h2>All five, estimated together</h2><div class=\"ds-total\"><span class=\"ds-sign\">+</span>32<span class=\"ds-unit\">%</span></div><p class=\"ds-ci\">95% interval +27% → +36% · 4 of 5 significant</p><ol class=\"ds-list\"><li class=\"ds-row\"><span class=\"ds-ring\"></span><div class=\"ds-name\">Docker<span class=\"ds-move\">up 1</span><small>54% of your peers know it · p = 9.1×10<sup>−50</sup></small></div><span class=\"ds-eff ds-pos\">+16.4%</span></li><li class=\"ds-row\"><span class=\"ds-ring\"></span><div class=\"ds-name\">AWS<span class=\"ds-move\">new</span><small>45% of your peers know it · p = 7.3×10<sup>−76</sup></small></div><span class=\"ds-eff ds-pos\">+21.4%</span></li></ol><dl class=\"ds-facts\"><div><dt>Median pay, your group</dt><dd>$142,000</dd></div><div><dt>Premium vs same country and experience</dt><dd>+8.2%</dd></div></dl></section>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-plan{background:var(--navy);border-left:1px solid var(--rule);padding:0 0 4px 30px;color:var(--ink);font-family:var(--sans);max-width:420px} .ds-plan h2{font:italic 400 22px/1.2 var(--serif);color:var(--ink-2);margin:0} .ds-total{font:300 104px/0.9 var(--serif);letter-spacing:-0.045em;margin:18px 0 10px;font-variant-numeric:lining-nums tabular-nums} .ds-sign{color:var(--amber)} .ds-unit{color:var(--ink-3);font-size:.42em;margin-left:.05em;vertical-align:.9em} .ds-ci{color:var(--ink-2);font:italic 400 15px/1.5 var(--serif);margin:0 0 22px} .ds-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink-3)} .ds-row{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:baseline;padding:14px 0 13px;border-bottom:1px solid var(--grat)} .ds-ring{display:inline-block;width:12px;height:12px;border:2px solid var(--amber);border-radius:50%;transform:translateY(1px)} .ds-name{font:400 21px/1.2 var(--serif)} .ds-move{margin-left:10px;font:italic 400 13px/1 var(--serif);color:var(--sky);vertical-align:2px} .ds-name small{display:block;font:400 12.5px/1.5 var(--sans);color:var(--ink-3);margin-top:4px;font-variant-numeric:tabular-nums} .ds-name sup{font-size:.68em;line-height:0} .ds-eff{font:500 17px/1 var(--sans);letter-spacing:-.01em;font-variant-numeric:tabular-nums} .ds-pos{color:var(--sage)} .ds-neg{color:var(--rose)} .ds-facts{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;margin:22px 0 0} .ds-facts dt{color:var(--ink-3);font:italic 400 13.5px/1.35 var(--serif)} .ds-facts dd{margin:4px 0 0;font:500 17px var(--sans);font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Sky Plate",
+      "kind": "custom",
+      "refersTo": "sky-plate",
+      "description": "The one framed object: plate caption, square double neatline (1px rule plus graticule outline 4px out), graduated ticks, graticule, constellation, amber-ringed picks (static sketch of the Plotly chart).",
+      "html": "<figure class=\"ds-fig\"><figcaption class=\"ds-cap\"><span><em>Plate I.</em> Skill space, 2025</span><span>122 skills, placed by how often developers use them together</span></figcaption><div class=\"ds-plate\"><div class=\"ds-grat ds-g1\"></div><div class=\"ds-grat ds-g2\"></div><div class=\"ds-grat ds-g3\"></div><span class=\"ds-star\" style=\"left:20%;top:30%;width:8px;height:8px\"></span><span class=\"ds-star\" style=\"left:70%;top:20%;width:5px;height:5px\"></span><span class=\"ds-star ds-dim\" style=\"left:35%;top:75%;width:4px;height:4px\"></span><span class=\"ds-mine\" style=\"left:45%;top:50%\"></span><span class=\"ds-mine\" style=\"left:52%;top:62%\"></span><span class=\"ds-pick\" style=\"left:60%;top:38%\"></span><span class=\"ds-lbl\" style=\"left:63%;top:33%\">Docker</span></div></figure>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-fig{margin:0;width:340px;font-family:var(--sans)} .ds-cap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ink-3);font:400 13px/1.4 var(--serif);margin-bottom:10px} .ds-cap em{font-style:italic;color:var(--ink);font-size:15px;margin-right:4px} .ds-plate{position:relative;height:272px;background:var(--navy);border:1px solid var(--rule);outline:1px solid var(--grat);outline-offset:4px;overflow:hidden;background-image:repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 8px),repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 8px);background-size:100% 4px,100% 4px;background-position:0 0,0 100%;background-repeat:no-repeat} .ds-grat{position:absolute;left:50%;top:50%;border:1px solid var(--grat);border-radius:50%;transform:translate(-50%,-50%)} .ds-g1{width:80px;height:80px} .ds-g2{width:160px;height:160px} .ds-g3{width:240px;height:240px} .ds-star,.ds-mine,.ds-pick{position:absolute;border-radius:50%;transform:translate(-50%,-50%)} .ds-star{background:var(--ink-3)} .ds-dim{background:#4f5d7a} .ds-mine{width:9px;height:9px;background:var(--ink)} .ds-pick{width:12px;height:12px;background:var(--ink);border:2.5px solid var(--amber);box-sizing:content-box} .ds-lbl{position:absolute;font:italic 400 16px var(--serif);color:var(--ink)}"
+    },
+    {
+      "name": "Catalogue Section",
+      "kind": "custom",
+      "refersTo": "catalogue-section",
+      "description": "The below-the-fold grammar: hairline above, heading left, lead right; one column under 900px.",
+      "html": "<section class=\"ds-sec\"><h2>The five, in detail</h2><p class=\"ds-lead\">Each salary effect here is that skill on its own (one regression per skill, holding experience and country fixed).</p></section>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-sec{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);column-gap:48px;row-gap:18px;align-items:baseline;color:var(--ink)} .ds-sec h2{font:300 clamp(28px,2.4vw,36px)/1.15 var(--serif);letter-spacing:-.015em;margin:0} .ds-lead{color:var(--ink-2);font:400 15px/1.65 var(--sans);max-width:68ch;margin:0} @media (max-width:900px){.ds-sec{grid-template-columns:1fr;margin-top:48px}}"
+    },
+    {
+      "name": "Index Table",
+      "kind": "card",
+      "refersTo": "index-table-head",
+      "description": "Open table: italic serif heads over an ink-3 rule, graticule row hairlines, serif object names, sky wash on hover.",
+      "html": "<div class=\"ds-tw\"><table class=\"ds-ix\"><thead><tr><th>#</th><th>Skill and evidence</th><th>Salary effect</th><th>95% interval</th><th>p-value</th></tr></thead><tbody><tr><td class=\"ds-rank\"><span class=\"ds-ring\"></span><span>1</span></td><th><span class=\"ds-nm\">Docker</span><span class=\"ds-ev\">Weighted by similarity, 54% of your 300 nearest peers know it.</span></th><td class=\"ds-eff ds-pos\">+16.4%</td><td>+14.6% → +18.2%</td><td>9.1×10<sup>−50</sup></td></tr><tr><td class=\"ds-rank\"><span class=\"ds-ring\"></span><span>2</span></td><th><span class=\"ds-nm\">AWS</span><span class=\"ds-ev\">Weighted by similarity, 45% of your 300 nearest peers know it.</span></th><td class=\"ds-eff ds-pos\">+21.4%</td><td>+19.4% → +23.4%</td><td>7.3×10<sup>−76</sup></td></tr></tbody></table></div>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-tw{overflow-x:auto;background:var(--navy);font-family:var(--sans)} .ds-ix{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums} .ds-ix thead th{color:var(--ink-3);font:italic 400 13.5px/1.3 var(--serif);text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--ink-3);white-space:nowrap} .ds-ix td,.ds-ix tbody th{padding:18px 14px 18px 0;border-bottom:1px solid var(--grat);color:var(--ink-2);font-size:14px;text-align:left;font-weight:400;vertical-align:baseline} .ds-ix tbody tr{transition:background-color 160ms var(--ease)} .ds-ix tbody tr:hover{background:rgba(127,179,213,.035)} .ds-rank{color:var(--ink-3);font:italic 400 16px/1 var(--serif);white-space:nowrap} .ds-rank span:last-child{margin-left:8px} .ds-ring{display:inline-block;width:12px;height:12px;border:2px solid var(--amber);border-radius:50%} .ds-nm{display:block;font:400 21px/1.2 var(--serif);color:var(--ink)} .ds-ev{display:block;color:var(--ink-3);font-size:13px;line-height:1.5;margin-top:5px;max-width:52ch} .ds-eff{font:500 17px/1 var(--sans)!important;letter-spacing:-.01em} .ds-pos{color:var(--sage)!important} .ds-ix sup{font-size:.68em;line-height:0}"
+    },
+    {
+      "name": "Persona Tags",
+      "kind": "chip",
+      "refersTo": "persona-list",
+      "description": "A persona's defining skills as an italic serif list separated by middots; no pills.",
+      "html": "<ul class=\"ds-tags\"><li>C#</li><li>.NET</li><li>SQL Server</li><li>Azure</li></ul>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-tags{list-style:none;display:flex;flex-wrap:wrap;gap:4px 0;margin:0;padding:0} .ds-tags li{color:var(--ink-2);font:italic 400 16px/1.5 var(--serif)} .ds-tags li+li::before{content:'\\00B7';color:var(--ink-3);margin:0 12px;font-style:normal}"
+    },
+    {
+      "name": "Ruled Field",
+      "kind": "input",
+      "refersTo": "ruled-field",
+      "description": "Streamlit select as restyled: transparent, bottom rule only (rule, ink-3 on hover, sky on focus); multiselect tags outlined at 3px.",
+      "html": "<label class=\"ds-field\"><span>Country</span><div class=\"ds-line\" tabindex=\"0\">United States of America</div></label><label class=\"ds-field\"><span>Languages</span><div class=\"ds-line\" tabindex=\"0\"><i class=\"ds-tag\">Python</i><i class=\"ds-tag\">SQL</i></div></label>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-field{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);max-width:260px;margin-bottom:14px} .ds-field>span{color:var(--ink-3);font-size:12.5px;font-weight:500;letter-spacing:.01em} .ds-line{display:flex;gap:6px;flex-wrap:wrap;background:transparent;border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:6px 0;color:var(--ink);font:400 15px var(--sans);transition:border-color 160ms var(--ease)} .ds-line:hover{border-bottom-color:var(--ink-3)} .ds-line:focus-within,.ds-line:focus{border-bottom-color:var(--sky);outline:none} .ds-line:focus-visible{outline:2px solid var(--amber);outline-offset:2px} .ds-tag{font-style:normal;border:1px solid var(--rule);border-radius:3px;padding:2px 8px;font-size:14px;color:var(--ink)}"
+    },
+    {
+      "name": "Left Rail",
+      "kind": "nav",
+      "refersTo": "left-rail",
+      "description": "In-page sticky first column with a right hairline: wordmark with amber stop, italic rail heads under hairlines, italic footnote.",
+      "html": "<aside class=\"ds-rail\"><div class=\"ds-brand\"><div class=\"ds-word\">skillet<span>.</span></div><div class=\"ds-sub\">2025 Stack Overflow survey · 19,210 developers</div></div><h2 class=\"ds-rh\">Your profile</h2><label class=\"ds-chk\"><input type=\"checkbox\" checked> I use AI tools in my workflow</label><h2 class=\"ds-rh\">Your current stack</h2><div class=\"ds-foot\">122 skills scored · salaries in USD</div></aside>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-rail{background:var(--navy);border-right:1px solid var(--rule);padding:2px 26px 18px 2px;width:270px;font-family:var(--sans);color:var(--ink)} .ds-brand{padding-bottom:18px} .ds-word{font:300 44px/.95 var(--serif);letter-spacing:-.03em} .ds-word span{color:var(--amber)} .ds-sub{color:var(--ink-3);font:italic 400 14px/1.45 var(--serif);margin-top:10px} .ds-rh{font:italic 400 18px/1.2 var(--serif);color:var(--ink);margin:18px 0 10px;padding-top:14px;border-top:1px solid var(--rule)} .ds-chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink-2)} .ds-chk input{accent-color:var(--sky)} .ds-chk input:focus-visible{outline:2px solid var(--amber);outline-offset:2px} .ds-foot{color:var(--ink-3);font:italic 400 13px/1.45 var(--serif);padding-top:14px;border-top:1px solid var(--rule);margin-top:8px}"
+    },
+    {
+      "name": "Method Notes",
+      "kind": "custom",
+      "refersTo": "catalogue-section",
+      "description": "Disclosure between two hairlines; italic serif summary turns sky on hover; CSS chevron; formula with only a left hairline.",
+      "html": "<details class=\"ds-notes\"><summary>How these recommendations are scored</summary><div class=\"ds-nb\"><p>For every skill you do not yet hold, the recommender computes a score from your peer group and the salary model.</p><pre>score(s) = peer_prevalence(s) + 0.5 × salary_ROI(s)</pre></div></details>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-notes{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--navy)} .ds-notes summary{cursor:pointer;list-style:none;padding:20px 0;font:italic 400 22px/1.3 var(--serif);color:var(--ink);display:flex;align-items:center;gap:14px;transition:color 160ms var(--ease)} .ds-notes summary:hover{color:var(--sky)} .ds-notes summary::-webkit-details-marker{display:none} .ds-notes summary::before{content:'';width:9px;height:9px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(-45deg);transition:transform 200ms var(--ease)} .ds-notes[open] summary::before{transform:rotate(45deg)} .ds-notes summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px} .ds-nb{padding:0 0 26px 23px;color:var(--ink-2);font:400 14.5px/1.7 var(--sans)} .ds-nb pre{background:transparent;border-left:1px solid var(--rule);padding:4px 0 4px 18px;color:var(--ink);font:13px/1.75 ui-monospace,'SF Mono',Menlo,monospace;overflow-x:auto}"
+    },
+    {
+      "name": "Star and Whisker with Significance Ramp",
+      "kind": "custom",
+      "refersTo": "significance-track",
+      "description": "Estimate as an 11px star on a 1.2px ink-3 interval line, coloured by the significance ramp; plan picks ringed amber; the 3px ramp legend below.",
+      "html": "<div class=\"ds-sw\"><div class=\"ds-r\"><span class=\"ds-l\">AWS</span><span class=\"ds-ax\"><i class=\"ds-w\" style=\"left:52%;width:14%\"></i><b class=\"ds-s ds-pick\" style=\"left:59%;background:#e9edf5\"></b></span></div><div class=\"ds-r\"><span class=\"ds-l\">Rust</span><span class=\"ds-ax\"><i class=\"ds-w\" style=\"left:30%;width:30%\"></i><b class=\"ds-s\" style=\"left:45%;background:#7fa7cb\"></b></span></div><div class=\"ds-r\"><span class=\"ds-l\">Elixir</span><span class=\"ds-ax\"><i class=\"ds-w\" style=\"left:20%;width:46%\"></i><b class=\"ds-s\" style=\"left:43%;background:#41678f\"></b></span></div><div class=\"ds-ramp\"><span>significance</span><div class=\"ds-track\"><i></i><div class=\"ds-ticks\"><span>p ≈ 1</span><span>10⁻⁵⁰</span><span>≤ 10⁻¹⁰⁰</span></div></div></div></div>",
+      "css": ":root{--navy:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--grat:#18233a;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--sage:#9bd3a4;--rose:#d9776b;--serif:'Spectral',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(0.16,1,0.3,1);} .ds-sw{width:420px;font-family:var(--sans)} .ds-r{display:grid;grid-template-columns:80px 1fr;align-items:center;height:34px;border-bottom:1px solid var(--grat)} .ds-l{font:400 15px var(--serif);color:var(--ink)} .ds-ax{position:relative;height:100%} .ds-w{position:absolute;top:50%;height:1.2px;background:var(--ink-3)} .ds-s{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;transform:translate(-50%,-50%)} .ds-pick{box-shadow:none;outline:2.5px solid var(--amber);outline-offset:0} .ds-ramp{display:flex;align-items:center;gap:14px;color:var(--ink-3);font:italic 400 13px/1.3 var(--serif);margin-top:14px} .ds-track{flex:1} .ds-track i{display:block;height:3px;border-radius:2px;background:linear-gradient(90deg,#41678f,#7fa7cb 50%,var(--ink))} .ds-ticks{display:flex;justify-content:space-between;margin-top:6px;font:400 12px/1 var(--sans);font-variant-numeric:tabular-nums}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Star Atlas",
+    "overview": "Skill space is drawn as a night sky. Every skill in the survey is a star on a deep navy chart ground, placed by how often developers use skills together and sized by its salary effect; the visitor's own stack is a constellation, and the five recommendations are the bright objects nearest it, ringed in amber. The rest of the page reads like the catalogue pages of an atlas: an index of the five objects with their full evidence, a persona entry, two star-and-whisker figures, a calculator and method notes. The user chose this world in October 2026 (seed a54a0412). It replaces the retired Editorial Magazine world entirely. Mode is Operate: this is a working instrument, not a poster.\n\nSince the October 2026 refinement the page is set as open atlas plates rather than boxed cards. Nothing below the chart sits on a panel ground, a border box or a rounded corner; sections, rows and the rail are divided by 1px hairlines on the navy ground, and only the sky chart keeps a frame. Light Spectral, mostly italic, names objects and sets every heading, label and caption; Hanken Grotesk carries controls, lead text and every tabular figure. There are no shadows, no glow and no decorative gradients; the one gradient is the significance ramp, a data legend.\n\nRejected outright: a neon or terminal look, SaaS KPI tiles over a table, glow, decorative gradients, eyebrow labels over headings, tracked uppercase micro-labels, and Unicode-glyph icons.",
+    "keyCharacteristics": [
+      "Deep navy ground, chalk ink, a fine graticule; open plates divided by hairlines, not cards.",
+      "Amber marks the five recommended skills, the focus ring, the wordmark stop and the joint total's sign, nothing else.",
+      "The sky chart is the only framed object: a square plate with a double neatline, graduated ticks and a plate caption.",
+      "Italic Spectral does every label and caption; Hanken Grotesk does the counting.",
+      "Every estimate is drawn as a star on a whisker: a marker for the value, a hairline for its 95% interval."
+    ],
+    "rules": [
+      {
+        "name": "The One Star Colour Rule",
+        "body": "Amber marks the five recommended skills, the focus ring, the wordmark stop and the joint total's sign. Controls, links, selection, caret and the calculator use sky. If amber appears anywhere else, it is a bug.",
+        "section": "colors"
+      },
+      {
+        "name": "The Effect Sign Rule",
+        "body": "Sage means the effect is positive and rose means it is negative. They never decorate anything else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Margin Rule",
+        "body": "Labels, table heads, captions, notes and empty states are italic Spectral in sentence case. There are no tracked uppercase micro-labels anywhere.",
+        "section": "typography"
+      },
+      {
+        "name": "The Names Are Serif Rule",
+        "body": "Anything that names a skill or a persona is Spectral; the five picks on the chart are Spectral italic 16px. Your own skills' labels on the chart are Hanken Grotesk 11px, so the picks read first.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every number that can sit beside another number uses tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Block Rule",
+        "body": "Each visual block is a single `st.html` call. Widgets cannot be nested inside `st.html`, so controls sit between blocks, never inside them.",
+        "section": "layout"
+      },
+      {
+        "name": "The Section Grammar Rule",
+        "body": "A section below the fold is a hairline, then heading left and lead right. A new section uses the same grid; it does not get a box.",
+        "section": "layout"
+      },
+      {
+        "name": "The Hairline, Not Box Rule",
+        "body": "A section, row or column is separated by a 1px hairline on the navy ground, never by a panel background, a border box or a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Data-Only Gradient Rule",
+        "body": "A gradient is allowed only when it encodes a value, and the significance ramp is the only one.",
+        "section": "elevation"
+      },
+      {
+        "name": "The CSS Marker Rule",
+        "body": "`st.html` strips inline SVG, so every page marker (rings, legend dots, magnitude key, chevron) is a CSS shape on a span or pseudo-element. Never use a Unicode glyph as an icon; the middot between persona tags is a typographic separator, not an icon.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do reserve amber for the five recommended skills, the focus ring, the wordmark stop and the total's sign, and use sky for every control, link, selection and caret.",
+      "Do use sage only for positive effects and rose only for negative effects.",
+      "Do divide sections, rows and columns with 1px hairlines on the navy ground (`ink-3` over heads, `rule` between sections, `graticule` between rows).",
+      "Do set new sections in the section grammar: hairline above, heading left, lead right, one column under 900px.",
+      "Do set labels, table heads, captions and empty states in italic Spectral, sentence case.",
+      "Do draw estimates as a star on a whisker: a 1.2px `ink-3` interval line and an 11px marker.",
+      "Do name skills and personas in Spectral, and set every number in Hanken Grotesk with tabular figures.",
+      "Do build markers as CSS shapes on spans, because `st.html` strips inline SVG.",
+      "Do emit one `st.html` per visual block and keep widgets outside it.",
+      "Do gate entrance motion to the first render of a session and respect `prefers-reduced-motion`.",
+      "Do keep the sky chart square-cornered with its double neatline, graduated ticks, graticule and plate caption."
+    ],
+    "donts": [
+      "Don't use a neon or terminal look.",
+      "Don't use SaaS KPI tiles.",
+      "Don't box content in cards: no panel backgrounds, border boxes or 10px radii below the chart.",
+      "Don't use glow, shadows or gradients, except the significance ramp data legend.",
+      "Don't put eyebrow labels over headings, or tracked uppercase micro-labels anywhere.",
+      "Don't use pills for tags or movement markers; tags are an italic serif list, movement is italic sky text.",
+      "Don't use Unicode-glyph icons.",
+      "Don't put amber on controls, links, selection or the calculator. Those are sky.",
+      "Don't animate reruns. The chart redraws on every input change and must stay still."
+    ]
+  }
+}

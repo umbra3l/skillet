@@ -76,7 +76,7 @@ def main() -> None:
 
     # ---- 4. AI user share (pie) ---------------------------------------------
     fig, ax = plt.subplots(figsize=(4, 4))
-    counts = df["ai_user"].value_counts()
+    counts = df["ai_user"].value_counts().reindex([0, 1], fill_value=0)  # order must match labels
     ax.pie(counts, labels=["Non-user", "AI user"], autopct="%1.1f%%",
            colors=["#C44E52", "#4C72B0"], startangle=90)
     ax.set_title("Do you currently use AI tools in development?")

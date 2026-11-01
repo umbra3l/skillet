@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>skillet — Pass and Gate Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#111317;--panel:#1a1d23;--panel-2:#22262d;--rule:#30353e;--ink:#eceef2;--ink-2:#b9bfca;--ink-3:#8a92a0;--coral:#ff7a59;--mint:#7fd1b9}
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:15px/1.5 Archivo,system-ui,sans-serif}
+.wrap{padding:30px 56px}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.word{font:700 26px/1 Archivo;letter-spacing:-.01em}.word i{color:var(--coral);font-style:normal}
+.nav{display:flex;gap:8px}.nav span{padding:7px 14px;border-radius:999px;color:var(--ink-2);font-size:14px}.nav .on{background:var(--panel-2);color:var(--ink)}
+.pass{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1.3fr 260px;background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.seg{padding:16px 20px;border-right:1px dashed var(--rule)}
+.seg small{display:block;font:600 11px/1 'Archivo Narrow';letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.seg b{font:600 19px/1.2 Archivo}
+.seg.sel b::after{content:"";display:inline-block;width:7px;height:7px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg) translate(-2px,-3px);margin-left:10px}
+.stub{background:var(--panel-2);padding:16px 22px}
+.stub b{font:700 40px/1 Archivo;letter-spacing:-.02em;color:var(--ink)}
+.stub span{display:block;color:var(--ink-2);font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:26px}
+.board{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:8px 22px 4px}
+.cols,.row{display:grid;grid-template-columns:44px 1.5fr 120px 140px 110px 110px;gap:14px;align-items:center}
+.cols{font:600 11.5px/1 'Archivo Narrow';letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:14px 0;border-bottom:1px solid var(--rule)}
+.row{padding:15px 0;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.row:last-child{border-bottom:0}
+.rk{font:700 22px/1 Archivo;color:var(--ink-3)}
+.sk{font:600 19px/1.2 Archivo}
+.ef{font:600 17px/1 Archivo;color:var(--mint)}
+.row.new{background:linear-gradient(90deg,rgba(255,122,89,.12),rgba(255,122,89,0) 70%);margin:0 -22px;padding:15px 22px}
+.row.new .rk{color:var(--coral)}
+.tag{display:inline-block;margin-left:10px;font:600 11px/1 'Archivo Narrow';letter-spacing:.12em;text-transform:uppercase;color:var(--coral);border:1px solid var(--coral);border-radius:4px;padding:3px 6px;vertical-align:3px}
+.side{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.card h3{font:600 12px/1 'Archivo Narrow';letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--panel-2);border-radius:6px;padding:4px 10px;font-size:13px;color:var(--ink-2)}
+.kv{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}.kv b{color:var(--ink)}
+</style></head><body>
+<div class="wrap">
+  <div class="bar"><div class="word">skillet<i>.</i></div><div class="nav"><span class="on">Recommendations</span><span>Skill ROI</span><span>What if</span><span>Method</span></div></div>
+  <div class="pass">
+    <div class="seg sel"><small>Role</small><b>Full-stack</b></div>
+    <div class="seg sel"><small>Country</small><b>United States</b></div>
+    <div class="seg sel"><small>Experience</small><b>5 years</b></div>
+    <div class="seg sel"><small>AI tools</small><b>Yes</b></div>
+    <div class="seg"><small>Matched peers</small><b>300 of 731</b></div>
+    <div class="stub"><b>+37%</b><span>all five · 95% CI +33% → +42%</span></div>
+  </div>
+  <div class="grid">
+    <div class="board">
+      <div class="cols"><span>#</span><span>Skill</span><span>Salary effect</span><span>p-value</span><span>Peers know</span><span>Peers want</span></div>
+      <div class="row"><span class="rk">1</span><span class="sk">Docker</span><span class="ef">+16.4%</span><span>9.1×10⁻⁵⁰</span><span>59%</span><span>39%</span></div>
+      <div class="row new"><span class="rk">2</span><span class="sk">AWS<span class="tag">moved up</span></span><span class="ef">+21.4%</span><span>7.3×10⁻⁷⁶</span><span>47%</span><span>26%</span></div>
+      <div class="row"><span class="rk">3</span><span class="sk">Python</span><span class="ef">+6.3%</span><span>1.4×10⁻⁹</span><span>47%</span><span>30%</span></div>
+      <div class="row"><span class="rk">4</span><span class="sk">OpenAI GPT (chat)</span><span class="ef">+9.1%</span><span>1.3×10⁻¹⁷</span><span>45%</span><span>25%</span></div>
+      <div class="row"><span class="rk">5</span><span class="sk">Bash / Shell</span><span class="ef">+9.0%</span><span>1.9×10⁻¹⁷</span><span>45%</span><span>24%</span></div>
+    </div>
+    <div class="side">
+      <div class="card"><h3>Your current stack · 8</h3><div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML / CSS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span><span class="chip">VS Code</span><span class="chip">npm</span></div></div>
+      <div class="card"><h3>Plan evidence</h3>
+        <div class="kv"><span>Significant at p &lt; 0.05</span><b>4 of 5</b></div>
+        <div class="kv"><span>Peer premium</span><b>−0.5%</b></div>
+        <div class="kv"><span>Persona</span><b>Systems / enterprise</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

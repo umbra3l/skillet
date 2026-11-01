@@ -1,0 +1,120 @@
+{
+  "title": "Choose skillet's dark world",
+  "question": "The roll assigned The Tasting Menu. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Tasting Menu",
+      "kicker": "THE ROLL",
+      "lineage": "fine-dining tasting menus, low-lit dining rooms",
+      "thesis": "Your five next skills served as a five-course tasting menu, each salary effect set in the price column.",
+      "palette": ["#16110e", "#221a15", "#efe4d2", "#c9a25a", "#8fae8b", "#c06a5b"],
+      "materials": ["charred-umber ground", "cream menu ink", "brass reserved for the five courses", "dot leaders"],
+      "viewport": "Left rail holds the profile and stack controls; the main column is the menu card: five numbered courses (I-V), each skill name, an italic evidence note, dot leaders to a right-aligned salary effect, and the prix-fixe total (+82%, 95% CI +72% to +92%) closing the card.",
+      "risk": "The food metaphor can turn twee if pushed past type, palette and the price column; a 'price' can be misread as a cost unless the column is labelled 'salary effect'.",
+      "raised": [
+        {"from": "challenger-wayfinding", "raise": "Brass is reserved for one job: it marks only the five recommended skills, wherever they appear (menu, chart, calculator)."},
+        {"from": "challenger-catalog", "raise": "The menu and the chart share one index: course numerals I-V reappear on the ROI chart bars and in the calculator."},
+        {"from": "challenger-density", "raise": "Density courage: every course carries its full evidence (effect, p, n, peers who know it, peers who want it, 95% CI) in one tabular line, no padded tiles."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "label": "The Star Atlas",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "celestial star atlases; also dealt by the catalog as a challenger",
+      "thesis": "Your stack drawn as a constellation in skill space; the five recommendations are the bright stars nearest it, ringed in night-vision amber.",
+      "palette": ["#0b1220", "#131d33", "#e9edf5", "#f0a65a", "#7fb3d5", "#d9776b"],
+      "materials": ["deep navy chart ground", "chalk-white points", "amber rings for the recommendations", "fine coordinate grid"],
+      "viewport": "Left rail with profile and stack; main area opens on a sky chart of the 86 common skills placed by co-occurrence, star size = salary effect, your skills joined as a constellation, the five picks ringed amber, with the ranked list and the joint total beside it.",
+      "risk": "Navy-and-stars is a familiar 'dark data' look; the chart is beautiful but asks graders to read a scatter before the ranked answer.",
+      "html": ".impeccable/mocks/decision/model-pick.html",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-star-atlas-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/notation-diagram-systems-star-atlas.webp"
+    },
+    {
+      "id": "challenger-splitflap",
+      "label": "The Departure Board",
+      "verdict": "competitive",
+      "lineage": "rail concourse split-flap boards",
+      "thesis": "The recommendations as the next departures: fixed columns, ranked rows, and cells that flip when your profile changes.",
+      "palette": ["#0d0e10", "#1c1e22", "#f3f1ea", "#f2a93b", "#6fbf8e", "#d0564c"],
+      "materials": ["matte black flap cells", "white paint letters", "amber row lamps", "brushed-steel frame rules"],
+      "viewport": "Left rail with the profile; main area is a departures table (rank, skill, salary effect, p, peers know, peers want, status 'significant'), the joint total as the board's header line; changed cells flip character by character after each rerun.",
+      "case": "Fuses cleanly: a ranked table with fixed columns is exactly the data; holds product clarity, slightly weaker on audience warmth than the menu.",
+      "risk": "Condensed caps cost legibility at length; amber on black can tip toward terminal if the steel and white are not dominant.",
+      "html": ".impeccable/mocks/decision/challenger-splitflap.html",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse.webp"
+    },
+    {
+      "id": "challenger-gateboard",
+      "label": "Pass and Gate Board",
+      "verdict": "competitive",
+      "lineage": "segmented boarding passes and live gate boards",
+      "thesis": "Your profile as a boarding pass; the recommendations as a gate board that reranks in place and keeps what changed lit until you notice.",
+      "palette": ["#111317", "#1d2026", "#eceef2", "#ff7a59", "#7fd1b9", "#9aa3b2"],
+      "materials": ["graphite panels", "tabular segments", "one coral alert colour reserved for changes", "perforated pass edge"],
+      "viewport": "Top: a segmented pass (role, country, years, AI use, stack count); below, the ranked board of five skills with effect, p and peer share; a skill that entered or moved since the last change glows coral until the next interaction.",
+      "case": "Fuses with a real state move (changes highlighted after each rerun); the travel frame is arbitrary for upskilling, so it holds clarity but not identification.",
+      "risk": "The boarding-pass header is cute once and then just a header; travel metaphor has no link to skills or salary.",
+      "html": ".impeccable/mocks/decision/challenger-gateboard.html",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-boarding-pass-and-gate-board-hero.webp"
+    },
+    {
+      "id": "challenger-wayfinding",
+      "label": "Terminal Yellow Wayfinding",
+      "verdict": "declined",
+      "lineage": "international airport sign systems",
+      "thesis": "Each recommendation as the next sign at a junction.",
+      "palette": ["#f6c400", "#111111", "#ffffff"],
+      "materials": ["saturated yellow bands", "white pictograms on black"],
+      "viewport": "Yellow bands naming the next skill, distances as salary effects.",
+      "case": "Loses both axes: saturated yellow fights the dark brief and graders do not read upskilling as wayfinding.",
+      "kept": "One colour reserved for one job.",
+      "risk": "Loud on a dark page.",
+      "hero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding-hero.webp"
+    },
+    {
+      "id": "challenger-catalog",
+      "label": "Convention Circle Catalog",
+      "verdict": "declined",
+      "lineage": "doujin event catalogs on newsprint",
+      "thesis": "All 122 skills as stamp-sized cells on one hall grid.",
+      "palette": ["#e9e4d8", "#1a1a1a", "#d23c3c"],
+      "materials": ["newsprint", "single ink", "biro circles"],
+      "viewport": "A packed grid of skill cells with five circled in pen.",
+      "case": "Loses both axes: a light newsprint world against a dark brief, and no audience link.",
+      "kept": "The list and the map share one index.",
+      "risk": "Unreadable density for graders.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-doujin-event-catalog-hero.webp"
+    },
+    {
+      "id": "challenger-density",
+      "label": "High-Density Module Web",
+      "verdict": "declined",
+      "lineage": "Japanese high-density sites",
+      "thesis": "Every number on one packed screen of ruled modules.",
+      "palette": ["#ffffff", "#111111", "#e60012"],
+      "materials": ["hairline modules", "red tabs"],
+      "viewport": "A mosaic of small ruled modules, one per statistic.",
+      "case": "Loses both axes: bright white ground and a crowded mosaic contradict 'elegant, dark'.",
+      "kept": "Density courage: no padded tiles.",
+      "risk": "Overwhelming at a glance.",
+      "hero": "https://impeccable.style/worlds/cards/japanese-high-density-web-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean dark analytics app, executed at the level of the best in class.",
+    "palette": ["#0f1115", "#171a21", "#e6e8ee", "#7c8cff", "#5fd3a1", "#f2726f"],
+    "materials": ["neutral graphite", "one indigo accent", "clean grid"],
+    "viewport": "Left filter rail, a headline metric with its interval, a sortable table of five recommendations, then the ROI chart and calculator.",
+    "risk": "Indistinguishable from any dark analytics product by design.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

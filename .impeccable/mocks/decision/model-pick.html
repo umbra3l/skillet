@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>skillet — The Star Atlas</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#0b1220;--panel:#111a2d;--panel-2:#17223a;--rule:#25324d;--ink:#e9edf5;--ink-2:#b7c1d6;--ink-3:#8593ad;--amber:#f0a65a;--sky:#7fb3d5;--rose:#d9776b}
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:15px/1.5 'Hanken Grotesk',system-ui,sans-serif}
+.app{display:grid;grid-template-columns:300px 1fr 400px;height:900px}
+.rail{background:var(--panel);border-right:1px solid var(--rule);padding:30px 26px;display:flex;flex-direction:column;gap:22px}
+.word{font:500 30px/1 Spectral,serif}.word i{color:var(--amber);font-style:normal}
+.sub{color:var(--ink-3);font-size:13px;margin-top:6px}
+h2{font:600 12px/1 'Hanken Grotesk';letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+label{display:block;font-size:13px;color:var(--ink-2);margin:12px 0 6px}
+.sel{height:38px;border:1px solid var(--rule);background:var(--panel-2);border-radius:6px;display:flex;align-items:center;padding:0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid var(--rule);border-radius:999px;padding:4px 10px;font-size:12.5px;color:var(--ink-2)}
+.chart{position:relative;padding:30px 24px}
+.chart h1{font:400 34px/1.1 Spectral,serif}.chart h1 em{color:var(--ink-2)}
+.chart p{color:var(--ink-3);font-size:14px;margin-top:6px;max-width:60ch}
+svg{display:block;margin-top:14px}
+.list{border-left:1px solid var(--rule);padding:30px 28px;background:var(--panel)}
+.total{font:400 80px/1 Spectral,serif;letter-spacing:-.03em}.total span{color:var(--amber)}
+.ci{color:var(--ink-2);font-size:14px;margin:4px 0 18px;font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:10px;padding:12px 0;border-top:1px solid var(--rule);align-items:baseline}
+.row i{width:12px;height:12px;border-radius:50%;border:2px solid var(--amber);display:block;transform:translateY(2px)}
+.row b{font:500 19px/1.2 Spectral,serif}
+.row small{display:block;color:var(--ink-3);font-size:12.5px;font-variant-numeric:tabular-nums}
+.row em{font-style:normal;font-weight:600;color:#9bd3a4;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:18px;font-size:12.5px;color:var(--ink-3);margin-top:8px}
+</style></head><body>
+<div class="app">
+  <aside class="rail">
+    <div><div class="word">skillet<i>.</i></div><div class="sub">2025 Stack Overflow survey · 19,210 developers</div></div>
+    <section><h2>Your profile</h2>
+      <label>Role</label><div class="sel">Developer, full-stack</div>
+      <label>Years of professional experience · 5</label><div class="sel">5</div>
+      <label>Country</label><div class="sel">United States of America</div>
+      <label>AI tools</label><div class="sel">I use AI tools in my workflow</div>
+    </section>
+    <section><h2>Your current stack</h2><div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML / CSS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span><span class="chip">VS Code</span><span class="chip">npm</span></div></section>
+  </aside>
+  <main class="chart">
+    <h1>Your stack, <em>and the stars nearest it.</em></h1>
+    <p>86 common skills placed by how often they are used together; size is the salary effect. Your skills form the constellation; the five rings are what to learn next.</p>
+    <svg width="690" height="660" viewBox="0 0 690 660" role="img" aria-label="Skill sky chart">
+      <g stroke="#1d2a44" stroke-width="1">
+        <circle cx="345" cy="330" r="300" fill="none"/><circle cx="345" cy="330" r="200" fill="none"/><circle cx="345" cy="330" r="100" fill="none"/>
+        <line x1="45" y1="330" x2="645" y2="330"/><line x1="345" y1="30" x2="345" y2="630"/>
+        <line x1="133" y1="118" x2="557" y2="542"/><line x1="557" y1="118" x2="133" y2="542"/>
+      </g>
+      <g fill="#8593ad">
+        <circle cx="120" cy="210" r="3"/><circle cx="160" cy="470" r="4"/><circle cx="560" cy="200" r="3"/><circle cx="600" cy="420" r="5"/><circle cx="470" cy="560" r="3"/>
+        <circle cx="250" cy="560" r="4"/><circle cx="520" cy="120" r="3"/><circle cx="90" cy="360" r="2.5"/><circle cx="630" cy="300" r="3"/><circle cx="200" cy="120" r="3.5"/>
+        <circle cx="400" cy="610" r="2.5"/><circle cx="300" cy="80" r="3"/><circle cx="560" cy="500" r="4"/><circle cx="140" cy="590" r="2.5"/>
+      </g>
+      <g stroke="#b7c1d6" stroke-width="1.2" fill="none" opacity=".8">
+        <polyline points="300,300 330,250 390,240 430,290 410,350 350,370 300,300"/><line x1="390" y1="240" x2="430" y2="200"/><line x1="350" y1="370" x2="330" y2="420"/>
+      </g>
+      <g fill="#e9edf5">
+        <circle cx="300" cy="300" r="5"/><circle cx="330" cy="250" r="6"/><circle cx="390" cy="240" r="5"/><circle cx="430" cy="290" r="4"/>
+        <circle cx="410" cy="350" r="5"/><circle cx="350" cy="370" r="6"/><circle cx="430" cy="200" r="4"/><circle cx="330" cy="420" r="4"/>
+      </g>
+      <g fill="#e9edf5" stroke="#f0a65a" stroke-width="2">
+        <circle cx="470" cy="330" r="9"/><circle cx="250" cy="250" r="11"/><circle cx="260" cy="400" r="6"/><circle cx="480" cy="410" r="7"/><circle cx="400" cy="460" r="7"/>
+      </g>
+      <g fill="none" stroke="#f0a65a" stroke-width="1" opacity=".55">
+        <circle cx="470" cy="330" r="17"/><circle cx="250" cy="250" r="19"/><circle cx="260" cy="400" r="14"/><circle cx="480" cy="410" r="15"/><circle cx="400" cy="460" r="15"/>
+      </g>
+      <g font-family="Spectral" font-style="italic" font-size="15" fill="#e9edf5">
+        <text x="490" y="334">Docker</text><text x="200" y="232">AWS</text><text x="206" y="420">Python</text><text x="500" y="414">OpenAI GPT</text><text x="414" y="488">Bash / Shell</text>
+      </g>
+      <g font-family="Hanken Grotesk" font-size="12" fill="#8593ad">
+        <text x="276" y="292">JavaScript</text><text x="300" y="242">TypeScript</text><text x="396" y="232">React</text><text x="440" y="292">npm</text><text x="418" y="362">Node.js</text><text x="300" y="388">PostgreSQL</text>
+      </g>
+    </svg>
+    <div class="legend"><span><svg width="12" height="12"><circle cx="6" cy="6" r="4" fill="#e9edf5"/></svg> your skill</span><span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="none" stroke="#f0a65a" stroke-width="2"/></svg> recommended</span><span><svg width="10" height="10"><circle cx="5" cy="5" r="2.5" fill="#8593ad"/></svg> other skills</span></div>
+  </main>
+  <aside class="list">
+    <h2>All five, estimated together</h2>
+    <div class="total"><span>+</span>37%</div>
+    <div class="ci">95% interval +33% → +42% · 4 of 5 significant</div>
+    <div class="row"><i></i><div><b>Docker</b><small>59% of peers know it · p = 9.1×10⁻⁵⁰</small></div><em>+16.4%</em></div>
+    <div class="row"><i></i><div><b>AWS</b><small>47% of peers know it · p = 7.3×10⁻⁷⁶</small></div><em>+21.4%</em></div>
+    <div class="row"><i></i><div><b>Python</b><small>47% of peers know it · p = 1.4×10⁻⁹</small></div><em>+6.3%</em></div>
+    <div class="row"><i></i><div><b>OpenAI GPT (chat)</b><small>45% of peers know it · p = 1.3×10⁻¹⁷</small></div><em>+9.1%</em></div>
+    <div class="row"><i></i><div><b>Bash / Shell</b><small>45% of peers know it · p = 1.9×10⁻¹⁷</small></div><em>+9.0%</em></div>
+  </aside>
+</div>
+</body></html>

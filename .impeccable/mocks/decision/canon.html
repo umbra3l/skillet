@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1440">
+<title>skillet — category standard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#0f1115;--panel:#171a21;--panel-2:#1e222b;--rule:#2a2f3a;--ink:#e6e8ee;--ink-2:#aeb4c2;--ink-3:#7f8797;--accent:#7c8cff;--pos:#5fd3a1}
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif}
+.app{display:grid;grid-template-columns:280px 1fr;height:900px}
+.rail{background:var(--panel);border-right:1px solid var(--rule);padding:24px 20px;display:flex;flex-direction:column;gap:18px}
+.word{font:700 20px/1 Inter}.word i{color:var(--accent);font-style:normal}
+h2{font:600 12px/1 Inter;color:var(--ink-3);margin-bottom:6px}
+label{display:block;font-size:13px;color:var(--ink-2);margin:10px 0 6px}
+.sel{height:36px;border:1px solid var(--rule);background:var(--panel-2);border-radius:8px;display:flex;align-items:center;padding:0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--panel-2);border-radius:6px;padding:3px 9px;font-size:12.5px;color:var(--ink-2)}
+.main{padding:28px 36px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.top h1{font:600 22px/1.2 Inter}.top p{color:var(--ink-3);font-size:13px}
+.btn{border:1px solid var(--rule);border-radius:8px;padding:8px 14px;color:var(--ink-2)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:16px}
+.k{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.k small{color:var(--ink-3);font-size:12.5px}.k b{display:block;font:600 28px/1.2 Inter;margin-top:6px;font-variant-numeric:tabular-nums}
+.k.main b{font-size:40px;color:var(--ink)}.k span{color:var(--ink-3);font-size:12.5px}
+table{width:100%;border-collapse:collapse;margin-top:20px;background:var(--panel);border:1px solid var(--rule);border-radius:12px;overflow:hidden;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:500;color:var(--ink-3);font-size:12.5px;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td{padding:14px 16px;border-bottom:1px solid var(--rule)}
+td.s{font-weight:600}td.e{color:var(--pos);font-weight:600}
+.bar{height:6px;background:var(--panel-2);border-radius:3px;width:120px}.bar i{display:block;height:6px;border-radius:3px;background:var(--accent)}
+</style></head><body>
+<div class="app">
+  <aside class="rail">
+    <div class="word">skillet<i>.</i></div>
+    <section><h2>Profile</h2>
+      <label>Role</label><div class="sel">Developer, full-stack</div>
+      <label>Years of professional experience</label><div class="sel">5</div>
+      <label>Country</label><div class="sel">United States of America</div>
+      <label>AI tools</label><div class="sel">I use AI tools in my workflow</div>
+    </section>
+    <section><h2>Current stack</h2><div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">HTML / CSS</span><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span><span class="chip">VS Code</span><span class="chip">npm</span></div></section>
+  </aside>
+  <main class="main">
+    <div class="top"><div><h1>Recommendations</h1><p>2025 Stack Overflow survey · 19,210 developers · 300 nearest peers</p></div><span class="btn">Methodology</span></div>
+    <div class="hero">
+      <div class="k main"><small>Modelled salary lift, all five</small><b>+37%</b><span>95% CI +33% → +42%</span></div>
+      <div class="k"><small>Significant</small><b>4 of 5</b></div>
+      <div class="k"><small>Peer premium</small><b>−0.5%</b></div>
+      <div class="k"><small>Persona</small><b>Systems</b></div>
+    </div>
+    <table>
+      <tr><th>#</th><th>Skill</th><th>Salary effect</th><th>95% CI</th><th>p-value</th><th>Peers know</th><th>Peers want</th></tr>
+      <tr><td>1</td><td class="s">Docker</td><td class="e">+16.4%</td><td>+14.1 → +18.8</td><td>9.1×10⁻⁵⁰</td><td><div class="bar"><i style="width:59%"></i></div></td><td>39%</td></tr>
+      <tr><td>2</td><td class="s">AWS</td><td class="e">+21.4%</td><td>+19.0 → +24.0</td><td>7.3×10⁻⁷⁶</td><td><div class="bar"><i style="width:47%"></i></div></td><td>26%</td></tr>
+      <tr><td>3</td><td class="s">Python</td><td class="e">+6.3%</td><td>+4.2 → +8.5</td><td>1.4×10⁻⁹</td><td><div class="bar"><i style="width:47%"></i></div></td><td>30%</td></tr>
+      <tr><td>4</td><td class="s">OpenAI GPT (chat)</td><td class="e">+9.1%</td><td>+7.0 → +11.3</td><td>1.3×10⁻¹⁷</td><td><div class="bar"><i style="width:45%"></i></div></td><td>25%</td></tr>
+      <tr><td>5</td><td class="s">Bash / Shell</td><td class="e">+9.0%</td><td>+6.9 → +11.2</td><td>1.9×10⁻¹⁷</td><td><div class="bar"><i style="width:45%"></i></div></td><td>24%</td></tr>
+    </table>
+  </main>
+</div>
+</body></html>

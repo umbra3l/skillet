@@ -1,13 +1,17 @@
+# Pinned where it matters for the hosted app:
+# - scikit-learn / joblib: data/cluster_model.joblib was saved with these versions
+# - streamlit / plotly: .streamlit/style.css targets Streamlit 1.65's page structure
+streamlit==1.65.0
+plotly==7.1.0
+scikit-learn==1.9.1
+joblib==1.6.0
 pandas>=2.2
 numpy>=1.26
 scipy>=1.13
 statsmodels>=0.14
-scikit-learn>=1.5
-plotly>=5.22
-streamlit>=1.37
+pyarrow>=16
+# Analysis pipeline only (not needed by the app, kept so `make all` works)
 matplotlib>=3.9
 seaborn>=0.13
-pyarrow>=16
-joblib>=1.4
 networkx>=3.2
 factor_analyzer>=0.5

@@ -1,13 +1,16 @@
 [theme]
-base = "light"
-primaryColor = "#a23a22"
-backgroundColor = "#f3eee5"
-secondaryBackgroundColor = "#e8e1d2"
-textColor = "#0e0d0a"
-linkColor = "#a23a22"
-borderColor = "#d8d0bf"
-baseRadius = "0px"
-codeBackgroundColor = "#e8e1d2"
+# Star Atlas: deep navy chart ground, chalk ink. Amber is reserved for the
+# five recommended skills (set in style.css), so controls use the sky blue.
+base = "dark"
+primaryColor = "#7fb3d5"
+backgroundColor = "#0b1220"
+secondaryBackgroundColor = "#17223a"
+textColor = "#e9edf5"
+linkColor = "#7fb3d5"
+borderColor = "#25324d"
+showWidgetBorder = true
+baseRadius = "6px"
+codeBackgroundColor = "#111a2d"
 font = "sans serif"
 
 [server]

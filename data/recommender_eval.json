@@ -1,0 +1,454 @@
+{
+  "n_users": {
+    "validation": 500,
+    "test": 500
+  },
+  "n_hidden": 2,
+  "top_n": 5,
+  "current_weights": {
+    "roi": 0.5,
+    "want": 0.3,
+    "sig": 0.05,
+    "ai": 0.02
+  },
+  "best_grid_point_on_validation": {
+    "name": "roi=2.0,want=2.0",
+    "weights": {
+      "roi": 2.0,
+      "want": 2.0,
+      "sig": 0.05,
+      "ai": 0.02
+    },
+    "adopted": false,
+    "rule": "max want_precision_at_5 with mean salary effect >= current weights (validation)"
+  },
+  "test": {
+    "popularity": {
+      "hit_at_5": {
+        "mean": 0.718,
+        "ci95": [
+          0.678,
+          0.756
+        ]
+      },
+      "recall_at_5": {
+        "mean": 0.448,
+        "ci95": [
+          0.419,
+          0.477
+        ]
+      },
+      "want_precision_at_5": {
+        "mean": 0.12560000000000002,
+        "ci95": [
+          0.11080000000000001,
+          0.1408
+        ]
+      },
+      "mean_salary_effect_pct": {
+        "mean": 9.53352141578036,
+        "ci95": [
+          9.326060040489587,
+          9.76627059934509
+        ]
+      }
+    },
+    "salary_only": {
+      "hit_at_5": {
+        "mean": 0.054,
+        "ci95": [
+          0.034,
+          0.074
+        ]
+      },
+      "recall_at_5": {
+        "mean": 0.027,
+        "ci95": [
+          0.018,
+          0.037
+        ]
+      },
+      "want_precision_at_5": {
+        "mean": 0.0516,
+        "ci95": [
+          0.0424,
+          0.062
+        ]
+      },
+      "mean_salary_effect_pct": {
+        "mean": 31.635946429185946,
+        "ci95": [
+          31.560499466875278,
+          31.696243467821194
+        ]
+      }
+    },
+    "knn_prevalence_only": {
+      "hit_at_5": {
+        "mean": 0.786,
+        "ci95": [
+          0.75,
+          0.822
+        ]
+      },
+      "recall_at_5": {
+        "mean": 0.521,
+        "ci95": [
+          0.492,
+          0.552
+        ]
+      },
+      "want_precision_at_5": {
+        "mean": 0.1368,
+        "ci95": [
+          0.12278999999999998,
+          0.1512
+        ]
+      },
+      "mean_salary_effect_pct": {
+        "mean": 10.188069786086489,
+        "ci95": [
+          9.89997097400678,
+          10.465852837290361
+        ]
+      }
+    },
+    "current_weights": {
+      "hit_at_5": {
+        "mean": 0.78,
+        "ci95": [
+          0.744,
+          0.818
+        ]
+      },
+      "recall_at_5": {
+        "mean": 0.508,
+        "ci95": [
+          0.478975,
+          0.538
+        ]
+      },
+      "want_precision_at_5": {
+        "mean": 0.15839999999999999,
+        "ci95": [
+          0.1436,
+          0.1744
+        ]
+      },
+      "mean_salary_effect_pct": {
+        "mean": 12.07927839251202,
+        "ci95": [
+          11.767323822927558,
+          12.403787500352239
+        ]
+      }
+    },
+    "roi=2.0,want=2.0": {
+      "hit_at_5": {
+        "mean": 0.746,
+        "ci95": [
+          0.708,
+          0.782
+        ]
+      },
+      "recall_at_5": {
+        "mean": 0.465,
+        "ci95": [
+          0.436,
+          0.493
+        ]
+      },
+      "want_precision_at_5": {
+        "mean": 0.18840000000000004,
+        "ci95": [
+          0.172,
+          0.2056
+        ]
+      },
+      "mean_salary_effect_pct": {
+        "mean": 14.436182372266783,
+        "ci95": [
+          14.106707784599028,
+          14.780157368296448
+        ]
+      }
+    }
+  },
+  "test_paired_best_minus_current": {
+    "hit_at_5": {
+      "mean_diff": -0.034,
+      "ci95": [
+        -0.056,
+        -0.012
+      ]
+    },
+    "recall_at_5": {
+      "mean_diff": -0.043,
+      "ci95": [
+        -0.061,
+        -0.027
+      ]
+    },
+    "want_precision_at_5": {
+      "mean_diff": 0.03,
+      "ci95": [
+        0.0224,
+        0.038799999999999994
+      ]
+    },
+    "mean_salary_effect_pct": {
+      "mean_diff": 2.356903979754763,
+      "ci95": [
+        2.1447926644125657,
+        2.5812193322057544
+      ]
+    }
+  },
+  "validation_grid": [
+    {
+      "method": "roi=0.0,want=0.0",
+      "hit_at_5": 0.74,
+      "recall_at_5": 0.496,
+      "want_precision_at_5": 0.1296,
+      "mean_salary_effect_pct": 10.6915
+    },
+    {
+      "method": "roi=0.0,want=0.15",
+      "hit_at_5": 0.746,
+      "recall_at_5": 0.498,
+      "want_precision_at_5": 0.134,
+      "mean_salary_effect_pct": 10.8551
+    },
+    {
+      "method": "roi=0.0,want=0.3",
+      "hit_at_5": 0.744,
+      "recall_at_5": 0.494,
+      "want_precision_at_5": 0.1396,
+      "mean_salary_effect_pct": 10.975
+    },
+    {
+      "method": "roi=0.0,want=0.6",
+      "hit_at_5": 0.734,
+      "recall_at_5": 0.488,
+      "want_precision_at_5": 0.1436,
+      "mean_salary_effect_pct": 11.2113
+    },
+    {
+      "method": "roi=0.0,want=1.0",
+      "hit_at_5": 0.738,
+      "recall_at_5": 0.49,
+      "want_precision_at_5": 0.1536,
+      "mean_salary_effect_pct": 11.5468
+    },
+    {
+      "method": "roi=0.0,want=1.5",
+      "hit_at_5": 0.732,
+      "recall_at_5": 0.485,
+      "want_precision_at_5": 0.1688,
+      "mean_salary_effect_pct": 11.7609
+    },
+    {
+      "method": "roi=0.0,want=2.0",
+      "hit_at_5": 0.726,
+      "recall_at_5": 0.478,
+      "want_precision_at_5": 0.174,
+      "mean_salary_effect_pct": 11.9022
+    },
+    {
+      "method": "roi=0.25,want=0.0",
+      "hit_at_5": 0.736,
+      "recall_at_5": 0.49,
+      "want_precision_at_5": 0.1328,
+      "mean_salary_effect_pct": 11.49
+    },
+    {
+      "method": "roi=0.25,want=0.15",
+      "hit_at_5": 0.74,
+      "recall_at_5": 0.495,
+      "want_precision_at_5": 0.1356,
+      "mean_salary_effect_pct": 11.5755
+    },
+    {
+      "method": "roi=0.25,want=0.3",
+      "hit_at_5": 0.736,
+      "recall_at_5": 0.493,
+      "want_precision_at_5": 0.1424,
+      "mean_salary_effect_pct": 11.6808
+    },
+    {
+      "method": "roi=0.25,want=0.6",
+      "hit_at_5": 0.738,
+      "recall_at_5": 0.492,
+      "want_precision_at_5": 0.1508,
+      "mean_salary_effect_pct": 11.8491
+    },
+    {
+      "method": "roi=0.25,want=1.0",
+      "hit_at_5": 0.73,
+      "recall_at_5": 0.487,
+      "want_precision_at_5": 0.158,
+      "mean_salary_effect_pct": 12.0364
+    },
+    {
+      "method": "roi=0.25,want=1.5",
+      "hit_at_5": 0.732,
+      "recall_at_5": 0.483,
+      "want_precision_at_5": 0.1696,
+      "mean_salary_effect_pct": 12.2101
+    },
+    {
+      "method": "roi=0.25,want=2.0",
+      "hit_at_5": 0.72,
+      "recall_at_5": 0.474,
+      "want_precision_at_5": 0.1772,
+      "mean_salary_effect_pct": 12.2236
+    },
+    {
+      "method": "roi=0.5,want=0.0",
+      "hit_at_5": 0.73,
+      "recall_at_5": 0.489,
+      "want_precision_at_5": 0.1336,
+      "mean_salary_effect_pct": 12.341
+    },
+    {
+      "method": "roi=0.5,want=0.15",
+      "hit_at_5": 0.73,
+      "recall_at_5": 0.49,
+      "want_precision_at_5": 0.138,
+      "mean_salary_effect_pct": 12.4234
+    },
+    {
+      "method": "roi=0.5,want=0.3",
+      "hit_at_5": 0.73,
+      "recall_at_5": 0.487,
+      "want_precision_at_5": 0.1436,
+      "mean_salary_effect_pct": 12.4815
+    },
+    {
+      "method": "roi=0.5,want=0.6",
+      "hit_at_5": 0.74,
+      "recall_at_5": 0.494,
+      "want_precision_at_5": 0.1508,
+      "mean_salary_effect_pct": 12.5036
+    },
+    {
+      "method": "roi=0.5,want=1.0",
+      "hit_at_5": 0.732,
+      "recall_at_5": 0.488,
+      "want_precision_at_5": 0.1616,
+      "mean_salary_effect_pct": 12.5626
+    },
+    {
+      "method": "roi=0.5,want=1.5",
+      "hit_at_5": 0.722,
+      "recall_at_5": 0.481,
+      "want_precision_at_5": 0.1736,
+      "mean_salary_effect_pct": 12.5471
+    },
+    {
+      "method": "roi=0.5,want=2.0",
+      "hit_at_5": 0.72,
+      "recall_at_5": 0.477,
+      "want_precision_at_5": 0.1792,
+      "mean_salary_effect_pct": 12.5504
+    },
+    {
+      "method": "roi=1.0,want=0.0",
+      "hit_at_5": 0.72,
+      "recall_at_5": 0.476,
+      "want_precision_at_5": 0.1384,
+      "mean_salary_effect_pct": 14.4403
+    },
+    {
+      "method": "roi=1.0,want=0.15",
+      "hit_at_5": 0.722,
+      "recall_at_5": 0.479,
+      "want_precision_at_5": 0.142,
+      "mean_salary_effect_pct": 14.247
+    },
+    {
+      "method": "roi=1.0,want=0.3",
+      "hit_at_5": 0.728,
+      "recall_at_5": 0.485,
+      "want_precision_at_5": 0.146,
+      "mean_salary_effect_pct": 14.1451
+    },
+    {
+      "method": "roi=1.0,want=0.6",
+      "hit_at_5": 0.726,
+      "recall_at_5": 0.48,
+      "want_precision_at_5": 0.156,
+      "mean_salary_effect_pct": 13.7904
+    },
+    {
+      "method": "roi=1.0,want=1.0",
+      "hit_at_5": 0.71,
+      "recall_at_5": 0.474,
+      "want_precision_at_5": 0.1636,
+      "mean_salary_effect_pct": 13.635
+    },
+    {
+      "method": "roi=1.0,want=1.5",
+      "hit_at_5": 0.708,
+      "recall_at_5": 0.475,
+      "want_precision_at_5": 0.1776,
+      "mean_salary_effect_pct": 13.3953
+    },
+    {
+      "method": "roi=1.0,want=2.0",
+      "hit_at_5": 0.712,
+      "recall_at_5": 0.476,
+      "want_precision_at_5": 0.18,
+      "mean_salary_effect_pct": 13.2748
+    },
+    {
+      "method": "roi=2.0,want=0.0",
+      "hit_at_5": 0.634,
+      "recall_at_5": 0.404,
+      "want_precision_at_5": 0.1324,
+      "mean_salary_effect_pct": 19.5053
+    },
+    {
+      "method": "roi=2.0,want=0.15",
+      "hit_at_5": 0.648,
+      "recall_at_5": 0.419,
+      "want_precision_at_5": 0.1416,
+      "mean_salary_effect_pct": 18.7137
+    },
+    {
+      "method": "roi=2.0,want=0.3",
+      "hit_at_5": 0.668,
+      "recall_at_5": 0.431,
+      "want_precision_at_5": 0.1472,
+      "mean_salary_effect_pct": 18.0238
+    },
+    {
+      "method": "roi=2.0,want=0.6",
+      "hit_at_5": 0.69,
+      "recall_at_5": 0.444,
+      "want_precision_at_5": 0.1548,
+      "mean_salary_effect_pct": 16.9646
+    },
+    {
+      "method": "roi=2.0,want=1.0",
+      "hit_at_5": 0.7,
+      "recall_at_5": 0.448,
+      "want_precision_at_5": 0.162,
+      "mean_salary_effect_pct": 16.0904
+    },
+    {
+      "method": "roi=2.0,want=1.5",
+      "hit_at_5": 0.692,
+      "recall_at_5": 0.446,
+      "want_precision_at_5": 0.1712,
+      "mean_salary_effect_pct": 15.3893
+    },
+    {
+      "method": "roi=2.0,want=2.0",
+      "hit_at_5": 0.69,
+      "recall_at_5": 0.449,
+      "want_precision_at_5": 0.1816,
+      "mean_salary_effect_pct": 14.8981
+    }
+  ]
+}
