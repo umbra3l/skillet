@@ -1,2 +1,0 @@
-# OS packages required by some Python wheels (e.g. libgomp for scikit-learn).
-# Leave empty unless a deployment log complains about a missing shared library.
