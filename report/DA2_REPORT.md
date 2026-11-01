@@ -106,7 +106,7 @@ Implemented in `src/preprocess.py` and `src/want.py`:
 - a "what if" calculator for any set of skills;
 - method notes.
 
-It runs locally with `streamlit run app/streamlit_app.py`.
+**Live application:** [https://skillet.streamlit.app/](https://skillet.streamlit.app/). It can also be run locally with `streamlit run app/streamlit_app.py`.
 
 ### 5. Statistical techniques used
 

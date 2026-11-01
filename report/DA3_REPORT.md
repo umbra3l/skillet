@@ -19,7 +19,7 @@ Those sources ignore the individual (a front-end developer and a data engineer s
 3. Estimate the combined value of the plan without double-counting.
 4. Segment developers into personas and test common beliefs about AI use, pay and satisfaction.
 5. Validate the recommender on held-out data against baselines.
-6. Deliver a working web application.
+6. Deliver a working web application, deployed at [https://skillet.streamlit.app/](https://skillet.streamlit.app/).
 
 ### 3. Dataset description and methodology
 
@@ -237,7 +237,9 @@ Figures 5.1–5.4 show these outputs in the application for a full-stack develop
 2. **L&D managers.** Treat the three personas as training tracks. Fund cloud and data-platform skills (Terraform, AWS, Kubernetes, Snowflake, Databricks), which carry the largest and most stable premiums. Teach mainstream skills (Docker, Redis) for relevance rather than pay.
 3. **HR and analytics teams.** Always control for country and experience before comparing pay between groups; the AI-tool result shows the sign can reverse otherwise. Re-run the pipeline yearly to track drift.
 
-**Running the model.** The web application is started with:
+**Live application.** The model is deployed on Streamlit Community Cloud at [https://skillet.streamlit.app/](https://skillet.streamlit.app/).
+
+To run it locally instead:
 
 ```bash
 .venv/bin/python -m streamlit run app/streamlit_app.py

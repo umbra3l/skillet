@@ -67,7 +67,7 @@ Supporting analyses:
 2. Estimate each skill's salary effect with regression.
 3. For a given user, filter developers with the same profile, find the most similar stacks, and score each candidate skill on relevance, value and demand.
 4. Value the top five together with a joint regression.
-5. Present the results in a web app.
+5. Present the results in a web app, deployed at [https://skillet.streamlit.app/](https://skillet.streamlit.app/).
 
 ### 7. Expected recommendations and outcomes
 

@@ -708,7 +708,9 @@ This is the kind of nuance the app surfaces: the ranking says what fits, and the
 
 Every input changes the output. Role, country, experience and AI use change the peer pool, and so the shares, the median pay, the premium and the ranking. The stack changes the neighbours, the persona and the candidate set.
 
-**Run it:**
+**Live application:** [https://skillet.streamlit.app/](https://skillet.streamlit.app/)
+
+**Run it locally:**
 
 ```bash
 .venv/bin/python -m streamlit run app/streamlit_app.py

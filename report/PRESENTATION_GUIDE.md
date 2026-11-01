@@ -18,7 +18,9 @@ The running example throughout is scenario **B1**:
 - **Profile:** a full-stack developer in the United States with 5 years of experience who uses AI tools.
 - **Stack:** Python, JavaScript, SQL, PostgreSQL and Docker.
 
-To start the app:
+The live app is at [https://skillet.streamlit.app/](https://skillet.streamlit.app/). Open it a few minutes before presenting: a free app that has been idle shows a "wake up" button and takes about a minute to start.
+
+To run it locally instead:
 
 ```bash
 .venv/bin/python -m streamlit run app/streamlit_app.py

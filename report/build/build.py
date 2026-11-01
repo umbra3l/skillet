@@ -120,6 +120,7 @@ html = html.replace('src="screenshots/', f'src="file://{REPORT}/screenshots/')
 html = re.sub(r'<p>((?:<img [^>]+>\s*)+)</p>', r'<figure>\1</figure>', html)
 
 meta = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in cover_cfg["meta"])
+meta += '<dt>Live app</dt><dd><a href="https://skillet.streamlit.app/">https://skillet.streamlit.app/</a></dd>'
 meta += f"<dt>Date</dt><dd>{date.today():%B %Y}</dd>"
 blanks = ""
 if cover_cfg["blanks"]:
